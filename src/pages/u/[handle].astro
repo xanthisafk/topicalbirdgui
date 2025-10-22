@@ -1,0 +1,12 @@
+---
+// src/pages/u/[handle].astro
+import Template from "../../components/template.astro";
+import UserProfile from "../../components/UserProfile/UserProfile";
+export const prerender = false;
+
+const { handle } = Astro.params;
+---
+
+<Template>
+    <UserProfile handle={handle} client:only="react" />
+</Template>

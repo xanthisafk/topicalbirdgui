@@ -1,0 +1,229 @@
+/* chivo-regular - latin */
+@font-face {
+  font-display: swap;
+  font-family: 'Chivo';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/chivo-v21-latin-regular.woff2') format('woff2');
+}
+
+/* inter-regular - latin */
+@font-face {
+  font-display: swap;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/inter-v20-latin-regular.woff2') format('woff2');
+}
+
+/* monomakh-regular - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Monomakh';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/monomakh-v1-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* ---------------------------
+   CSS RESET
+--------------------------- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 100%; /* 16px default */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  line-height: 1.5;
+  text-rendering: optimizeLegibility;
+  background-color: var(--color-slate-900);
+  color: var(--text-color);
+  font-family: var(--font-body);
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  outline: none;
+}
+
+/* Remove list styles */
+ul,
+ol {
+  list-style: none;
+}
+
+/* Anchor tags */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ---------------------------
+   ROOT VARIABLES
+--------------------------- */
+:root {
+  /* Fonts */
+  --font-heading: 'Chivo', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-title: 'Monomakh', system-ui;
+
+  /* Slate shades (tailwind-inspired) */
+  --color-slate-50: #f8fafc;
+  --color-slate-100: #f1f5f9;
+  --color-slate-200: #e2e8f0;
+  --color-slate-300: #cbd5e1;
+  --color-slate-400: #94a3b8;
+  --color-slate-500: #64748b;
+  --color-slate-600: #475569;
+  --color-slate-700: #334155;
+  --color-slate-800: #1e293b;
+  --color-slate-900: #0f172a;
+
+  /* Midnight Purple Accent */
+  --color-midnight-100: #dcd7f9;
+  --color-midnight-200: #b9aef3;
+  --color-midnight-300: #9686ed;
+  --color-midnight-400: #735de7;
+  --color-midnight-500: #5035e1; /* core accent */
+  --color-midnight-600: #3f2ab4;
+  --color-midnight-700: #2f2087;
+  --color-midnight-800: #1f155a;
+  --color-midnight-900: #0f0b2d;
+
+  /* General */
+  --text-color: #ffffff;
+  --background-color: var(--color-slate-900);
+  --accent-color: var(--color-midnight-500);
+}
+
+/* ---------------------------
+   Typography
+--------------------------- */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+p, span, li, a, input, button, textarea {
+  font-family: var(--font-body);
+  font-weight: 400;
+}
+
+/* --------------------------
+   Template component
+-------------------------- */
+
+
+/* Universal container */
+.main-container {
+  width: 70vw;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (max-width: 1024px) {
+  .main-container {
+    width: 90vw;
+  }
+}
+
+@media (max-width: 600px) {
+  .main-container {
+    width: 100vw;
+    padding: 0.5rem;
+  }
+}
+
+/* Header base style */
+.header {
+  background-color: var(--color-slate-900);
+  border-bottom: 1px solid var(--color-slate-700);
+}
+
+/* Flex layout inside header */
+.header__content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+}
+
+/* Logo link styling */
+.header__logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+
+.header__logo img {
+  width: 32px;       /* Explicit small size */
+  height: 32px;
+  display: block;
+}
+
+.header__logo span {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+
+
+
+/* --------------------------
+   Embla Carousel
+-------------------------- */
+/* Ensures carousel is centered and only one image is visible */
+.embla {
+  overflow: hidden;
+  width: 100%;
+  max-width: 500px;  /* Adjust as you like */
+  margin: 0 auto;    /* Centers carousel */
+}
+
+.embla__container {
+  display: flex;
+  touch-action: pan-y;
+}
+
+.embla__slide {
+  flex: 0 0 100%;           /* One slide at a time */
+  display: flex;
+  justify-content: center;  /* Center image horizontally */
+  align-items: center;      /* Center image vertically */
+}
+
+.embla__slide img {
+  max-height: 80vh;         /* Fit nicely on mobile screens */
+  max-width: 100%;
+  object-fit: contain;      /* Prevent cropping */
+  border-radius: 0.75rem;
+}
