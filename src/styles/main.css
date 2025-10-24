@@ -45,9 +45,9 @@ html {
 body {
   line-height: 1.5;
   text-rendering: optimizeLegibility;
-  background-color: var(--color-slate-900);
-  color: var(--text-color);
   font-family: var(--font-body);
+  background-color: var(--background-color);
+  color: var(--foreground-color);
 }
 
 img,
@@ -91,33 +91,22 @@ a {
   --font-body: 'Inter', sans-serif;
   --font-title: 'Monomakh', system-ui;
 
-  /* Slate shades (tailwind-inspired) */
-  --color-slate-50: #f8fafc;
-  --color-slate-100: #f1f5f9;
-  --color-slate-200: #e2e8f0;
-  --color-slate-300: #cbd5e1;
-  --color-slate-400: #94a3b8;
-  --color-slate-500: #64748b;
-  --color-slate-600: #475569;
-  --color-slate-700: #334155;
-  --color-slate-800: #1e293b;
-  --color-slate-900: #0f172a;
+  /* Backgrounds */
+  --background-color: #09090b;        
+  --background-color-light: #271E21;  
+  --background-color-lighter: #42353a;
 
-  /* Midnight Purple Accent */
-  --color-midnight-100: #dcd7f9;
-  --color-midnight-200: #b9aef3;
-  --color-midnight-300: #9686ed;
-  --color-midnight-400: #735de7;
-  --color-midnight-500: #5035e1; /* core accent */
-  --color-midnight-600: #3f2ab4;
-  --color-midnight-700: #2f2087;
-  --color-midnight-800: #1f155a;
-  --color-midnight-900: #0f0b2d;
+  /* Foreground/Text */
+  --foreground-color: #ebebeb;       
+  --foreground-color-dark: #000;      
+  --foreground-color-subtle: #a1a1aa; 
+  --foreground-color-light: #fff; 
 
-  /* General */
-  --text-color: #ffffff;
-  --background-color: var(--color-slate-900);
-  --accent-color: var(--color-midnight-500);
+  /* Accent */
+  --accent-color: #3A0A4E;           
+  --accent-color-light: #641c88;     
+  --accent-color-dark: #22062f;      
+  --accent-color-comp: #4E4A0A;      
 }
 
 /* ---------------------------
@@ -126,7 +115,6 @@ a {
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
   font-weight: 700;
-  color: var(--text-color);
 }
 
 p, span, li, a, input, button, textarea {
@@ -134,68 +122,16 @@ p, span, li, a, input, button, textarea {
   font-weight: 400;
 }
 
-/* --------------------------
-   Template component
--------------------------- */
-
-
-/* Universal container */
-.main-container {
-  width: 70vw;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1rem;
+a {
+  text-decoration: underline 0.25em rgba(255, 255, 255, 0);
+  transition: 0.2s;
+  color: var(--foreground-color);
 }
 
-@media (max-width: 1024px) {
-  .main-container {
-    width: 90vw;
-  }
+a:hover {
+  text-decoration-color: var(--accent-color);
+  color: var(--foreground-color-light);
 }
-
-@media (max-width: 600px) {
-  .main-container {
-    width: 100vw;
-    padding: 0.5rem;
-  }
-}
-
-/* Header base style */
-.header {
-  background-color: var(--color-slate-900);
-  border-bottom: 1px solid var(--color-slate-700);
-}
-
-/* Flex layout inside header */
-.header__content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem 0;
-}
-
-/* Logo link styling */
-.header__logo {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  text-decoration: none;
-}
-
-.header__logo img {
-  width: 32px;       /* Explicit small size */
-  height: 32px;
-  display: block;
-}
-
-.header__logo span {
-  font-family: var(--font-heading);
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--text-color);
-}
-
-
 
 
 /* --------------------------

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import Post from './Post';
+import Post from './Post/Post';
 
 const Home = () => {
   const [loading, setLoading] = useState(true);

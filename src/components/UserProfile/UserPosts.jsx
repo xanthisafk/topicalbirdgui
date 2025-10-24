@@ -1,4 +1,4 @@
-import Post from "../Post";
+import Post from "../Post/Post";
 
 const UserPosts = ({ posts }) => {
   if (!posts.length) return <p>No posts yet.</p>;
