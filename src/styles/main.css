@@ -163,3 +163,37 @@ a:hover {
   object-fit: contain;      /* Prevent cropping */
   border-radius: 0.75rem;
 }
+
+/***** BTN ****/
+/* Reusable button base */
+.btn {
+    padding: 0.75rem 1.5rem;
+    font-family: var(--font-body);
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s, opacity 0.2s;
+}
+
+/* Confirmation / Accent button */
+.btn-confirm {
+    background-color: var(--accent-color);
+    color: var(--foreground-color-light);
+}
+
+.btn-confirm:hover {
+    background-color: var(--accent-color-light);
+    transform: translateY(-2px);
+}
+
+/* Cancel button */
+.btn-cancel {
+    background-color: var(--background-color-lighter);
+    color: var(--foreground-color);
+}
+
+.btn-cancel:hover {
+    background-color: var(--background-color-light);
+    transform: translateY(-2px);
+}

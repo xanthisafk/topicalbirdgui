@@ -15,7 +15,6 @@
     min-width: 300px;
 }
 
-
 .popup-dialog::backdrop {
     background-color: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(4px); 
@@ -27,19 +26,13 @@
     font-family: var(--font-body);
 }
 
-
-
-
 .popup-close-btn {
     position: absolute;
-    top: 1rem;      
-    right: 1rem;    
-    
-    
+    top: 0.75rem;      
+    right: 0.75rem;    
     background: none;
     border: none;
     cursor: pointer;
-    padding: 0;
     line-height: 0;
 }
 
@@ -49,6 +42,6 @@
 
 
 .popup-close-btn img {
-    width: 20px; 
-    height: 20px;
+    width: 32px; 
+    height: 32px;
 }

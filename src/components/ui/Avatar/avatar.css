@@ -4,7 +4,7 @@
     display: inline-block;
 }
 
-.avatar-container img {
+.avatar-container > img {
     border: thin solid var(--accent-color);
 }
 
