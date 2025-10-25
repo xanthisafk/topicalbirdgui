@@ -3,8 +3,10 @@ import { API_BASE_URL } from "../../../../topicalbirdconfig";
 import "./avatar.css"
 
 import Popup from "../Popup/Popup";
+import LogOutPopup from "../../auth/LogoutPopup";
 
-const Avatar = ({ user, width, height }) => {
+const Avatar = ({ user, width, height, showDropdown }) => {
+  showDropdown = showDropdown || true;
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef(null);
   const logOutRef = useRef(null);
@@ -44,7 +46,7 @@ const Avatar = ({ user, width, height }) => {
           borderRadius: "50%"
         }}
       />
-      {open && (
+      {(showDropdown && open) && (
         <div className="avatar-dropdown">
           <a className="avatar-dropdown-link" href="/me" style={{ display: 'block', padding: 8 }}>Profile</a>
           <a className="avatar-dropdown-link" href="/account" style={{ display: 'block', padding: 8 }}>Settings</a>
@@ -53,7 +55,7 @@ const Avatar = ({ user, width, height }) => {
         </div>
       )}
       <Popup ref={logOutRef}> 
-        Hi logout!
+        <LogOutPopup />
       </Popup>
     </div>
   );
