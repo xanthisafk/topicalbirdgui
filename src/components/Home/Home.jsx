@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import Post from './Post/Post';
+import Post from '../Post/Post';
+import "./Home.css";
 
 const Home = () => {
   const [loading, setLoading] = useState(true);
@@ -28,23 +29,17 @@ const Home = () => {
   }, []);
 
   return (
-    <div style={
-      {
-        display: "flex",
-        content: "center",
-        alignItems: "center",
-        justifyContent: "center"
-      }
-    }>
-      {loading ? "loading..." : posts.length > 0 ? (
-        posts.map((post, idx) => (
-          <Post post={post} />
-        ))
-      ) : (
-        <p>No posts yet...</p>
-      )}
-    </div>
-  );
+  <div className="feed-container">
+    {loading ? "loading..." : posts.length > 0 ? (
+      posts.map((post) => (
+        <Post key={post.id} post={post} />
+      ))
+    ) : (
+      <p>No posts yet...</p>
+    )}
+  </div>
+);
+
 };
 
 export default Home;
