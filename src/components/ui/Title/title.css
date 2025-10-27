@@ -1,0 +1,48 @@
+.title-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+
+.title-icon {
+  height: 3.5rem;
+  width: 3.5rem;
+  filter: drop-shadow(0 0 0 #ffffffff);
+  transition: 0.2s ease-in-out;
+}
+
+.title-container:hover .title-icon {
+    filter: drop-shadow(0 0 0 var(--accent-color));
+}
+
+.typewriter-text span {
+  display: inline-block;
+  font-size: 2rem;
+  font-family: var(--font-title);
+  transition: transform 0.2s ease-out, color 0.3s ease-out;
+  color: var(--accent-color-dark, var(--accent-color));
+}
+
+.typewriter-text:hover span {
+    opacity: 0;
+    color: var(--accent-color);
+    animation: type 0.5s forwards;
+}
+
+.typewriter-text span:nth-child(1) { animation-delay: 0s; }
+.typewriter-text span:nth-child(2) { animation-delay: 0.1s; }
+.typewriter-text span:nth-child(3) { animation-delay: 0.2s; }
+.typewriter-text span:nth-child(4) { animation-delay: 0.3s; }
+.typewriter-text span:nth-child(5) { animation-delay: 0.4s; }
+.typewriter-text span:nth-child(6) { animation-delay: 0.5s; }
+.typewriter-text span:nth-child(7) { animation-delay: 0.6s; }
+.typewriter-text span:nth-child(8) { animation-delay: 0.7s; }
+.typewriter-text span:nth-child(9) { animation-delay: 0.8s; }
+.typewriter-text span:nth-child(10) { animation-delay: 0.9s; }
+.typewriter-text span:nth-child(11) { animation-delay: 1s; }
+
+@keyframes type {
+  to { opacity: 1; }
+}

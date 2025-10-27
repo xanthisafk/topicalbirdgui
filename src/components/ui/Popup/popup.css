@@ -34,6 +34,7 @@
     border: none;
     cursor: pointer;
     line-height: 0;
+    color: var(--danger-color);
 }
 
 .popup-close-btn:hover {

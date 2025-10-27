@@ -16,6 +16,7 @@
     "astro": "^5.14.7",
     "axios": "^1.12.2",
     "embla-carousel-react": "^8.6.0",
+    "lucide-react": "^0.548.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   }

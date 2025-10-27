@@ -1,6 +1,7 @@
 import "./popup.css"
 
 import { useRef, forwardRef, useImperativeHandle } from 'react';
+import { X } from "lucide-react";
 
 const Popup = forwardRef(({ children }, ref) => {
 
@@ -20,9 +21,10 @@ const Popup = forwardRef(({ children }, ref) => {
                 <button 
                     onClick={() => dialogRef.current?.close()} 
                     className="popup-close-btn"
+                    title={"Close"}
                 >
                     {/* Assuming the SVG is imported/used like this, or you can use an <img> tag */}
-                    <img src="/assets/cross.svg" alt="Close" />
+                    <X />
                 </button>
             </div>
         </dialog>

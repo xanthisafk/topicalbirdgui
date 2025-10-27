@@ -1,55 +1,35 @@
 ---
 import Template from "../../components/template.astro";
+import Button from "../../components/ui/Button/Button";
 ---
 
 <Template>
-  <div style="
+  <div
+    style="
     display: flex;
     justify-content: center;
     align-items: center;
     height: 80vh;
-  ">
-    <div style="
-      background-color: var(--color-slate-800);
-      padding: 2rem;
-      border-radius: 1rem;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-      text-align: center;
-      width: 320px;
-    ">
-      <h2 style="
+  "
+  >
+    <div
+      style="padding: 2rem; text-align: center; width: 500px;"
+    >
+      <h2
+        style="
         font-family: var(--font-heading);
         margin-bottom: 1.5rem;
-        color: var(--text-color);
-      ">
+      "
+      >
+      Welcome to <span style="font-family: var(--font-title)">TOPICALBIRD</span>
       </h2>
 
-      <a href="/auth/register" style="
-        display: block;
-        padding: 0.75rem 1.5rem;
-        margin-bottom: 1rem;
-        border-radius: 0.5rem;
-        background-color: var(--accent-color);
-        color: #fff;
-        font-weight: 600;
-        text-decoration: none;
-        transition: background 0.3s, transform 0.2s;
-      " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-        Register
-      </a>
-
-      <a href="/auth/login" style="
-        display: block;
-        padding: 0.75rem 1.5rem;
-        border-radius: 0.5rem;
-        border: 2px solid var(--accent-color);
-        color: var(--accent-color);
-        font-weight: 600;
-        text-decoration: none;
-        transition: background 0.3s, color 0.3s, transform 0.2s;
-      " onmouseover="this.style.backgroundColor='var(--accent-color)'; this.style.color='#fff'; this.style.transform='scale(1.05)'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='var(--accent-color)'; this.style.transform='scale(1)'">
-        Login
-      </a>
+      <a href="/auth/login">
+        <Button client:only="react" variant="primary">Login</Button></a
+      >
+      <a href="/auth/register">
+        <Button client:only="react" variant="secondary">Register</Button></a
+      >
     </div>
   </div>
 </Template>

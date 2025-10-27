@@ -1,8 +1,9 @@
 ---
+import { Footer } from "./Footer/Footer";
 import Header from "./Header/Header";
 ---
 
-<html lang="en">
+<html lang="en" class="theme-mint">
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/icon_white.svg" />
@@ -17,4 +18,7 @@ import Header from "./Header/Header";
 	<main class="main-container">
 		<slot />
 	</main>
+	<hr />
+	<Footer client:only="react" />
+
 </html>

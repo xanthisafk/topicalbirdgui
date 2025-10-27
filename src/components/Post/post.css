@@ -45,6 +45,10 @@
     align-items: center;
 }
 
+.interactive-area span {
+    color: var(--foreground-color);
+}
+
 .interactive-area-button {
     display: flex;
     gap: 0.2rem;

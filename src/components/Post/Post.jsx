@@ -1,7 +1,9 @@
 import { API_BASE_URL } from "../../../topicalbirdconfig";
 import formatTimeData from "../../helpers/formatTimeData";
 import { Carousel } from "../ui/Carousel";
+import Button from "../ui/Button/Button";
 import "./post.css";
+import { ThumbsUp, MessageCircle, Share } from "lucide-react";
 
 const Post = ({ post }) => {
     if (!post) return null;
@@ -46,9 +48,9 @@ const Post = ({ post }) => {
 
             {/* Footer: Votes and Comments */}
             <div className="interactive-area">
-                <div className="interactive-area-button"><img src="/assets/posts/star.svg" alt="total votes" className="post-liked" width={15} height={15} /> {votes}</div>
-                <div className="interactive-area-button"><img src="/assets/posts/comment.svg" alt="comments" width={15} height={15} /> {comments}</div>
-                <div className="interactive-area-button"><img src="/assets/posts/share.svg" alt="share" width={15} height={15} /> Share</div>
+                <Button variant="outlined"><ThumbsUp /> <span>{votes}</span></Button>
+                <Button variant="outlined"><MessageCircle /> <span>{comments}</span></Button>
+                <Button variant="outlined"><Share /></Button>
             </div>
         </div>
     );

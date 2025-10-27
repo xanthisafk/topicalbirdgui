@@ -1,4 +1,4 @@
-const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9\s])(?=.{8,}).*$/;
+export const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9\s])(?=.{8,}).*$/;
 
 export const validatePassword = (password) => {
     if (!passwordRegex.test(password)) {

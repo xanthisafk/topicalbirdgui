@@ -82,32 +82,247 @@ a {
   color: inherit;
 }
 
-/* ---------------------------
-   ROOT VARIABLES
---------------------------- */
+/* ROOT VARIABLES */
 :root {
-  /* Fonts */
   --font-heading: 'Chivo', sans-serif;
   --font-body: 'Inter', sans-serif;
   --font-title: 'Monomakh', system-ui;
-
-  /* Backgrounds */
-  --background-color: #09090b;        
-  --background-color-light: #271E21;  
-  --background-color-lighter: #42353a;
-
-  /* Foreground/Text */
-  --foreground-color: #ebebeb;       
-  --foreground-color-dark: #000;      
-  --foreground-color-subtle: #a1a1aa; 
-  --foreground-color-light: #fff; 
-
-  /* Accent */
-  --accent-color: #3A0A4E;           
-  --accent-color-light: #641c88;     
-  --accent-color-dark: #22062f;      
-  --accent-color-comp: #4E4A0A;      
+  transition:
+    background-color 0.2s ease-in-out,
+    color 0.2s ease-in-out;
 }
+
+/* Themes */
+.theme-mint {
+  --background-color: #0b0f0e;
+  --background-color-light: #10201d;
+  --background-color-lighter: #15302b;
+
+  --foreground-color: #e6fffa;
+  --foreground-color-dark: #0d1514;
+  --foreground-color-subtle: #8abcb3;
+  --foreground-color-light: #f8fffd;
+
+  --accent-color: #2dd4bf;      /* Mint */
+  --accent-color-light: #5eead4;
+  --accent-color-dark: #0f766e;
+  --accent-color-comp: #d44d2d; /* Coral for contrast */
+
+  --danger-color: #b91c1c;
+  --danger-color-light: #ef4444;
+}
+
+.theme-pastel {
+  --background-color: #1a1a22;
+  --background-color-light: #242433;
+  --background-color-lighter: #303042;
+
+  --foreground-color: #f7f7ff;
+  --foreground-color-dark: #09090b;
+  --foreground-color-subtle: #b6b6c8;
+  --foreground-color-light: #ffffff;
+
+  --accent-color: #a7baff;       /* Pastel periwinkle */
+  --accent-color-light: #c6d3ff;
+  --accent-color-dark: #6c7bd6;
+  --accent-color-comp: #ffbacc;  /* Soft pink */
+
+  --danger-color: #e63946;
+  --danger-color-light: #ff7b89;
+}
+
+.theme-socialmedia {
+  --background-color: #18191a;
+  --background-color-light: #242526;
+  --background-color-lighter: #3a3b3c;
+
+  --foreground-color: #e4e6eb;
+  --foreground-color-dark: #050505;
+  --foreground-color-subtle: #b0b3b8;
+  --foreground-color-light: #ffffff;
+
+  --accent-color: #2374e1;
+  --accent-color-light: #3b82f6;
+  --accent-color-dark: #1d4ed8;
+  --accent-color-comp: #e19d23;
+
+  --danger-color: #f02849;
+  --danger-color-light: #ff4b5c;
+}
+
+.theme-red-velvet {
+  --background-color: #1a0a0a;
+  --background-color-light: #2b0f10;
+  --background-color-lighter: #431516;
+
+  --foreground-color: #ffecec;
+  --foreground-color-dark: #100404;
+  --foreground-color-subtle: #d8b4b4;
+  --foreground-color-light: #fff7f7;
+
+  --accent-color: #aa1c3b;       /* Rich velvet red */
+  --accent-color-light: #d6405c;
+  --accent-color-dark: #7a0f28;
+  --accent-color-comp: #1caa8a;  /* Mint contrast */
+
+  --danger-color: #ff1f3d;
+  --danger-color-light: #ff5c7a;
+}
+
+.theme-sky {
+  --background-color: #0a0f1a;
+  --background-color-light: #0f1b2e;
+  --background-color-lighter: #152a45;
+
+  --foreground-color: #eaf6ff;
+  --foreground-color-dark: #05070b;
+  --foreground-color-subtle: #9fc5e8;
+  --foreground-color-light: #ffffff;
+
+  --accent-color: #38bdf8;        /* Sky blue */
+  --accent-color-light: #7dd3fc;
+  --accent-color-dark: #0ea5e9;
+  --accent-color-comp: #f8c038;   /* Sun gold */
+
+  --danger-color: #f87171;
+  --danger-color-light: #fca5a5;
+}
+
+.theme-midnight-purple {
+  --background-color: #0d0a14;
+  --background-color-light: #1a1124;
+  --background-color-lighter: #2a1a39;
+
+  --foreground-color: #f0eaff;
+  --foreground-color-dark: #0b0a0d;
+  --foreground-color-subtle: #b8a1d9;
+  --foreground-color-light: #ffffff;
+
+  --accent-color: #7c3aed;       /* True purple */
+  --accent-color-light: #a78bfa;
+  --accent-color-dark: #5b21b6;
+  --accent-color-comp: #ed3a9a;  /* Magenta-pink */
+
+  --danger-color: #dc2626;
+  --danger-color-light: #f87171;
+}
+
+.theme-socialmedia-light {
+  --background-color: #f0f2f5;
+  --background-color-light: #ffffff;
+  --background-color-lighter: #e5e7eb;
+
+  --foreground-color: #050505;
+  --foreground-color-dark: #000;
+  --foreground-color-subtle: #65676b;
+  --foreground-color-light: #ffffff;
+
+  --accent-color: #1877f2;
+  --accent-color-light: #3b8cff;
+  --accent-color-dark: #0f5ec2;
+  --accent-color-comp: #f2b018;
+
+  --danger-color: #e41e3f;
+  --danger-color-light: #ff5166;
+}
+
+.theme-mint-light {
+  --background-color: #f7fefc;
+  --background-color-light: #ffffff;
+  --background-color-lighter: #e6fffb;
+
+  --foreground-color: #00332f;
+  --foreground-color-dark: #001614;
+  --foreground-color-subtle: #5b7f7c;
+  --foreground-color-light: #ffffff;
+
+  --accent-color: #2dd4bf;
+  --accent-color-light: #5eead4;
+  --accent-color-dark: #0f766e;
+  --accent-color-comp: #d44d2d;
+
+  --danger-color: #b91c1c;
+  --danger-color-light: #ef4444;
+}
+
+.theme-pastel-light {
+  --background-color: #fafaff;
+  --background-color-light: #ffffff;
+  --background-color-lighter: #f2f2ff;
+
+  --foreground-color: #2d2d31;
+  --foreground-color-dark: #000000;
+  --foreground-color-subtle: #9a9ab0;
+  --foreground-color-light: #ffffff;
+
+  --accent-color: #a7baff;       /* Soft Periwinkle */
+  --accent-color-light: #c6d3ff;
+  --accent-color-dark: #6c7bd6;
+  --accent-color-comp: #ffbacc;  /* Soft Pink */
+
+  --danger-color: #ff6f91;
+  --danger-color-light: #ff99ac;
+}
+
+.theme-coffee-light {
+  --background-color: #fdfaf7;
+  --background-color-light: #ffffff;
+  --background-color-lighter: #f3ece7;
+
+  --foreground-color: #3b2f2f;
+  --foreground-color-dark: #1c1614;
+  --foreground-color-subtle: #8b7b73;
+  --foreground-color-light: #ffffff;
+
+  --accent-color: #a1653a;       /* Caramel coffee */
+  --accent-color-light: #c28c55;
+  --accent-color-dark: #6b3f23;
+  --accent-color-comp: #3a6fa1;  /* Slate blue */
+
+  --danger-color: #8b0000;
+  --danger-color-light: #d87a7a;
+}
+
+.theme-pride-light {
+  --background-color: #ffffff;
+  --background-color-light: #f9f9ff;
+  --background-color-lighter: #f0f0ff;
+
+  --foreground-color: #1a1a1a;
+  --foreground-color-dark: #000;
+  --foreground-color-subtle: #7a7a8c;
+  --foreground-color-light: #ffffff;
+
+  /* Primary accent (Rainbow base) */
+  --accent-color: #e40303;      /* Red */
+  --accent-color-light: #ff5a36;
+  --accent-color-dark: #b10202;
+  --accent-color-comp: #1a9fff; /* Blue */
+
+
+  --danger-color: #d62828;
+  --danger-color-light: #f08080;
+}
+
+.theme-sunburnt-light {
+  --background-color: #fdf6e3;
+  --background-color-light: #ffffff;
+  --background-color-lighter: #eee8d5;
+
+  --foreground-color: #586e75;
+  --foreground-color-dark: #073642;
+  --foreground-color-subtle: #93a1a1;
+  --foreground-color-light: #ffffff;
+
+  --accent-color: #cb4b16;       /* Sunburnt Orange */
+  --accent-color-light: #dc7a49;
+  --accent-color-dark: #8b2c08;
+  --accent-color-comp: #268bd2;  /* Solar Blue */
+
+  --danger-color: #d33682;
+  --danger-color-light: #e67ba8;
+}
+
 
 /* ---------------------------
    Typography
@@ -130,7 +345,22 @@ a {
 
 a:hover {
   text-decoration-color: var(--accent-color);
-  color: var(--foreground-color-light);
+  color: var(--accent-color);
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.spin {
+  animation: rotate 1s linear infinite;
+}
+
+.required {
+  color: var(--danger-color);
+  font-family: var(--font-heading);
+  font-size: 1rem;
 }
 
 
@@ -151,49 +381,16 @@ a:hover {
 }
 
 .embla__slide {
-  flex: 0 0 100%;           /* One slide at a time */
+  flex: 0 0 100%;
   display: flex;
-  justify-content: center;  /* Center image horizontally */
-  align-items: center;      /* Center image vertically */
+  justify-content: center;
+  align-items: center;
 }
 
 .embla__slide img {
-  max-height: 80vh;         /* Fit nicely on mobile screens */
+  max-height: 80vh;
   max-width: 100%;
-  object-fit: contain;      /* Prevent cropping */
+  object-fit: contain;
   border-radius: 0.75rem;
 }
 
-/***** BTN ****/
-/* Reusable button base */
-.btn {
-    padding: 0.75rem 1.5rem;
-    font-family: var(--font-body);
-    border: none;
-    border-radius: 0.5rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: transform 0.2s, background-color 0.2s, opacity 0.2s;
-}
-
-/* Confirmation / Accent button */
-.btn-confirm {
-    background-color: var(--accent-color);
-    color: var(--foreground-color-light);
-}
-
-.btn-confirm:hover {
-    background-color: var(--accent-color-light);
-    transform: translateY(-2px);
-}
-
-/* Cancel button */
-.btn-cancel {
-    background-color: var(--background-color-lighter);
-    color: var(--foreground-color);
-}
-
-.btn-cancel:hover {
-    background-color: var(--background-color-light);
-    transform: translateY(-2px);
-}

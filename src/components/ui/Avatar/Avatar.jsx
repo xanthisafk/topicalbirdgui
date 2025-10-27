@@ -39,19 +39,14 @@ const Avatar = ({ user, width, height, showDropdown }) => {
         src={icon}
         alt={user.handle + "'s avatar"}
         onClick={toggle}
-        style={{
-          cursor: 'pointer',
-          width: width || 32,
-          height: height || 32,
-          borderRadius: "50%"
-        }}
+        className="avatar-image"
       />
       {(showDropdown && open) && (
         <div className="avatar-dropdown">
           <a className="avatar-dropdown-link" href="/me" style={{ display: 'block', padding: 8 }}>Profile</a>
           <a className="avatar-dropdown-link" href="/account" style={{ display: 'block', padding: 8 }}>Settings</a>
-          <span className="avatar-dropdown-link" href="/account" style={{ display: 'block', padding: 8 }} onClick={() => logOutRef.current?.open()}>Logout</span>
-          {/* <a className="avatar-dropdown-link" href="/auth/logout" style={{ display: 'block', padding: 8 }}>Logout</a> */}
+          <a className="avatar-dropdown-link" style={{ display: 'block', padding: 8, cursor: 'pointer' }} onClick={() => logOutRef.current?.open()}>Logout</a>
+          
         </div>
       )}
       <Popup ref={logOutRef}> 

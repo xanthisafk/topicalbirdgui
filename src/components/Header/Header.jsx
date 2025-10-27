@@ -1,55 +1,29 @@
-/* updated header.jsx */
-import { useEffect, useRef, useState } from "react";
-import axios from "axios";
-import { API_BASE_URL } from "../../../topicalbirdconfig";
-import getCookies from "../../helpers/getCookies";
+import { useEffect, useState } from "react";
 import "./header.css";
 import Avatar from "../ui/Avatar/Avatar";
+import { TitleText } from "../ui/Title/Title";
 
 const Header = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
     const checkAuth = async () => {
-      const cookie = getCookies(".AspNetCore.Identity.Application");
-      if (cookie) {
-        const match = ["/auth"];
-        if (match.includes(window.location.pathname)) {
-          window.location = "/";
-        }
+      const u = JSON.parse(localStorage.getItem("topicalbird_current_user"));
+      const authPaths = ["/auth", "/auth/login", "/auth/register"];
+      if (u && authPaths.includes(window.location.pathname)) {
+        window.location = "/";
       }
-      try {
-        const options = {
-          method: "GET",
-          url: `${API_BASE_URL}/api/Users/me`,
-          withCredentials: true,
-        };
-        const { data } = await axios.request(options);
-        if (data?.content) {
-          setUser(data.content);
-          const authPaths = ["/auth", "/auth/login", "/auth/register"];
-          if (authPaths.includes(window.location.pathname)) {
-            window.location.href = "/";
-          }
-        }
-      } catch (err) {
-        console.error(err?.response?.data || err);
-        setUser(null);
-        localStorage.removeItem("topicalbird_current_user");
-      }
+      
+      setUser(u || null);
     };
     checkAuth();
   }, []);
 
+
   return (
     <header className="header">
       <div className="header-left">
-        <a href="/" className="header-logo">
-          <img src="/icon_white.svg" alt="Topicalbird Icon" className="header-icon" />
-          <h1 className="wave-text">{
-              "TOPICALBIRD".split("").map((c, i) => (<span key={i}>{c}</span>))
-            }</h1>
-        </a>
+        <TitleText />
       </div>
       <nav className="header-nav">
         <ul className="header-menu">

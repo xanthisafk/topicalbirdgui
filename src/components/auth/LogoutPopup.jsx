@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { logOutUser } from "../../helpers/api/auth";
 import "./LogoutPopup.css";
+import Button from "../ui/Button/Button";
 
 const LogOutPopup = () => {
     const [err, setErr] = useState("");
@@ -24,8 +25,8 @@ const LogOutPopup = () => {
             {err && <p className="logout-error">{err}</p>}
 
             <div className="logout-actions">
-                <button className="btn btn-confirm" onClick={logout}>Yes, Log Out</button>
-                <button className="btn btn-cancel" onClick={() => popupRef.current?.close()}>Cancel</button>
+                <Button onClick={logout}>Yes, Log Out</Button>
+                <Button variant="danger" onClick={() => popupRef.current?.close()}>Cancel</Button>
             </div>
         </div>
     );

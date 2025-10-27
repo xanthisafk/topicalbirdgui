@@ -47,8 +47,11 @@ const changePassword = async (password, newPassword, confirmPassword) => {
 
 const createNewUser = async (email, password, confirmPassword, handle, displayName, icon) => {
     if (!email || !password || !handle) {
-        return { status: 400, data: { message: "Invalid data" } };
+        return { status: 400, data: { message: "Please fill all required fields." } };
     }
+
+    const emailRes = validatePassword(password);
+    if (!emailRes.isValid) return { status: 400, data: { message: emailRes.message }}
 
     if (password !== confirmPassword) {
         return {
@@ -56,19 +59,9 @@ const createNewUser = async (email, password, confirmPassword, handle, displayNa
         };
     }
 
-    const {isValid, message } = validatePassword(password);
-    if (!isValid) return { status: 400, data: { message }}
+    const passRes = validatePassword(password);
+    if (!passRes.isValid) return { status: 400, data: { message: passRes.message }}
 
-    const handleRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*_)[A-Za-z0-9_]{1,30}$/;
-
-    if (!handleRegex.test(handle)) {
-        return {
-            status: 400,
-            data: {
-                message: "Username can only have letters, numbers and underscore (_)"
-            }
-        };
-    }
 
     const finalDisplayName = displayName || handle;
     const data = new FormData();
