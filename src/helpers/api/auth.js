@@ -1,7 +1,8 @@
 import { API_ENDPOINTS } from "../../../config";
-import fileChecker from "../fileChecker";
+
 import makeAxiosRequest from "../makeAxiosRequest";
 import { validatePassword } from "../validatePassword";
+import fileChecker from "../fileChecker";
 
 const api = API_ENDPOINTS.auth;
 
