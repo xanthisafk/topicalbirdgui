@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "../../../topicalbirdconfig";
+import { API_BASE_URL, NAVIGATION_PAGES } from "../../../config";
 import formatTimeData from "../../helpers/formatTimeData";
 import { Carousel } from "../ui/Carousel";
 import Button from "../ui/Button/Button";
@@ -21,10 +21,10 @@ const Post = ({ post }) => {
                 />
                 <div>
                     <div>
-                        <a className="" href={"/n/"+nest.title}>n/{nest.title}</a> • <span title={time.precise}>{time.relative}</span>
+                        <a className="" href={NAVIGATION_PAGES.nests.title(nest.title)}>n/{nest.title}</a> • <span title={time.precise}>{time.relative}</span>
                     </div>
                     <div style={{ fontSize: "0.75rem" }}>
-                        <a href={"/u/"+author.handle}>u/{author.handle}</a>
+                        <a href={NAVIGATION_PAGES.users.username(author.handle)}>u/{author.handle}</a>
                     </div>                    
                 </div>
             </div>

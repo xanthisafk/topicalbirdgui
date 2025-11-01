@@ -48,6 +48,7 @@ body {
   font-family: var(--font-body);
   background-color: var(--background-color);
   color: var(--foreground-color);
+  transition: 0.2s ease-in-out;
 }
 
 img,
@@ -87,9 +88,6 @@ a {
   --font-heading: 'Chivo', sans-serif;
   --font-body: 'Inter', sans-serif;
   --font-title: 'Monomakh', system-ui;
-  transition:
-    background-color 0.2s ease-in-out,
-    color 0.2s ease-in-out;
 }
 
 /* Themes */
@@ -349,8 +347,8 @@ a:hover {
 }
 
 @keyframes rotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .spin {
@@ -363,6 +361,12 @@ a:hover {
   font-size: 1rem;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .spin, a, body, html { 
+    animation: none; 
+    transition: none; 
+  }
+}
 
 /* --------------------------
    Embla Carousel

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { API_BASE_URL } from "../../../../topicalbirdconfig";
+import { API_BASE_URL, API_DEFAULT_IMAGES, NAVIGATION_PAGES } from "../../../../config";
 import "./avatar.css"
 
 import Popup from "../Popup/Popup";
@@ -30,21 +30,22 @@ const Avatar = ({ user, width, height, showDropdown }) => {
   }, [open]);
 
   if (!user) return null;
-  const defaultIcon = API_BASE_URL + "api_path/content/assets/defaults/pp_256.png";
+  const defaultIcon = API_DEFAULT_IMAGES.userPicture.image;
   const icon = user.icon ? API_BASE_URL + user.icon : defaultIcon;
+  const alt = icon === defaultIcon ? API_DEFAULT_IMAGES.userPicture.alt : `${user.handle}'s avatar`
 
   return (
     <div className="avatar-container" ref={dropdownRef}>
       <img
         src={icon}
-        alt={user.handle + "'s avatar"}
+        alt={alt}
         onClick={toggle}
         className="avatar-image"
       />
       {(showDropdown && open) && (
         <div className="avatar-dropdown">
-          <a className="avatar-dropdown-link" href="/me" style={{ display: 'block', padding: 8 }}>Profile</a>
-          <a className="avatar-dropdown-link" href="/account" style={{ display: 'block', padding: 8 }}>Settings</a>
+          <a className="avatar-dropdown-link" href={NAVIGATION_PAGES.users.username(user.handle)} style={{ display: 'block', padding: 8 }}>Profile</a>
+          <a className="avatar-dropdown-link" href={NAVIGATION_PAGES.auth.account} style={{ display: 'block', padding: 8 }}>Settings</a>
           <a className="avatar-dropdown-link" style={{ display: 'block', padding: 8, cursor: 'pointer' }} onClick={() => logOutRef.current?.open()}>Logout</a>
           
         </div>

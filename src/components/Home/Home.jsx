@@ -1,7 +1,7 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import Post from '../Post/Post';
 import "./Home.css";
+import { getLatestPosts } from '../../helpers/api';
 
 const Home = () => {
   const [loading, setLoading] = useState(true);
@@ -10,18 +10,18 @@ const Home = () => {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const options = {
-        method: 'GET',
-        url: 'http://localhost:9999/api/Posts/latest',
-        withCredentials: true
-      };
       try {
-        const { data } = await axios.request(options);
-        setPosts(data.content.posts || []);
-        setPagination(data.content.pagination || []);
-        setLoading(false)
-      } catch (error) {
-        console.error(error);
+        const { status, data } = await getLatestPosts();
+        if (status === 200) {
+          setPosts(data.content.posts || []);
+          setPagination(data.content.pagination || []); 
+        } else {
+          console.error(data);
+          alert("error");
+        }
+      }
+      finally {
+        setLoading(false);
       }
     };
 

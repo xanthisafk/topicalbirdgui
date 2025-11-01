@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "../../../topicalbirdconfig";
+import { API_BASE_URL, GUI_DEFAULT_IMAGES, NAVIGATION_PAGES } from "../../../config";
 
 const UserInfo = ({ user, self }) => {
   return (
@@ -9,12 +9,12 @@ const UserInfo = ({ user, self }) => {
       <h2>{user.displayName}</h2> 
       <div className="user-title-container">
         <span>u/{user.handle}</span>  
-        { !user.isAdmin ? "" : <img src="/admin_icon.svg" width={25} height={25} alt="The user is an admin." title="User is an admin of Topicalbird." />}
+        { !user.isAdmin ? "" : <img src={GUI_DEFAULT_IMAGES.adminIcon.image} width={25} height={25} alt="The user is an admin." title={GUI_DEFAULT_IMAGES.adminIcon.alt} />}
       </div>
       
       
       <p><strong>Joined:</strong> {new Date(user.createdAt).toLocaleDateString()}</p>
-      {self && <a className="settings-link" href="/auth/settings">User settings</a>}
+      {self && <a className="settings-link" href={NAVIGATION_PAGES.auth.account}>User settings</a>}
     </div>
   );
 };

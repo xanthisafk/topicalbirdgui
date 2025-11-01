@@ -6,12 +6,12 @@ import Button from "../ui/Button/Button";
 import Loader from "../ui/Loader";
 import { Edit2 } from "lucide-react";
 import './RegisterPage.css';
-import { API_BASE_URL } from "../../../topicalbirdconfig";
+import { API_BASE_URL, API_DEFAULT_IMAGES, LOCALSTORAGE_KEYS, NAVIGATION_PAGES } from "../../../config";
 
 const RegisterPage = () => {
     useEffect(() => {
-        if (JSON.parse(localStorage.getItem("topicalbird_current_user"))) {
-            window.location.href = "/";
+        if (JSON.parse(localStorage.getItem(LOCALSTORAGE_KEYS.currentUser))) {
+            window.location.href = NAVIGATION_PAGES.home;
         }
     }, []);
 
@@ -22,8 +22,8 @@ const RegisterPage = () => {
     const [displayName, setDisplayName] = useState("");
     const [icon, setIcon] = useState(null);
     const [iconPreview, setIconPreview] = useState({
-        icon: `${API_BASE_URL}/content/assets/defaults/pp_256.png`,
-        alt: "An egg",
+        icon: API_DEFAULT_IMAGES.userPicture.image,
+        alt: API_DEFAULT_IMAGES.userPicture.alt,
     });
     const [loading, setLoading] = useState(false);
     const [err, setErr] = useState("");
@@ -45,7 +45,7 @@ const RegisterPage = () => {
         const res = await createNewUser(email, password, confirmPassword, handle, displayName, icon);
         setLoading(false);
         if (res.status === 200) {
-            window.location.href = "/";
+            window.location.href = NAVIGATION_PAGES.home;
         } else {
             setErr(res.data.message);
             console.error(res);
@@ -88,7 +88,7 @@ const RegisterPage = () => {
                     {loading ? <Loader /> : 'Register'}
                 </Button>
             </div>
-            <a className="login-link" href="/auth/login">Already have an account?</a>
+            <a className="login-link" href={NAVIGATION_PAGES.auth.login}>Already have an account?</a>
         </div>
     );
 };

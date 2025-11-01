@@ -2,6 +2,7 @@ import { useState } from "react";
 import { logOutUser } from "../../helpers/api/auth";
 import "./LogoutPopup.css";
 import Button from "../ui/Button/Button";
+import { LOCALSTORAGE_KEYS } from "../../../config";
 
 const LogOutPopup = () => {
     const [err, setErr] = useState("");
@@ -9,7 +10,7 @@ const LogOutPopup = () => {
     const logout = async () => {
         const res = await logOutUser();
         if (res.status === 200) {
-            localStorage.removeItem("topicalbird_current_user");
+            localStorage.removeItem(LOCALSTORAGE_KEYS.currentUser);
             window.location.reload();
         } else {
             console.error(res);

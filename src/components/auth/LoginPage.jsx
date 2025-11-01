@@ -5,6 +5,7 @@ import InputLabel from "../ui/BoxLabel/Label";
 import Button from "../ui/Button/Button";
 import './Loginpage.css';
 import Checkbox from "../ui/Checkbox/Checkbox";
+import { LOCALSTORAGE_KEYS, NAVIGATION_PAGES } from "../../../config";
 
 const Loginpage = () => {
   const [email, setEmail] = useState("");
@@ -19,8 +20,8 @@ const Loginpage = () => {
 
     const response = await logInUser(email, password, rememberMe);
     if (response.status === 200) {
-      localStorage.setItem("topicalbird_current_user", JSON.stringify(response.data.content));
-      window.location.href = "/";
+      localStorage.setItem(LOCALSTORAGE_KEYS.currentUser, JSON.stringify(response.data.content));
+      window.location.href = NAVIGATION_PAGES.home;
     } else {
       setError(response?.data?.message || "Login failed");
     }
@@ -47,7 +48,7 @@ const Loginpage = () => {
         </div>
         <Button variant="primary" onClick={logIn} disabled={loading}>{loading ? 'Logging in...' : 'Login'}</Button>
       </div>
-      <a className="register-link" href="/auth/register">Don't have an account?</a>
+      <a className="register-link" href={NAVIGATION_PAGES.auth.register}>Don't have an account?</a>
     </div>
   );
 };

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { getUserbyUsername } from "../../helpers/api/users";
-import { getAllPostsByUsername } from "../../helpers/api/posts";
+import { getUserbyUsername, getAllPostsByUsername } from "../../helpers/api";
 import UserInfo from "./UserInfo";
 import UserPosts from "./UserPosts";
 import "./UserProfile.css";

@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "../../../topicalbirdconfig";
+import { API_BASE_URL } from "../../../config";
 import fileChecker from "../fileChecker";
 import makeAxiosRequest from "../makeAxiosRequest";
 

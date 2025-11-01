@@ -1,14 +1,16 @@
-import { API_BASE_URL } from "../../../topicalbirdconfig";
+import { API_BASE_URL } from "../../../config";
 import fileChecker from "../fileChecker";
 import makeAxiosRequest from "../makeAxiosRequest";
 
 const api_url = API_BASE_URL + "/api/Posts";
 
+import { API_ENDPOINTS as endpoints } from "../../../config";
+
 const deletePostById = async (id) => {
     if (!id) return { status: 400, data: { message: "Post Id is required." } };
     const options = {
-        method: "DELETE",
-        url: `${api_url}/delete/${id}`,
+        method: endpoints.users.method,
+        url: endpoints.users.deletePostById(id),
     };
     return await makeAxiosRequest(options);
 }
@@ -60,6 +62,22 @@ const getAllPostsByUsername = async (username, pageNo, limit) => {
             pageNo: pageNo ?? 1,
             limit: limit ?? 20,
         }
+    };
+    return await makeAxiosRequest(options);
+}
+
+const getLatestPosts = async (nest = null, pageNo = 1, limit=20) => {
+    const params = {
+        pageNo: pageNo || 1,
+        limit: limit || 20,
+    };
+    if (nest) {
+        params.nest = nest;
+    } 
+    const options = {
+        method: endpoints.posts.latest.method,
+        url: endpoints.posts.latest.url,
+        params
     };
     return await makeAxiosRequest(options);
 }
@@ -137,6 +155,7 @@ export {
     getSortedPostsByNest,
     updatePostContent,
     createNewPost,
+    getLatestPosts
 };
 
 

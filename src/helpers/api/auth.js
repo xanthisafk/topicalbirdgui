@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "../../../topicalbirdconfig";
+import { API_BASE_URL } from "../../../config";
 import fileChecker from "../fileChecker";
 import makeAxiosRequest from "../makeAxiosRequest";
 import { validatePassword } from "../validatePassword";
@@ -19,7 +19,7 @@ const logInUser = async (email, password, rememberMe) => {
 const logOutUser = async () => {
     const options = {
         method: "POST",
-        url: `${api_url}/logout`
+        url: `http://localhost:9999/api/Auth/logout`
     };
     return await makeAxiosRequest(options);
 }

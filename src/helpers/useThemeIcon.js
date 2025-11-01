@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
-
+import { GUI_DEFAULT_IMAGES } from '../../config';
 function useThemeIcon() {
-  const [icon, setIcon] = useState('/icon.svg');
+  const [icon, setIcon] = useState(GUI_DEFAULT_IMAGES.appIcon.variants.black);
 
   useEffect(() => {
     const updateIcon = () => {
       const rootClass = document.documentElement.className;
       const isLight = rootClass.endsWith('-light');
-      setIcon(isLight ? '/icon.svg' : '/icon_white.svg');
+      setIcon(isLight ? GUI_DEFAULT_IMAGES.appIcon.variants.black : GUI_DEFAULT_IMAGES.appIcon.variants.white);
     };
 
     updateIcon(); // Run on mount
