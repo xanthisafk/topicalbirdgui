@@ -5,7 +5,7 @@ import { validatePassword } from "../validatePassword";
 
 const api = API_ENDPOINTS.auth;
 
-const logInUser = async (email, password, rememberMe) => {
+export const logInUser = async (email, password, rememberMe) => {
     if (!email || !password) return { status: 400, data : {message: "Invalid data"}};
     const options = {
         method: api.login.method,
@@ -16,7 +16,7 @@ const logInUser = async (email, password, rememberMe) => {
     return await makeAxiosRequest(options);
 }
 
-const logOutUser = async () => {
+export const logOutUser = async () => {
     const options = {
         method: api.logout.method,
         url: api.logout.url,
@@ -24,7 +24,7 @@ const logOutUser = async () => {
     return await makeAxiosRequest(options);
 }
 
-const changePassword = async (password, newPassword, confirmPassword) => {
+export const changePassword = async (password, newPassword, confirmPassword) => {
     if (!password || !newPassword || !confirmPassword) {
         return { status: 400, data: { message: "Invalid data" } };
     }
@@ -45,7 +45,7 @@ const changePassword = async (password, newPassword, confirmPassword) => {
     return await makeAxiosRequest(options);
 }
 
-const createNewUser = async (email, password, confirmPassword, handle, displayName, icon) => {
+export const createNewUser = async (email, password, confirmPassword, handle, displayName, icon) => {
     if (!email || !password || !handle) {
         return { status: 400, data: { message: "Please fill all required fields." } };
     }
@@ -87,11 +87,4 @@ const createNewUser = async (email, password, confirmPassword, handle, displayNa
     }
 
     return await makeAxiosRequest(options);
-}
-
-export {
-    logInUser,
-    logOutUser,
-    changePassword,
-    createNewUser
 }

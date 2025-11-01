@@ -4,7 +4,7 @@ import makeAxiosRequest from "../makeAxiosRequest";
 
 const api = API_ENDPOINTS.users;
 
-const getUserbyUsername = async (username) => {
+export const getUserbyUsername = async (username) => {
     if (!username) return { status: 400, data: { message: "Username is required." } };
     const endpoint = api.getByUsername;
     const options = {
@@ -14,7 +14,7 @@ const getUserbyUsername = async (username) => {
     return await makeAxiosRequest(options);
 }
 
-const getUserbyId = async (id) => {
+export const getUserbyId = async (id) => {
     if (!id) return { status: 400, data: { message: "User Id is required." } };
     const endpoint = api.getById;
     const options = {
@@ -24,7 +24,7 @@ const getUserbyId = async (id) => {
     return await makeAxiosRequest(options);
 }
 
-const getUserbyEmail = async (email) => {
+export const getUserbyEmail = async (email) => {
     if (!email) return { status: 400, data: { message: "Email is required." } };
     const endpoint = api.adminOnlyGetByEmail;
     const options = {
@@ -34,7 +34,7 @@ const getUserbyEmail = async (email) => {
     return await makeAxiosRequest(options);
 }
 
-const getAllUsers = async () => {
+export const getAllUsers = async () => {
     const endpoint = api.adminOnlyGetAll
     const options = {
         method: endpoint.method,
@@ -43,7 +43,7 @@ const getAllUsers = async () => {
     return await makeAxiosRequest(options);
 }
 
-const getCurrentUser = async () => {
+export const getCurrentUser = async () => {
     const endpoint = api.currentUser;
     const options = {
         method: endpoint.method,
@@ -52,7 +52,7 @@ const getCurrentUser = async () => {
     return await makeAxiosRequest(options);
 }
 
-const searchForUser = async (query) => {
+export const searchForUser = async (query) => {
     if (!query) return { status: 400, data: { message: "Query is required." } };
     const endpoint = api.search;
     const options = {
@@ -63,7 +63,7 @@ const searchForUser = async (query) => {
     return await makeAxiosRequest(options);
 }
 
-const updateUser = async (id, displayName, icon) => {
+export const updateUser = async (id, displayName, icon) => {
     if (!id) return { status: 400, data: { message: "User Id is required." } };
 
     const form = new FormData();
@@ -84,7 +84,7 @@ const updateUser = async (id, displayName, icon) => {
     return await makeAxiosRequest(options);
 }
 
-const banUser = async (id) => {
+export const banUser = async (id) => {
     if (!id) return { status: 400, data: { message: "User Id is required." } };
     const endpoint = api.adminOnlyBan;
     const options = {
@@ -94,7 +94,7 @@ const banUser = async (id) => {
     return await makeAxiosRequest(options);
 }
 
-const unbanUser = async (id) => {
+export const unbanUser = async (id) => {
     if (!id) return { status: 400, data: { message: "User Id is required." } };
     const endpoint = api.adminOnlyUnban;
     const options = {
@@ -104,7 +104,7 @@ const unbanUser = async (id) => {
     return await makeAxiosRequest(options);
 }
 
-const promoteToAdmin = async (id) => {
+export const promoteToAdmin = async (id) => {
     if (!id) return { status: 400, data: { message: "User Id is required." } };
     const endpoint = api.adminOnlyPromote;
     const options = {
@@ -112,18 +112,4 @@ const promoteToAdmin = async (id) => {
         url: endpoint.url(id),
     }
     return await makeAxiosRequest(options);
-}
-
-
-export {
-    getUserbyUsername,
-    getUserbyEmail,
-    getUserbyId,
-    getAllUsers,
-    getCurrentUser,
-    searchForUser,
-    updateUser,
-    banUser,
-    unbanUser,
-    promoteToAdmin,
 }

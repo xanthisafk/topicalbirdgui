@@ -4,7 +4,7 @@ import makeAxiosRequest from "../makeAxiosRequest";
 
 const api = API_ENDPOINTS.posts;
 
-const deletePostById = async (id) => {
+export const deletePostById = async (id) => {
     if (!id) return { status: 400, data: { message: "Post Id is required." } };
     const endpoint = api.deletePostById;
     const options = {
@@ -14,7 +14,7 @@ const deletePostById = async (id) => {
     return await makeAxiosRequest(options);
 }
 
-const getPostById = async (id) => {
+export const getPostById = async (id) => {
     if (!id) return { status: 400, data: { message: "Post Id is required." } };
     const endpoint = api.getPostById;
     const options = {
@@ -24,7 +24,7 @@ const getPostById = async (id) => {
     return await makeAxiosRequest(options);
 }
 
-const getAllPostsByNest = async (nest, pageNo, limit) => {
+export const getAllPostsByNest = async (nest, pageNo, limit) => {
     if (!nest) return { status: 400, data: { message: "Nest title is required." } };
     const endpoint = api.getAllPostsByNest;
     const options = {
@@ -39,7 +39,7 @@ const getAllPostsByNest = async (nest, pageNo, limit) => {
 }
 
 
-const getAllPostsByUserId = async (id, pageNo = 1, limit = 20) => {
+export const getAllPostsByUserId = async (id, pageNo = 1, limit = 20) => {
     if (!id) return { status: 400, data: { message: "User Id is required." } };
     const endpoint = api.getAllPostsByUserId;
     const options = {
@@ -50,7 +50,7 @@ const getAllPostsByUserId = async (id, pageNo = 1, limit = 20) => {
     return await makeAxiosRequest(options);
 }
 
-const getAllPostsByUsername = async (username, pageNo, limit) => {
+export const getAllPostsByUsername = async (username, pageNo, limit) => {
     if (!username) return { status: 400, data: { message: "Username is required." } };
     const endpoint = api.getAllPostsByUsername;
     const options = {
@@ -64,7 +64,7 @@ const getAllPostsByUsername = async (username, pageNo, limit) => {
     return await makeAxiosRequest(options);
 }
 
-const getLatestPosts = async (nest = null, pageNo = 1, limit = 20) => {
+export const getLatestPosts = async (nest = null, pageNo = 1, limit = 20) => {
     const params = { pageNo, limit };
     if (nest) {
         params.nest = nest;
@@ -78,7 +78,7 @@ const getLatestPosts = async (nest = null, pageNo = 1, limit = 20) => {
     return await makeAxiosRequest(options);
 }
 
-const getPopularPosts = async (nest = null, pageNo = 1, limit = 20) => {
+export const getPopularPosts = async (nest = null, pageNo = 1, limit = 20) => {
     const params = { pageNo, limit };
     if (nest) {
         params.nest = nest;
@@ -92,7 +92,7 @@ const getPopularPosts = async (nest = null, pageNo = 1, limit = 20) => {
     return await makeAxiosRequest(options);
 }
 
-const updatePostContent = async (id, content) => {
+export const updatePostContent = async (id, content) => {
     if (!id) return { status: 400, data: { message: "Post Id is required." } };
     if (!content) return { status: 400, data: { message: "Post content is required." } };
 
@@ -107,7 +107,7 @@ const updatePostContent = async (id, content) => {
     return await makeAxiosRequest(options);
 }
 
-const createNewPost = async (title, content, nest, images, alts) => {
+export const createNewPost = async (title, content, nest, images, alts) => {
     if (!title) return { status: 400, data: { message: "Post title is required." } };
     if (!content) return { status: 400, data: { message: "Content is required." } };
     if (!nest) return { status: 400, data: { message: "Nest title is required." } };
@@ -140,17 +140,5 @@ const createNewPost = async (title, content, nest, images, alts) => {
     return await makeAxiosRequest(options);
 
 }
-
-export {
-    deletePostById,
-    getPostById,
-    getAllPostsByNest,
-    getAllPostsByUserId,
-    getAllPostsByUsername,
-    updatePostContent,
-    createNewPost,
-    getLatestPosts,
-    getPopularPosts,
-};
 
 
