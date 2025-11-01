@@ -1,63 +1,70 @@
-import { API_BASE_URL } from "../../../config";
+import { API_ENDPOINTS } from "../../../config";
 import fileChecker from "../fileChecker";
 import makeAxiosRequest from "../makeAxiosRequest";
 
-const api_url = API_BASE_URL + "/api/Users";
+const api = API_ENDPOINTS.users;
 
 const getUserbyUsername = async (username) => {
-    if (username == null) return null;
+    if (!username) return { status: 400, data: { message: "Username is required." } };
+    const endpoint = api.getByUsername;
     const options = {
-        method: "GET",
-        url: api_url + "/get/username/" + encodeURI(username),
+        method: endpoint.method,
+        url: endpoint.url(username),
     };
     return await makeAxiosRequest(options);
 }
 
 const getUserbyId = async (id) => {
-    if (id == null) return null;
+    if (!id) return { status: 400, data: { message: "User Id is required." } };
+    const endpoint = api.getById;
     const options = {
-        method: "GET",
-        url: api_url + "/get/id/" + id,
+        method: endpoint.method,
+        url: endpoint.url(id),
     };
     return await makeAxiosRequest(options);
 }
 
 const getUserbyEmail = async (email) => {
-    if (email == null) return null;
+    if (!email) return { status: 400, data: { message: "Email is required." } };
+    const endpoint = api.adminOnlyGetByEmail;
     const options = {
-        method: "GET",
-        url: api_url + "/get/email/" + email,
+        method: endpoint.method,
+        url: endpoint.url(email),
     };
     return await makeAxiosRequest(options);
 }
 
 const getAllUsers = async () => {
+    const endpoint = api.adminOnlyGetAll
     const options = {
-        method: "GET",
-        url: api_url,
+        method: endpoint.method,
+        url: endpoint.url,
     };
     return await makeAxiosRequest(options);
 }
 
 const getCurrentUser = async () => {
+    const endpoint = api.currentUser;
     const options = {
-        method: "GET",
-        url: api_url + "/me",
+        method: endpoint.method,
+        url: endpoint.url,
     };
     return await makeAxiosRequest(options);
 }
 
 const searchForUser = async (query) => {
+    if (!query) return { status: 400, data: { message: "Query is required." } };
+    const endpoint = api.search;
     const options = {
-        method: "GET",
-        url: api_url + "/search",
+        method: endpoint.method,
+        url: endpoint.url,
         params: { query }
     }
     return await makeAxiosRequest(options);
 }
 
 const updateUser = async (id, displayName, icon) => {
-    if (!id) return { status: 400, data: { message: "User Id is required."}};
+    if (!id) return { status: 400, data: { message: "User Id is required." } };
 
     const form = new FormData();
     form.append("DisplayName", displayName ?? null);
@@ -67,42 +74,45 @@ const updateUser = async (id, displayName, icon) => {
         form.append("Icon", icon);
     } else return res;
 
+    const endpoint = api.update;
+
     const options = {
-        method: 'PATCH',
-        url: api_url + "/update/" + id,
-        headers: { 'Content-Type': 'multipart/form-data' },
+        method: endpoint.method,
+        url: endpoint.url(id),
         data: form
     };
     return await makeAxiosRequest(options);
 }
 
 const banUser = async (id) => {
-    if (!id) return { status: 400, data: { message: "User Id is required."}};
+    if (!id) return { status: 400, data: { message: "User Id is required." } };
+    const endpoint = api.adminOnlyBan;
     const options = {
-        method: 'PATCH',
-        url: api_url + "/ban/" + id,
+        method: endpoint.method,
+        url: endpoint.url(id),
     }
     return await makeAxiosRequest(options);
 }
 
 const unbanUser = async (id) => {
-    if (!id) return { status: 400, data: { message: "User Id is required."}};
+    if (!id) return { status: 400, data: { message: "User Id is required." } };
+    const endpoint = api.adminOnlyUnban;
     const options = {
-        method: 'PATCH',
-        url: api_url + "/unban/" + id,
+        method: endpoint.method,
+        url: endpoint.url(id),
     }
     return await makeAxiosRequest(options);
 }
 
 const promoteToAdmin = async (id) => {
-    if (!id) return { status: 400, data: { message: "User Id is required."}};
+    if (!id) return { status: 400, data: { message: "User Id is required." } };
+    const endpoint = api.adminOnlyPromote;
     const options = {
-        method: 'PATCH',
-        url: api_url + "/promote/" + id,
+        method: endpoint.method,
+        url: endpoint.url(id),
     }
     return await makeAxiosRequest(options);
 }
-
 
 
 export {

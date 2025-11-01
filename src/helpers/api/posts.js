@@ -1,97 +1,93 @@
-import { API_BASE_URL } from "../../../config";
+import { API_ENDPOINTS } from "../../../config";
 import fileChecker from "../fileChecker";
 import makeAxiosRequest from "../makeAxiosRequest";
 
-const api_url = API_BASE_URL + "/api/Posts";
-
-import { API_ENDPOINTS as endpoints } from "../../../config";
+const api = API_ENDPOINTS.posts;
 
 const deletePostById = async (id) => {
     if (!id) return { status: 400, data: { message: "Post Id is required." } };
+    const endpoint = api.deletePostById;
     const options = {
-        method: endpoints.users.method,
-        url: endpoints.users.deletePostById(id),
+        method: endpoint.method,
+        url: endpoint.url(id),
     };
     return await makeAxiosRequest(options);
 }
 
 const getPostById = async (id) => {
     if (!id) return { status: 400, data: { message: "Post Id is required." } };
+    const endpoint = api.getPostById;
     const options = {
-        method: "GET",
-        url: `${api_url}/${id}`,
+        method: endpoint.method,
+        url: endpoint.url(id),
     };
     return await makeAxiosRequest(options);
 }
 
 const getAllPostsByNest = async (nest, pageNo, limit) => {
     if (!nest) return { status: 400, data: { message: "Nest title is required." } };
+    const endpoint = api.getAllPostsByNest;
     const options = {
-        method: "GET",
-        url: `${api_url}/nest`,
+        method: endpoint.method,
+        url: endpoint.url,
         params: {
             nestTitle: nest,
-            pageNo: pageNo ?? 1,
-            limit: limit ?? 20,
+            pageNo, limit,
         }
     };
     return await makeAxiosRequest(options);
 }
 
 
-const getAllPostsByUserId = async (id, pageNo, limit) => {
+const getAllPostsByUserId = async (id, pageNo = 1, limit = 20) => {
     if (!id) return { status: 400, data: { message: "User Id is required." } };
+    const endpoint = api.getAllPostsByUserId;
     const options = {
-        method: "GET",
-        url: `${api_url}/user/id/${id}`,
-        params: {
-            pageNo: pageNo ?? 1,
-            limit: limit ?? 20,
-        }
+        method: endpoint.method,
+        url: endpoint.url(id),
+        params: { pageNo, limit }
     };
     return await makeAxiosRequest(options);
 }
 
 const getAllPostsByUsername = async (username, pageNo, limit) => {
     if (!username) return { status: 400, data: { message: "Username is required." } };
+    const endpoint = api.getAllPostsByUsername;
     const options = {
-        method: "GET",
-        url: `${api_url}/user/username/`,
+        method: endpoint.method,
+        url: endpoint.url,
         params: {
             userHandle: username,
-            pageNo: pageNo ?? 1,
-            limit: limit ?? 20,
+            pageNo, limit,
         }
     };
     return await makeAxiosRequest(options);
 }
 
-const getLatestPosts = async (nest = null, pageNo = 1, limit=20) => {
-    const params = {
-        pageNo: pageNo || 1,
-        limit: limit || 20,
-    };
+const getLatestPosts = async (nest = null, pageNo = 1, limit = 20) => {
+    const params = { pageNo, limit };
     if (nest) {
         params.nest = nest;
-    } 
+    }
+    const endpoint = api.latest;
     const options = {
-        method: endpoints.posts.latest.method,
-        url: endpoints.posts.latest.url,
+        method: endpoint.method,
+        url: endpoint.url,
         params
     };
     return await makeAxiosRequest(options);
 }
 
-const getSortedPostsByNest = async (nest, sort, pageNo, limit) => {
-    if (!nest) return { status: 400, data: { message: "Nest title is required." } };
+const getPopularPosts = async (nest = null, pageNo = 1, limit = 20) => {
+    const params = { pageNo, limit };
+    if (nest) {
+        params.nest = nest;
+    }
+    const endpoint = api.popular;
     const options = {
-        method: "GET",
-        url: `${api_url}/${sort === "popular" ? "popular" : "latest"}`, // latest or popular
-        params: {
-            nest,
-            pageNo: pageNo ?? 1,
-            limit: limit ?? 20,
-        }
+        method: endpoint.method,
+        url: endpoint.url,
+        params
     };
     return await makeAxiosRequest(options);
 }
@@ -102,11 +98,10 @@ const updatePostContent = async (id, content) => {
 
     const form = new FormData();
     form.append("Content", content);
-
+    const endpoint = api.update;
     const options = {
-        method: 'PATCH',
-        url: `${api_url}/update/${id}`,
-        headers: { 'Content-Type': 'multipart/form-data' },
+        method: endpoint.method,
+        url: endpoint.url(id),
         data: form
     };
     return await makeAxiosRequest(options);
@@ -114,14 +109,16 @@ const updatePostContent = async (id, content) => {
 
 const createNewPost = async (title, content, nest, images, alts) => {
     if (!title) return { status: 400, data: { message: "Post title is required." } };
-    if (!content) return { status: 400, data: { message: "Content content is required." } };
+    if (!content) return { status: 400, data: { message: "Content is required." } };
     if (!nest) return { status: 400, data: { message: "Nest title is required." } };
 
     const form = new FormData();
     form.append("Title", title);
     form.append('Content', content);
     form.append('NestTitle', nest);
-    alts.forEach(alt => form.append("Alts", alt));
+    if (alts && Array.isArray(alts)) {
+        alts.forEach(alt => form.append("Alts", alt));
+    }
 
 
     if (images && images.length > 0) {
@@ -132,12 +129,10 @@ const createNewPost = async (title, content, nest, images, alts) => {
             } else return res;
         }
     }
-
-
-
+    const endpoint = api.create;
     const options = {
-        method: 'POST',
-        url: `${api_url}/new`,
+        method: endpoint.method,
+        url: endpoint.url,
         headers: { 'Content-Type': 'multipart/form-data' },
         data: form
     };
@@ -152,10 +147,10 @@ export {
     getAllPostsByNest,
     getAllPostsByUserId,
     getAllPostsByUsername,
-    getSortedPostsByNest,
     updatePostContent,
     createNewPost,
-    getLatestPosts
+    getLatestPosts,
+    getPopularPosts,
 };
 
 

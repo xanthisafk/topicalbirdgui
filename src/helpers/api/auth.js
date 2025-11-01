@@ -1,15 +1,15 @@
-import { API_BASE_URL } from "../../../config";
+import { API_ENDPOINTS } from "../../../config";
 import fileChecker from "../fileChecker";
 import makeAxiosRequest from "../makeAxiosRequest";
 import { validatePassword } from "../validatePassword";
 
-const api_url = `${API_BASE_URL}/api/Auth`;
+const api = API_ENDPOINTS.auth;
 
 const logInUser = async (email, password, rememberMe) => {
     if (!email || !password) return { status: 400, data : {message: "Invalid data"}};
     const options = {
-        method: "POST",
-        url: `${api_url}/login`,
+        method: api.login.method,
+        url: api.login.url,
         data: { email, password, rememberMe }
     }
 
@@ -18,8 +18,8 @@ const logInUser = async (email, password, rememberMe) => {
 
 const logOutUser = async () => {
     const options = {
-        method: "POST",
-        url: `http://localhost:9999/api/Auth/logout`
+        method: api.logout.method,
+        url: api.logout.url,
     };
     return await makeAxiosRequest(options);
 }
@@ -37,9 +37,9 @@ const changePassword = async (password, newPassword, confirmPassword) => {
     }
 
     const options = {
-        method: "PATCH",
-        url: `${api_url}/password`,
-        data: { password, newPassword,confirmPassword }
+        method: api.changePassword.method,
+        url: api.changePassword.url,
+        data: { password, newPassword }
     }
 
     return await makeAxiosRequest(options);
@@ -81,8 +81,8 @@ const createNewUser = async (email, password, confirmPassword, handle, displayNa
     data.append("icon", hasIcon ? icon : null);
 
     const options = {
-        method: "POST",
-        url: `${api_url}/register`,
+        method: api.create.method,
+        url: api.create.url,
         data
     }
 

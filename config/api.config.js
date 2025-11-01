@@ -56,11 +56,11 @@ export const API_ENDPOINTS = Object.freeze({
         },
     },
     nest: {
-        getId: {
+        getById: {
             url: id => `${api}/Nest/${encodeURIComponent(id)}`,
             method: "GET"
         },
-        getTitle: {
+        getByTitle: {
             url: title => `${api}/Nest/title/${encodeURIComponent(title)}`,
             method: "GET"
         },
@@ -86,23 +86,23 @@ export const API_ENDPOINTS = Object.freeze({
         },
     },
     posts: {
-        delete: {
+        deletePostById: {
             url: id => `${api}/Posts/delete/${encodeURIComponent(id)}`,
             method: "DELETE"
         },
-        getId: {
+        getPostById: {
             url: id => `${api}/Posts/${encodeURIComponent(id)}`,
             method: "GET"
         },
-        getNestAll: {
-            url: title => `${api}/Posts/nest/${encodeURIComponent(title)}`,
+        getAllPostsByNest: {
+            url: `${api}/Posts/nest`,
             method: "GET"
         },
-        getUserIdAll: {
+        getAllPostsByUserId: {
             url: id => `${api}/Posts/user/id/${encodeURIComponent(id)}`,
             method: "GET"
         },
-        getUsernameAll: {
+        getAllPostsByUsername: {
             url: `${api}/Posts/user/username`,
             method: "GET"
         },
@@ -111,7 +111,7 @@ export const API_ENDPOINTS = Object.freeze({
             method: "GET"
         },
         popular: {
-            url: `${api}/Posts/user/popular`,
+            url: `${api}/Posts/popular`,
             method: "GET"
         },
         update: {
@@ -145,7 +145,7 @@ export const API_ENDPOINTS = Object.freeze({
             method: "GET"
         },
         search: {
-            url: query => `${api}/Users/search/${encodeURIComponent(query)}`,
+            url: `${api}/Users/search`,
             method: "GET"
         },
         update: {
