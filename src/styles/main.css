@@ -88,6 +88,8 @@ a {
   --font-heading: 'Chivo', sans-serif;
   --font-body: 'Inter', sans-serif;
   --font-title: 'Monomakh', system-ui;
+  --black-color: #000;
+  --white-color: #fff;
 }
 
 /* Themes */
