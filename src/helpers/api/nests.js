@@ -1,4 +1,4 @@
-import { API_ENDPOINTS } from "../../../config";
+import { API_ENDPOINTS } from "../../config";
 import fileChecker from "../fileChecker";
 import makeAxiosRequest from "../makeAxiosRequest";
 

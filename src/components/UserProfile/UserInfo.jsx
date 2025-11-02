@@ -1,4 +1,4 @@
-import { API_BASE_URL, GUI_DEFAULT_IMAGES, NAVIGATION_PAGES } from "../../../config";
+import { API_BASE_URL, GUI_DEFAULT_IMAGES, NAVIGATION_PAGES } from "../../config";
 
 const UserInfo = ({ user, self }) => {
   return (

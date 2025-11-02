@@ -1,4 +1,4 @@
-import { LOCALSTORAGE_KEYS, NAVIGATION_PAGES } from "../../config";
+import { LOCALSTORAGE_KEYS, NAVIGATION_PAGES } from "../config";
 
 const Me = () => {
 

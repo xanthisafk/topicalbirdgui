@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
-import { createNewUser } from "../../helpers/api/auth";
-import InputLabel from "../ui/BoxLabel/Label";
-import InputBox from "../ui/InputBox/Input";
-import Button from "../ui/Button/Button";
-import Loader from "../ui/Loader";
-import { Edit2 } from "lucide-react";
-import './RegisterPage.css';
-import { API_BASE_URL, API_DEFAULT_IMAGES, LOCALSTORAGE_KEYS, NAVIGATION_PAGES } from "../../../config";
+import { useEffect, useRef, useState } from "react";
+import { createNewUser } from "@/helpers/api";
+import InputLabel from "@components/ui/BoxLabel/Label";
+import InputBox from "@components/ui/InputBox/Input";
+import Button from "@components/ui/Button";
+import Loader from "@components/ui/Loader";
+import './styles.css';
+import { API_DEFAULT_IMAGES, LOCALSTORAGE_KEYS, NAVIGATION_PAGES } from "@/config";
+import IconPreview from "@/components/Icon/IconPreview";
 
 const RegisterPage = () => {
     useEffect(() => {
@@ -20,32 +20,21 @@ const RegisterPage = () => {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [handle, setHandle] = useState("");
     const [displayName, setDisplayName] = useState("");
-    const [icon, setIcon] = useState(null);
-    const [iconPreview, setIconPreview] = useState({
-        icon: API_DEFAULT_IMAGES.userPicture.image,
-        alt: API_DEFAULT_IMAGES.userPicture.alt,
-    });
+    const fileRef = useRef(0);
+    
     const [loading, setLoading] = useState(false);
     const [err, setErr] = useState("");
-
-    const handleIconChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            setIcon(file);
-            setIconPreview({
-                icon: URL.createObjectURL(file),
-                alt: file.name
-            });
-        }
-    };
 
     const signUp = async () => {
         setLoading(true);
         setErr("");
+        const icon = (fileRef.current && fileRef.current.files.length > 0) ? fileRef.current.files[0] : null;
+        console.log(icon);
+        if (!icon) return;
         const res = await createNewUser(email, password, confirmPassword, handle, displayName, icon);
         setLoading(false);
         if (res.status === 200) {
-            window.location.href = NAVIGATION_PAGES.home;
+            window.location.href = NAVIGATION_PAGES.auth.login;
         } else {
             setErr(res.data.message);
             console.error(res);
@@ -55,12 +44,8 @@ const RegisterPage = () => {
     return (
         <div className="register-container">
             <h2 className="register-title">Welcome to Topicalbird</h2>
-            <div className="icon-upload-wrapper">
-                <img src={iconPreview.icon} alt={iconPreview.alt} className="icon-preview" />
-                <input id="icon" type="file" accept="image/*" style={{ display: 'none' }} onChange={handleIconChange} />
-                <button className="icon-upload-button" onClick={() => document.getElementById('icon').click()}>
-                    <Edit2 size={20} className="edit-icon" />
-                </button>
+            <div className="icon-preview-container">
+                <IconPreview inputRef={fileRef} size={200} defaultImage={API_DEFAULT_IMAGES.userPicture.image} />
             </div>
             {err && <div className="register-error">{err}</div>}
             <div className="register-form">

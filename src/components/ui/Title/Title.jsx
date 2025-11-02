@@ -1,4 +1,4 @@
-import { GUI_DEFAULT_IMAGES } from "../../../../config";
+import { GUI_DEFAULT_IMAGES } from "../../../config";
 import useThemeIcon from "../../../helpers/useThemeIcon";
 import "./title.css"
 

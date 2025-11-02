@@ -3,7 +3,7 @@
   margin: 2rem auto;
   padding: 2rem;
   border-radius: 16px;
-  background: #fff;
+  background: var(--background-color);
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
 }
 
@@ -15,7 +15,7 @@
 .link-button {
   background: none;
   border: none;
-  color: #007bff;
+  color: var(--accent-color);
   text-decoration: underline;
   cursor: pointer;
 }
@@ -37,13 +37,13 @@
   border-radius: 50%;
   object-fit: cover;
   margin-bottom: 1rem;
-  border: 2px solid #ddd;
+  border: 2px solid var(--accent-color);
 }
 
 .display-name-input {
   padding: 0.5rem 1rem;
   width: 80%;
-  border: 1px solid #ccc;
+  border: 1px solid var(--accent-color);
   border-radius: 8px;
   font-size: 1rem;
 }

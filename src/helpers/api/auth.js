@@ -1,4 +1,4 @@
-import { API_ENDPOINTS } from "../../../config";
+import { API_ENDPOINTS } from "../../config";
 
 import makeAxiosRequest from "../makeAxiosRequest";
 import { validatePassword } from "../validatePassword";

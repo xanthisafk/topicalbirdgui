@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import ThemeSwitcher from '../ThemeSwitcher';
 import './Footer.css';
 import { TitleText } from '../ui/Title/Title';
-import { LOCALSTORAGE_KEYS } from '../../../config';
+import { LOCALSTORAGE_KEYS } from '../../config';
 
 export const Footer = () => {
   const [theme, setTheme] = useState(() => {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { GUI_DEFAULT_IMAGES } from '../../config';
+import { GUI_DEFAULT_IMAGES } from '../config';
 function useThemeIcon() {
   const [icon, setIcon] = useState(GUI_DEFAULT_IMAGES.appIcon.variants.black);
 

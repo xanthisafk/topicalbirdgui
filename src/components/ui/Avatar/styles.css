@@ -10,6 +10,7 @@
     height: 3.5rem;
     border-radius: 50%;
     border: 0.2rem solid var(--accent-color);
+    background-color: var(--accent-color);
 }
 
 .avatar-dropdown {

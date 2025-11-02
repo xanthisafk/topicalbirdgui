@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import "./header.css";
-import Avatar from "../ui/Avatar/Avatar";
-import { TitleText } from "../ui/Title/Title";
-import { LOCALSTORAGE_KEYS, NAVIGATION_PAGES } from "../../../config";
+import Avatar from "@components/ui/Avatar/Avatar";
+import { TitleText } from "@components/ui/Title/Title";
+import { LOCALSTORAGE_KEYS, NAVIGATION_PAGES } from "@/config";
 
 const Header = () => {
   const [user, setUser] = useState(null);
@@ -10,16 +10,6 @@ const Header = () => {
   useEffect(() => {
     const checkAuth = async () => {
       const u = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEYS.currentUser));
-      const authPaths = [
-        NAVIGATION_PAGES.auth.base,
-        NAVIGATION_PAGES.auth.login,
-        NAVIGATION_PAGES.auth.register,
-        NAVIGATION_PAGES.auth.account,
-      ];
-      if (u && authPaths.includes(window.location.pathname)) {
-        window.location = NAVIGATION_PAGES.home;
-      }
-      
       setUser(u || null);
     };
     checkAuth();

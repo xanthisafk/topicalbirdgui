@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from "react";
-import { API_BASE_URL, API_DEFAULT_IMAGES, NAVIGATION_PAGES } from "../../../../config";
-import "./avatar.css"
+import { API_BASE_URL, API_DEFAULT_IMAGES, NAVIGATION_PAGES } from "@/config";
+import "./styles.css"
 
 import Popup from "../Popup/Popup";
-import LogOutPopup from "../../auth/LogoutPopup";
+import LogOutPopup from "@components/auth/LogoutPopup";
 
 const Avatar = ({ user, width, height, showDropdown }) => {
   showDropdown = showDropdown || true;

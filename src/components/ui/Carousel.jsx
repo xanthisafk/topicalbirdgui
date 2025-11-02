@@ -1,5 +1,5 @@
 import useEmblaCarousel from 'embla-carousel-react'
-import { API_BASE_URL } from '../../../config';
+import { API_BASE_URL } from '../../config';
 
 export function Carousel({ photos }) {
     const [emblaRef] = useEmblaCarousel({ loop: true });

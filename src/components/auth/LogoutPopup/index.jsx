@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { logOutUser } from "../../helpers/api/auth";
-import "./LogoutPopup.css";
-import Button from "../ui/Button/Button";
-import { LOCALSTORAGE_KEYS } from "../../../config";
+import { logOutUser } from "@/helpers/api";
+import "./styles.css";
+import Button from "@/components/ui/Button";
+import { LOCALSTORAGE_KEYS } from "@/config";
 
 const LogOutPopup = () => {
     const [err, setErr] = useState("");

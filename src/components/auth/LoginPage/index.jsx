@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { logInUser } from "../../helpers/api/auth";
-import InputBox from "../ui/InputBox/Input";
-import InputLabel from "../ui/BoxLabel/Label";
-import Button from "../ui/Button/Button";
-import './Loginpage.css';
-import Checkbox from "../ui/Checkbox/Checkbox";
-import { LOCALSTORAGE_KEYS, NAVIGATION_PAGES } from "../../../config";
+import { logInUser } from "@/helpers/api";
+import InputBox from "@components/ui/InputBox/Input";
+import InputLabel from "@components/ui/BoxLabel/Label";
+import Button from "@components/ui/Button";
+import './styles.css';
+import Checkbox from "@components/ui/Checkbox/Checkbox";
+import { LOCALSTORAGE_KEYS, NAVIGATION_PAGES } from "@/config";
 
 const Loginpage = () => {
   const [email, setEmail] = useState("");
