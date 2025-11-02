@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Camera } from "lucide-react";
 import "./IconPreview.css";
 import { ACCEPTABLE_FILE_FORMATS_JOINED } from "@/config";
@@ -7,10 +7,11 @@ const IconPreview = ({
   inputRef,
   defaultImage = "/icon.svg",
   size = 120,
+  disabled = false,
 }) => {
   const [preview, setPreview] = useState(defaultImage);
   const hiddenFileInput = inputRef || useRef(null);
-
+  
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file && file.type.startsWith("image/")) {
@@ -20,7 +21,12 @@ const IconPreview = ({
     }
   };
 
+  useEffect(() => {
+    setPreview(defaultImage);
+  }, [defaultImage]);
+
   const handleClick = () => {
+    if (disabled) return;
     hiddenFileInput.current?.click();
   };
 
@@ -32,6 +38,7 @@ const IconPreview = ({
     >
       <img src={preview} alt="Preview" className="icon-preview__image" loading="eager" />
       <button
+        disabled={disabled}
         type="button"
         className="icon-preview__button"
         aria-label="Upload icon"
@@ -39,6 +46,7 @@ const IconPreview = ({
         <Camera size={24} />
       </button>
       <input
+        disabled={disabled}
         type="file"
         accept={ACCEPTABLE_FILE_FORMATS_JOINED}
         ref={hiddenFileInput}
