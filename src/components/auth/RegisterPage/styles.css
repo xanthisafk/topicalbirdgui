@@ -26,28 +26,6 @@
   margin: 0.3rem;
 }
 
-.icon-upload-button {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  background-color: var(--accent-color);
-  border: 2px solid var(--accent-color-light);
-  border-radius: 50%;
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  color: var(--foreground-color);
-}
-
-
-.icon-upload-button:hover {
-  background-color: var(--accent-color-light);
-}
-
 .register-error {
   background-color: var(--danger-color);
   color: var(--foreground-color-light);
