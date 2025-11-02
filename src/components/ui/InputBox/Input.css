@@ -18,5 +18,4 @@
   border-color: var(--accent-color);
   box-shadow: 0 0 0 2px var(--accent-color-light);
   background-color: var(--background-color);
-  color: var(--foreground-color-light);
 }
