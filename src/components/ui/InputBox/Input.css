@@ -1,3 +1,9 @@
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
 .input-box {
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
@@ -18,4 +24,19 @@
   border-color: var(--accent-color);
   box-shadow: 0 0 0 2px var(--accent-color-light);
   background-color: var(--background-color);
+}
+
+.input-helper {
+  font-size: 0.7rem;
+  color: var(--foreground-color-subtle);
+  font-family: var(--font-body);
+}
+
+.helper-error {
+  color: var(--error-color, #e63946);
+}
+
+.input-error {
+  border-color: var(--error-color, #e63946);
+  box-shadow: 0 0 0 2px rgba(230, 57, 70, 0.3);
 }

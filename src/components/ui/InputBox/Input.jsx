@@ -1,14 +1,23 @@
 import './input.css';
 
-const InputBox = ({ value, onChange, placeholder = '', type = 'text', className = '' }) => {
+const InputBox = ({
+  value,
+  onChange,
+  placeholder = '',
+  type = 'text',
+  className = '',
+  error = false,
+}) => {
   return (
-    <input
-      className={`input-box ${className}`}
-      value={value}
-      onChange={onChange}
-      placeholder={placeholder}
-      type={type}
-    />
+    <div className={`input-container ${className}`}>
+      <input
+        className={`input-box ${error ? 'input-error' : ''}`}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+        type={type}
+      />
+    </div>
   );
 };
 
