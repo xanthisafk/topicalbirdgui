@@ -21,7 +21,9 @@ const AccountPage = () => {
   const [loadingPassword, setLoadingPassword] = useState(false);
 
   const [user, setUser] = useState(null);
-  const [iconPath, setIconPath] = useState(API_DEFAULT_IMAGES.userPicture.image);
+  const [iconPath, setIconPath] = useState(
+    API_DEFAULT_IMAGES.userPicture.image
+  );
   const [displayName, setDisplayName] = useState("");
 
   const [oldPassword, setOldPassword] = useState("");
@@ -48,9 +50,9 @@ const AccountPage = () => {
 
   useEffect(() => {
     const val = !(
-      oldPassword.length > 0
-      && newPassword.length > 0
-      && confPassword.length > 0
+      oldPassword.length > 0 &&
+      newPassword.length > 0 &&
+      confPassword.length > 0
     );
     setDisablePasswordButton(val);
   }, [oldPassword, newPassword, confPassword]);
@@ -58,7 +60,10 @@ const AccountPage = () => {
   const updateProfile = async () => {
     setLoadingProfile(true);
     try {
-      const icon = (fileRef.current && fileRef.current.files.length > 0) ? fileRef.current.files[0] : null;
+      const icon =
+        fileRef.current && fileRef.current.files.length > 0
+          ? fileRef.current.files[0]
+          : null;
       if ((!icon && !displayName) || displayName === user.displayName) return;
       const res = await updateUser(user.id, displayName, icon);
       if (res.status === 200) {
@@ -74,7 +79,9 @@ const AccountPage = () => {
 
       let message = `An error occurred:\n${res.data.message ?? res.data.title}`;
       console.error(res);
-      if (res.data.referenceCode) { message += `\nReference Code: ${res.data.referenceCode}` }
+      if (res.data.referenceCode) {
+        message += `\nReference Code: ${res.data.referenceCode}`;
+      }
       showSnackbar({
         content: message,
         icon: AlertTriangle,
@@ -82,18 +89,19 @@ const AccountPage = () => {
         duration: 10,
       });
       return;
-    }
-    finally {
+    } finally {
       setLoadingProfile(false);
     }
   };
 
   const refreshAccount = async () => {
-
     const res = await getCurrentUser();
     if (res.status === 200) {
       const updatedUser = res.data.content;
-      localStorage.setItem(LOCALSTORAGE_KEYS.currentUser, JSON.stringify(updatedUser));
+      localStorage.setItem(
+        LOCALSTORAGE_KEYS.currentUser,
+        JSON.stringify(updatedUser)
+      );
       window.location.reload();
       return;
     }
@@ -128,10 +136,12 @@ const AccountPage = () => {
         setConfPassword("");
         return;
       }
-      
+
       console.error(res);
       let message = `An error occurred:\n${res.data.message ?? res.data.title}`;
-      if (res.data.referenceCode) { message += `\nReference Code: ${res.data.referenceCode}` }
+      if (res.data.referenceCode) {
+        message += `\nReference Code: ${res.data.referenceCode}`;
+      }
       showSnackbar({
         content: message,
         icon: AlertTriangle,
@@ -139,49 +149,83 @@ const AccountPage = () => {
         duration: 10,
       });
       return;
-
     } finally {
       setLoadingPassword(false);
     }
-
-  }
+  };
 
   return (
     <div className="account-page">
       <div className="form-container">
         <h2 className="account-title">Account Settings</h2>
-        <IconPreview size={256} inputRef={fileRef} defaultImage={iconPath} disabled={loadingPassword} />
+        <IconPreview
+          size={256}
+          inputRef={fileRef}
+          defaultImage={iconPath}
+          disabled={loadingPassword}
+        />
         <div className="form-group">
           <InputLabel for="displayName">Display Name</InputLabel>
-          <InputBox disabled={loadingProfile} onChange={e => setDisplayName(e.target.value)} id="displayName" placeholder="New display name"></InputBox>
+          <InputBox
+            disabled={loadingProfile}
+            onChange={(e) => setDisplayName(e.target.value)}
+            id="displayName"
+            placeholder="New display name"
+          ></InputBox>
         </div>
-        <Button disabled={loadingProfile} onClick={updateProfile}>{loading ? "Loading..." : "Update Profile"}</Button>
+        <Button disabled={loadingProfile} onClick={updateProfile}>
+          {loading ? "Loading..." : "Update Profile"}
+        </Button>
       </div>
-
 
       <div className="form-container">
         <h2 className="account-title">Change Password</h2>
         <div className="form-group">
           <InputLabel for="current">Current password</InputLabel>
-          <InputBox disabled={loadingPassword} onChange={e => setOldPassword(e.target.value)} type="password" id="current" placeholder="Enter current password..."></InputBox>
-        </div>
-        <div className="form-group">
-          <InputLabel 
-            for="newPass"
-            helperText="Password must be at least 8 characters long, include one uppercase letter, one number, and one special character."
-            >New password</InputLabel>
           <InputBox
             disabled={loadingPassword}
-            onChange={e => setNewPassword(e.target.value)}
+            onChange={(e) => setOldPassword(e.target.value)}
             type="password"
-            id="newPass"
-            placeholder="Enter new password..." />
+            id="current"
+            placeholder="Enter current password..."
+          ></InputBox>
         </div>
         <div className="form-group">
-          <InputLabel for="newPass2">Confirm new password</InputLabel>
-          <InputBox disabled={loadingPassword} onChange={e => setConfPassword(e.target.value)} type="password" id="newPass2" placeholder="Enter new password..."></InputBox>
+          <InputLabel
+            for="newPass"
+            helperText="Password must be at least 8 characters long, include one uppercase letter, one number, and one special character."
+          >
+            New password
+          </InputLabel>
+          <InputBox
+            disabled={loadingPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
+            type="password"
+            id="newPass"
+            placeholder="Enter new password..."
+          />
         </div>
-        <Button disabled={disablePasswordButton || loadingPassword} onClick={updatePassword}>{loadingPassword ? "Loading..." : "Update Password"}</Button>
+        <div className="form-group">
+          <InputLabel
+            for="newPass2"
+            helperText="Password must be at least 8 characters long, include one uppercase letter, one number, and one special character."
+          >
+            Confirm new password
+          </InputLabel>
+          <InputBox
+            disabled={loadingPassword}
+            onChange={(e) => setConfPassword(e.target.value)}
+            type="password"
+            id="newPass2"
+            placeholder="Enter new password..."
+          ></InputBox>
+        </div>
+        <Button
+          disabled={disablePasswordButton || loadingPassword}
+          onClick={updatePassword}
+        >
+          {loadingPassword ? "Loading..." : "Update Password"}
+        </Button>
       </div>
       <Snackbar />
     </div>
