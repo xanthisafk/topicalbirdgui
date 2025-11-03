@@ -14,6 +14,7 @@ import "./AccountPage.css";
 import IconPreview from "@components/Icon/IconPreview";
 import InputLabel from "@/components/ui/BoxLabel/Label";
 import InputBox from "@/components/ui/InputBox/Input";
+import { formatErrorMessage } from "@/helpers/formatErrorMessage";
 
 const AccountPage = () => {
   const [loading, setLoading] = useState(true);
@@ -77,11 +78,7 @@ const AccountPage = () => {
         return;
       }
 
-      let message = `An error occurred:\n${res.data.message ?? res.data.title}`;
-      console.error(res);
-      if (res.data.referenceCode) {
-        message += `\nReference Code: ${res.data.referenceCode}`;
-      }
+      const message = formatErrorMessage(res);
       showSnackbar({
         content: message,
         icon: AlertTriangle,
@@ -137,11 +134,7 @@ const AccountPage = () => {
         return;
       }
 
-      console.error(res);
-      let message = `An error occurred:\n${res.data.message ?? res.data.title}`;
-      if (res.data.referenceCode) {
-        message += `\nReference Code: ${res.data.referenceCode}`;
-      }
+      const message = formatErrorMessage(res);
       showSnackbar({
         content: message,
         icon: AlertTriangle,
