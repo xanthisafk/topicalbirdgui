@@ -16,6 +16,7 @@ const makeAxiosRequest = async (options) => {
         };
     } catch (ex) {
         if (ex.response) {
+           
             return {
                 status: ex.response.status,
                 data: ex.response.data,
