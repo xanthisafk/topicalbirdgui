@@ -10,3 +10,12 @@
 .input-label:focus-within {
   color: var(--accent-color);
 }
+
+.boxlabel-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  gap: 2px;
+
+}
