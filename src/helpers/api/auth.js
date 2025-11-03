@@ -40,7 +40,7 @@ export const changePassword = async (password, newPassword, confirmPassword) => 
     const options = {
         method: api.changePassword.method,
         url: api.changePassword.url,
-        data: { password, newPassword }
+        data: { oldPassword: password, newPassword }
     }
 
     return await makeAxiosRequest(options);
