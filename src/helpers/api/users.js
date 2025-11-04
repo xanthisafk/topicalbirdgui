@@ -1,6 +1,6 @@
-import { API_ENDPOINTS } from "../../config";
-import fileChecker from "../fileChecker";
-import makeAxiosRequest from "../makeAxiosRequest";
+import { API_ENDPOINTS } from "@/config";
+import fileChecker from "@/helpers/fileChecker";
+import makeAxiosRequest from "@/helpers/makeAxiosRequest";
 
 const api = API_ENDPOINTS.users;
 

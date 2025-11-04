@@ -7,3 +7,4 @@ export * from "./toTitlecase";
 export * from "./useThemeIcon";
 export * from "./validateEmail";
 export * from "./validatePassword";
+export * from "./api";
