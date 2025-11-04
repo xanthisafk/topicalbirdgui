@@ -153,8 +153,7 @@ body {
 }
 
 /* === BUTTONS & LINKS === */
-a,
-button {
+a {
   cursor: pointer;
   transition:
     background-color var(--transition-fast),
@@ -240,14 +239,14 @@ small,
 
 hr {
   /* Remove all borders and explicit background color */
-  border: 0; 
+  border: 0;
   background: transparent;
 
   /* Thin line: set a small height for the gradient to appear */
-  height: 1px; 
+  height: 1px;
 
   /* Keep the original width */
-  width: 70%; 
+  width: 70%;
 
   /* Centering: use auto margins to center the block element */
   margin: var(--size-xs) auto;
@@ -255,14 +254,12 @@ hr {
   /* The core: Use a linear gradient for the fading effect.
      It goes from transparent (0%) to the accent color (15%) 
      stays solid (15% to 85%) and fades back to transparent (100%). */
-  background-image: linear-gradient(
-    to right,
-    transparent 0%,
-    var(--accent-color) 15%,
-    var(--accent-color) 85%,
-    transparent 100%
-  );
-  
+  background-image: linear-gradient(to right,
+      transparent 0%,
+      var(--accent-color) 15%,
+      var(--accent-color) 85%,
+      transparent 100%);
+
   display: block;
 }
 
@@ -274,12 +271,16 @@ hr {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0); }
-  100% { transform: rotate(360deg);}
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .spin {
   color: var(--accent-color);
   animation: spin linear 1s infinite;
 }
-

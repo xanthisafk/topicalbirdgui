@@ -1,0 +1,175 @@
+/* --- Popup Animations --- */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    to {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+}
+
+/* --- Dialog & Backdrop --- */
+.popup-dialog {
+    border: none;
+    background: var(--background-color-light, #fff);
+    border-radius: var(--radius-md, 12px);
+    box-shadow: var(--shadow-strong, 0 8px 24px rgba(0, 0, 0, 0.15));
+    padding: 0;
+    min-width: 320px;
+    max-width: 90vw;
+    width: 500px;
+    overflow: hidden;
+    /* Remove default dialog styles */
+    margin: auto;
+}
+
+.popup-dialog[open] {
+    animation: fadeIn var(--transition-fast, 150ms) var(--ease-out, ease-out);
+}
+
+.popup-dialog.closing {
+    animation: fadeOut var(--transition-fast, 150ms) var(--ease-in, ease-in) forwards;
+}
+
+.popup-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.4);
+
+    /* Use backdrop-blur if available, but check for support */
+    @supports (backdrop-filter: blur(4px)) {
+        backdrop-filter: var(--blur-sm, 4px);
+    }
+}
+
+/* --- Popup Header --- */
+.popup-header {
+    position: relative;
+    padding: var(--space-md, 1rem) var(--space-lg, 1.5rem);
+    border-bottom: var(--border-xs, 1px) solid var(--border-color, #eee);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.popup-title {
+    font-family: var(--font-heading, 'Chivo', sans-serif);
+    font-size: var(--font-xl, 1.5rem);
+    font-weight: var(--weight-bold, 700);
+    color: var(--foreground-color-dark, #1c1614);
+    margin: 0;
+    /* Leave space for close button if title is long */
+    padding-right: var(--space-xl, 2rem);
+}
+
+.popup-close-button {
+    position: absolute;
+    top: var(--space-sm, 0.5rem);
+    right: var(--space-sm, 0.5rem);
+    background: transparent;
+    border: none;
+    font-size: var(--font-lg, 1.25rem);
+    font-weight: var(--weight-light);
+    cursor: pointer;
+    padding: var(--space-xs, 0.25rem);
+    line-height: 1;
+    color: var(--foreground-color-subtle, #8b7b73);
+    border-radius: var(--radius-round);
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color var(--transition-fast, 150ms), color var(--transition-fast, 150ms);
+}
+
+.popup-close-button:hover {
+    color: var(--foreground-color-dark, #1c1614);
+    background-color: var(--background-color-lighter, #f3ece7);
+}
+
+/* --- Popup Content --- */
+.popup-content {
+    padding: var(--space-lg, 1.5rem);
+}
+
+.popup-description {
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: var(--font-md, 1rem);
+    color: var(--foreground-color-subtle, #8b7b73);
+    line-height: var(--leading-normal, 1.5);
+    margin: 0;
+}
+
+/* --- Popup Footer --- */
+.popup-footer {
+    padding: var(--space-md, 1rem) var(--space-lg, 1.5rem);
+    background: var(--background-color-lighter, #f3ece7);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-md, 1rem);
+}
+
+.popup-footer-custom {
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: var(--font-sm, 0.875rem);
+    color: var(--foreground-color-subtle, #8b7b73);
+    flex-grow: 1;
+}
+
+.popup-footer-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--space-sm, 0.5rem);
+    flex-grow: 1;
+    /* Allows actions to stack on mobile */
+    justify-content: flex-end;
+}
+
+/* --- Buttons --- */
+.popup-button {
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-weight: var(--weight-medium, 500);
+    font-size: var(--font-sm, 0.875rem);
+    padding: var(--button-padding, 0.6rem 1rem);
+    border: none;
+    border-radius: var(--radius-sm, 6px);
+    cursor: pointer;
+    transition: all var(--transition-fast, 150ms);
+}
+
+.popup-button-primary {
+    background: var(--accent-color, #a1653a);
+    color: var(--foreground-color-light, #fff);
+}
+
+.popup-button-primary:hover {
+    background: var(--accent-color-light, #c28c55);
+    box-shadow: var(--shadow-soft, 0 2px 6px rgba(0, 0, 0, 0.06));
+}
+
+.popup-button-secondary {
+    background: var(--surface-color, #fff);
+    color: var(--foreground-color, #3b2f2f);
+    border: var(--border-xs, 1px) solid var(--border-color, #eee);
+}
+
+.popup-button-secondary:hover {
+    background: var(--background-color-light, #fff);
+    border-color: var(--foreground-color-subtle, #8b7b73);
+}

@@ -20,6 +20,7 @@ import App from "./App";
 
 import { ThemeProvider } from "./components/ThemeProvider";
 import { SnackbarProvider } from "./components/SnackbarProvider";
+import { PopupProvider } from "./components/PopupProvider";
 
 const router = createBrowserRouter([
   {
@@ -95,7 +96,9 @@ createRoot(document.getElementById("root")).render(
   <StrictMode>
     <ThemeProvider>
       <SnackbarProvider>
-        <RouterProvider router={router} />
+        <PopupProvider>
+          <RouterProvider router={router} />
+        </PopupProvider>
       </SnackbarProvider>
     </ThemeProvider>
   </StrictMode>
