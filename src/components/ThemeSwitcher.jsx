@@ -41,7 +41,7 @@ const themes = [
 const ThemeSwitcher = () => {
   const [currentTheme, setCurrentTheme] = useState(() => {
     const saved = localStorage.getItem(LOCALSTORAGE_KEYS.theme);
-    return saved || 'mint';
+    return saved || 'minty-night-dark';
   });
 
   const ref = useRef(null);
