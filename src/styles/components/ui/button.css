@@ -1,26 +1,28 @@
 .btn {
-  --btn-radius: var(--radius-md);
-  --btn-transition: var(--transition-fast);
-  --btn-shadow: var(--shadow-soft);
+  --btn-padding: var(--button-padding, 0.6rem 1rem);
+  --btn-radius: var(--radius-md, 12px);
+  --btn-transition: var(--transition-fast, 150ms);
+  --btn-shadow: var(--shadow-soft, 0 2px 6px rgba(0, 0, 0, 0.06));
 
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--gap-sm);
+  gap: var(--space-sm, 0.5rem);
 
-  padding: var(--gap-sm) var(--gap-md);
-  font-family: var(--font-body);
-  font-size: var(--font-size-md);
-  font-weight: 600;
+  padding: var(--btn-padding);
+  font-family: var(--font-body, 'Inter', sans-serif);
+
+  font-size: var(--font-md, 1rem);
+
+  font-weight: var(--weight-semibold, 600);
   border: none;
   border-radius: var(--btn-radius);
   cursor: pointer;
   user-select: none;
 
-  background: var(--surface-color);
-  color: var(--foreground-color);
-  backdrop-filter: var(--backdrop-blur);
-  -webkit-backdrop-filter: var(--backdrop-blur);
+  background: transparent;
+
+  color: var(--foreground-color, #3b2f2f);
   box-shadow: var(--btn-shadow);
 
   transition:
@@ -34,122 +36,119 @@
 
 .btn:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: var(--shadow-medium);
+
+  box-shadow: var(--shadow-md, 0 4px 12px rgba(0, 0, 0, 0.1));
 }
 
 .btn:active:not(:disabled) {
   transform: translateY(0);
-  box-shadow: var(--shadow-soft);
+  box-shadow: var(--shadow-soft, 0 2px 6px rgba(0, 0, 0, 0.06));
 }
 
 .btn:disabled {
-  opacity: 0.5;
+
+  opacity: var(--opacity-disabled, 0.5);
   cursor: not-allowed;
   box-shadow: none;
   transform: none;
 }
 
-/* === VARIANTS === */
-
-/* Primary / Confirm */
 .btn-primary,
 .btn-confirm {
   background: linear-gradient(
     to bottom,
-    var(--accent-color-light),
-    var(--accent-color)
+    var(--accent-color-light, #c28c55),
+    var(--accent-color, #a1653a)
   );
-  color: var(--foreground-color-light);
-  box-shadow: var(--shadow-medium);
+  color: var(--foreground-color-light, #ffffff);
+  box-shadow: var(--shadow-md, 0 4px 12px rgba(0, 0, 0, 0.1));
 }
 
-.btn-primary:hover,
-.btn-confirm:hover {
+.btn-primary:hover:not(:disabled),
+.btn-confirm:hover:not(:disabled) {
   background: linear-gradient(
     to bottom,
-    var(--accent-color),
-    var(--accent-color-dark)
+    var(--accent-color, #a1653a),
+    var(--accent-color-dark, #6b3f23)
   );
+  box-shadow: var(--shadow-strong, 0 8px 24px rgba(0, 0, 0, 0.15));
 }
 
-/* Secondary / Neutral */
 .btn-secondary,
 .btn-cancel {
-  background: var(--background-color-lighter);
-  color: var(--foreground-color);
-  box-shadow: inset 0 0 0 1px var(--border-color);
+  background: var(--background-color-lighter, #f3ece7);
+  color: var(--foreground-color, #3b2f2f);
+  box-shadow: inset 0 0 0 1px var(--border-color, rgba(0, 0, 0, 0.1));
 }
 
-.btn-secondary:hover,
-.btn-cancel:hover {
-  background: var(--background-color-light);
+.btn-secondary:hover:not(:disabled),
+.btn-cancel:hover:not(:disabled) {
+  background: var(--background-color-light, #ffffff);
 }
 
-/* Danger */
 .btn-danger {
   background: linear-gradient(
     to bottom,
-    var(--danger-color-light),
-    var(--danger-color)
+    var(--danger-color-light, #d87a7a),
+    var(--danger-color, #8b0000)
   );
-  color: var(--foreground-color-light);
+  color: var(--foreground-color-light, #ffffff);
 }
 
-.btn-danger:hover {
+.btn-danger:hover:not(:disabled) {
   background: linear-gradient(
     to bottom,
-    var(--danger-color),
-    var(--danger-color-dark, #a04a4a)
+    var(--danger-color, #8b0000),
+    var(--danger-color-dark, #a04a4a) /* Fallback since dark isn't in theme */
   );
+  box-shadow: var(--shadow-strong, 0 8px 24px rgba(0, 0, 0, 0.15));
 }
 
-/* Outlined */
 .btn-outlined {
   background: transparent;
-  color: var(--accent-color);
-  border: 2px solid var(--accent-color);
-  padding: calc(0.75rem - 2px) calc(1.5rem - 2px);
+  color: var(--accent-color, #a1653a);
+  border: var(--border-sm, 2px) solid var(--accent-color, #a1653a);
+  padding: calc(0.6rem - var(--border-sm, 2px)) calc(1rem - var(--border-sm, 2px));
   box-shadow: none;
 }
 
-.btn-outlined:hover {
-  background: var(--accent-color);
-  color: var(--foreground-color-light);
+.btn-outlined:hover:not(:disabled) {
+  background: var(--accent-color, #a1653a);
+  color: var(--foreground-color-light, #ffffff);
 }
 
-/* Ghost / Glass (light translucent surface) */
 .btn-glass {
-  background: rgba(255, 255, 255, 0.15);
-  color: var(--foreground-color-light);
-  backdrop-filter: blur(10px) saturate(180%);
-  -webkit-backdrop-filter: blur(10px) saturate(180%);
-  box-shadow: var(--shadow-soft);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: var(--surface-color, rgba(255, 255, 255, 0.6));
+  color: var(--foreground-color, #3b2f2f);
+  backdrop-filter: var(--backdrop-blur, blur(10px) saturate(180%));
+  -webkit-backdrop-filter: var(--backdrop-blur, blur(10px) saturate(180%));
+  box-shadow: var(--shadow-soft, 0 2px 6px rgba(0, 0, 0, 0.06));
+  border: 1px solid var(--border-color, rgba(0, 0, 0, 0.1));
 }
 
-.btn-glass:hover {
-  background: rgba(255, 255, 255, 0.25);
+.btn-glass:hover:not(:disabled) {
+  background: var(--elevated-surface, rgba(255, 255, 255, 0.6));
+  box-shadow: var(--shadow-md, 0 4px 12px rgba(0, 0, 0, 0.1));
 }
 
-/* Icon button */
 .btn-icon {
-  width: 3rem;
-  height: 3rem;
-  padding: 0.6rem;
-  border-radius: 50%;
+  width: var(--size-3xl, 3rem);
+  height: var(--size-3xl, 3rem);
+  padding: var(--space-sm, 0.5rem);
+  border-radius: var(--radius-round, 9999px);
   background: transparent;
-  color: var(--foreground-color);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color var(--transition-fast), transform var(--transition-fast);
+  color: var(--foreground-color, #3b2f2f);
+  box-shadow: none;
 }
 
 .btn-icon:hover:not(:disabled) {
-  background: var(--background-color-lighter);
+  background: var(--background-color-lighter, #f3ece7);
   transform: translateY(-2px);
+  box-shadow: none;
 }
 
 .btn-icon > * {
-  font-size: 1.25rem;
+  font-size: var(--font-lg, 1.25rem);
+  width: 100%;
+  height: 100%;
 }

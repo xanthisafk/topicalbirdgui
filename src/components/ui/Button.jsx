@@ -8,7 +8,7 @@ const Button = ({
     ...props
 }) => {
     const getVariantClass = () => {
-        if (isIcon) "btn-icon";
+        if (isIcon) return "btn-icon";
         
         switch (variant) {
             case 'secondary':
@@ -17,9 +17,11 @@ const Button = ({
                 return 'btn-danger';
             case 'outlined':
                 return 'btn-outlined';
+            case 'glass':
+                return 'btn-glass';
             case 'primary':
             default:
-                return 'btn-primary'; 
+                return 'btn-primary';  
         }
     };
 
@@ -27,7 +29,7 @@ const Button = ({
         'btn',
         getVariantClass(),
         className
-    ].join(' ');
+    ].filter(Boolean).join(' ');
 
     return (
         <button
