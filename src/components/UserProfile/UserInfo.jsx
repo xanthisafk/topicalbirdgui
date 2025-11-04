@@ -1,4 +1,5 @@
 import { API_BASE_URL, GUI_DEFAULT_IMAGES, NAVIGATION_PAGES } from "../../config";
+import Button from "../ui/Button";
 
 const UserInfo = ({ user, self }) => {
   return (
@@ -14,7 +15,7 @@ const UserInfo = ({ user, self }) => {
       
       
       <p><strong>Joined:</strong> {new Date(user.createdAt).toLocaleDateString()}</p>
-      {self && <a className="settings-link" href={NAVIGATION_PAGES.auth.account}>User settings</a>}
+      {self && <Button href={NAVIGATION_PAGES.auth.account}>Update Profile</Button>}
     </div>
   );
 };
