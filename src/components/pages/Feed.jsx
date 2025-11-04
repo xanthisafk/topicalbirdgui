@@ -8,9 +8,9 @@ const Feed = () => {
   const limit = Number.parseInt(localStorage.getItem(LOCALSTORAGE_KEYS.feedLimit)) || 20;
   return (
     <h1>
-      Feed Page
-      page: {pageNo}
-      limit: {limit}
+      Feed Page<br />
+      page: {pageNo}<br />
+      limit: {limit}<br />
     </h1>
   );
 };

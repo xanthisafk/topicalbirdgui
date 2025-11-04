@@ -1,61 +1,103 @@
-import { useState, useEffect, useRef } from "react";
-import { API_BASE_URL, API_DEFAULT_IMAGES, NAVIGATION_PAGES } from "@/config";
+import { 
+  API_BASE_URL,
+  API_DEFAULT_IMAGES,
+  LOCALSTORAGE_KEYS,
+  NAVIGATION_PAGES
+} from "@/config";
 
+import { 
+  Dropdown, 
+  DropdownContent, 
+  DropdownItem, 
+  DropdownSeparator, 
+  DropdownTrigger 
+} from "../Dropdown";
+
+import { LogOut, Settings2, TriangleAlert, User } from "lucide-react";
+
+import { logOutUser } from "@/helpers";
 import "@/styles/components/ui/avatar.css"
 
-import Popup from "./Popup";
-import LogOutPopup from "../auth/Logout";
+import { useSnackbar } from "@/hooks/useSnackbar";
+import { usePopup } from "@/hooks/usePopup";
+import { useNavigate } from "react-router-dom";
 
-const Avatar = ({ user, width, height, showDropdown }) => {
-  showDropdown = showDropdown || true;
-  const [open, setOpen] = useState(false);
-  const dropdownRef = useRef(null);
-  const logOutRef = useRef(null);
+const Avatar = ({ user }) => {
+  const navigate = useNavigate();
 
-  const toggle = () => setOpen(!open);
 
-  // Click away listener
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setOpen(false);
-      }
-    };
+  const { showSnackbar } = useSnackbar();
+  const { triggerPopup } = usePopup();
 
-    if (open) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [open]);
 
   if (!user) return null;
   const defaultIcon = API_DEFAULT_IMAGES.userPicture.image;
   const icon = user.icon ? API_BASE_URL + user.icon : defaultIcon;
   const alt = icon === defaultIcon ? API_DEFAULT_IMAGES.userPicture.alt : `${user.handle}'s avatar`
 
+  const logout = async () => {
+    const res = await logOutUser();
+    if (res.status === 200) {
+      localStorage.removeItem(LOCALSTORAGE_KEYS.currentUser);
+      window.location.reload();
+    } else {
+      console.error(res);
+      showSnackbar({
+        content: "Something went wrong while trying to log out.",
+        icon: <TriangleAlert />,
+        type: "danger",
+      });
+    }
+  };
+
+  const showLogoutPopup = () => {
+    triggerPopup({
+      title: 'Confirmation',
+      description: 'Are you sure you want to logout?',
+      primaryActionLabel: 'Yes',
+      primaryAction: () => logout(),
+      secondaryActionLabel: 'No',
+      secondaryAction: null,
+      footer: <span></span>,
+    });
+  }
+
+  const items = [
+    { 
+      label: "Profile",
+      href: NAVIGATION_PAGES.users.username(user.handle),
+      icon: <User color="var(--accent-color)" />
+    },
+    {
+      label: "Settings",
+      href: NAVIGATION_PAGES.auth.account, 
+      icon: <Settings2 color="var(--accent-color)" /> 
+    }
+  ]
+
   return (
-    <div className="avatar-container" ref={dropdownRef}>
-      <img
-        src={icon}
-        alt={alt}
-        onClick={toggle}
-        className="avatar-image"
-      />
-      {(showDropdown && open) && (
-        <div className="avatar-dropdown">
-          <a className="avatar-dropdown-link" href={NAVIGATION_PAGES.users.username(user.handle)}>Profile</a>
-          <hr />
-          <a className="avatar-dropdown-link" href={NAVIGATION_PAGES.auth.account}>Settings</a>
-          <hr />
-          <a className="avatar-dropdown-link" onClick={() => logOutRef.current?.open()}>Logout</a>
-          
-        </div>
-      )}
-      <Popup ref={logOutRef}> 
-        <LogOutPopup />
-      </Popup>
+    <div className="avatar-container">
+      <Dropdown>
+        <DropdownTrigger variant="unstyled">
+          <img
+            src={icon}
+            alt={alt}
+            className="avatar-image"
+          />
+        </DropdownTrigger>
+        <DropdownContent>
+          {
+            items.map(({ href, label, icon }, index) => (
+              <DropdownItem
+                key={index}
+                onClick={() => navigate(href, { viewTransition: true})}
+              >{icon} {label}</DropdownItem>
+            ))
+          }
+          <DropdownSeparator />
+          <DropdownItem onClick={() => showLogoutPopup()}><LogOut color="var(--accent-color)" />Logout</DropdownItem>
+        </DropdownContent>
+      </Dropdown>
     </div>
   );
 };
