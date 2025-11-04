@@ -1,0 +1,31 @@
+/* Brown */
+@import "./coffee-dark.css";
+@import "./coffee-light.css";
+
+/* Mint */
+@import "./minty-night-dark.css";
+@import "./mint-light.css";
+
+/* Purple */
+@import "./midnight-purple-dark.css";
+@import "./lavender-fields-light.css";
+
+/* Pastel */
+@import "./pastel-dreams-dark.css";
+@import "./pastel-light.css";
+
+/* Red */
+@import "./pride-light.css";
+@import "./red-velvet-dark.css";
+
+/* Green */
+@import "./soaring-forest-dark.css";
+@import "./sky-light.css";
+
+/* FB */
+@import "./social-media-dark.css";
+@import "./social-media-light.css";
+
+/* Solarized */
+@import "./sunburnt-dark.css";
+@import "./sunburnt-light.css";

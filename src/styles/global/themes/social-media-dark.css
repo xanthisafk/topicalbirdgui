@@ -1,0 +1,18 @@
+.theme-social-media-dark {
+  --background-color: #18191a;
+  --background-color-light: #242526;
+  --background-color-lighter: #3a3b3c;
+
+  --foreground-color: #e4e6eb;
+  --foreground-color-dark: #050505;
+  --foreground-color-subtle: #b0b3b8;
+  --foreground-color-light: #ffffff;
+
+  --accent-color: #2374e1;
+  --accent-color-light: #3b82f6;
+  --accent-color-dark: #1d4ed8;
+  --accent-color-comp: #e19d23;
+
+  --danger-color: #f02849;
+  --danger-color-light: #ff4b5c;
+}

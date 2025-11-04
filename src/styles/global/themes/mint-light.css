@@ -1,0 +1,18 @@
+.theme-mint-light {
+  --background-color: #f7fefc;
+  --background-color-light: #ffffff;
+  --background-color-lighter: #e6fffb;
+
+  --foreground-color: #00332f;
+  --foreground-color-dark: #001614;
+  --foreground-color-subtle: #5b7f7c;
+  --foreground-color-light: #ffffff;
+
+  --accent-color: #2dd4bf;
+  --accent-color-light: #5eead4;
+  --accent-color-dark: #0f766e;
+  --accent-color-comp: #d44d2d;
+
+  --danger-color: #b91c1c;
+  --danger-color-light: #ef4444;
+}
