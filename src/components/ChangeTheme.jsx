@@ -1,8 +1,14 @@
 import { useTheme } from "@/hooks/useTheme"
-import Dropdowns from "./ui/Dropdown";
-import { Dropdown, DropdownContent, DropdownItem, DropdownLabel, DropdownSeparator, DropdownTrigger } from "./Dropdown";
+import { 
+    Dropdown,
+    DropdownContent,
+    DropdownItem,
+    DropdownLabel,
+    DropdownSeparator,
+    DropdownTrigger
+} from "./Dropdown";
 import { flushSync } from "react-dom";
-import { Check, ChevronDown, Sun } from "lucide-react";
+import { Check, ChevronDown } from "lucide-react";
 
 
 const themes = {
@@ -46,7 +52,6 @@ const ChangeTheme = () => {
             });
         });
     }
-    console.log(theme)
     return (
         <div className="theme-switcher">
             <Dropdown>
