@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { API_BASE_URL, API_DEFAULT_IMAGES, NAVIGATION_PAGES } from "@/config";
-import "./styles.css"
+import "@styles/components/ui/avatar.css";
 
-import Popup from "../Popup/Popup";
+import Popup from "./Popup/Popup";
 import LogOutPopup from "@components/auth/LogoutPopup";
 
 const Avatar = ({ user, width, height, showDropdown }) => {
@@ -44,9 +44,11 @@ const Avatar = ({ user, width, height, showDropdown }) => {
       />
       {(showDropdown && open) && (
         <div className="avatar-dropdown">
-          <a className="avatar-dropdown-link" href={NAVIGATION_PAGES.users.username(user.handle)} style={{ display: 'block', padding: 8 }}>Profile</a>
-          <a className="avatar-dropdown-link" href={NAVIGATION_PAGES.auth.account} style={{ display: 'block', padding: 8 }}>Settings</a>
-          <a className="avatar-dropdown-link" style={{ display: 'block', padding: 8, cursor: 'pointer' }} onClick={() => logOutRef.current?.open()}>Logout</a>
+          <a className="avatar-dropdown-link" href={NAVIGATION_PAGES.users.username(user.handle)}>Profile</a>
+          <hr />
+          <a className="avatar-dropdown-link" href={NAVIGATION_PAGES.auth.account}>Settings</a>
+          <hr />
+          <a className="avatar-dropdown-link" onClick={() => logOutRef.current?.open()}>Logout</a>
           
         </div>
       )}

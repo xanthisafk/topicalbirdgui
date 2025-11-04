@@ -1,0 +1,131 @@
+.title-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-md);
+    text-decoration: none;
+}
+
+.title-icon {
+    width: var(--size-3xl);
+    transition: 0.2s ease-in-out;
+}
+
+.title-container:hover .title-icon {
+    filter: drop-shadow(0 0 0 var(--accent-color));
+}
+
+.typewriter-text {
+    display: flex;
+    justify-self: center;
+    position: relative;
+}
+
+.typewriter-text:hover::after {
+    content: "_";
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 2rem;
+    color: var(--accent-color, #00f);
+    animation: typewriter-blink 0.8s steps(2, start) infinite, typewriter-moveCaret 1s steps(11, end) forwards;
+}
+
+@keyframes typewriter-moveCaret {
+    0% {
+        left: 0;
+    }
+
+    100% {
+        left: 11.5ch;
+    }
+}
+
+@keyframes typewriter-blink {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+
+.typewriter-text span {
+    display: inline-block;
+    font-size: 2rem;
+    font-family: var(--font-title);
+    transition: transform 0.01s ease-in-out, color 0.3s ease-out;
+    color: var(--accent-color-dark, var(--accent-color));
+}
+
+.typewriter-text:hover span {
+    opacity: 0;
+    color: var(--accent-color);
+    animation: type 0.1s ease-out forwards;
+}
+
+.typewriter-text span:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.typewriter-text span:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.typewriter-text span:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
+.typewriter-text span:nth-child(4) {
+    animation-delay: 0.3s;
+}
+
+.typewriter-text span:nth-child(5) {
+    animation-delay: 0.4s;
+}
+
+.typewriter-text span:nth-child(6) {
+    animation-delay: 0.5s;
+}
+
+.typewriter-text span:nth-child(7) {
+    animation-delay: 0.67s;
+}
+
+.typewriter-text span:nth-child(8) {
+    animation-delay: 0.7s;
+}
+
+.typewriter-text span:nth-child(9) {
+    animation-delay: 0.8s;
+}
+
+.typewriter-text span:nth-child(10) {
+    animation-delay: 0.99s;
+}
+
+.typewriter-text span:nth-child(11) {
+    animation-delay: 1s;
+}
+
+@keyframes type {
+    to {
+        opacity: 1;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .typewriter-text span,
+    .typewriter-text::after {
+        animation: none !important;
+        transition: none !important;
+        opacity: 100% !important;
+    }
+
+    .title-icon {
+        transition: none;
+    }
+}

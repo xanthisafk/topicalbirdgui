@@ -1,6 +1,6 @@
 import ThemeSwitcher from '@components/ThemeSwitcher';
 import './Footer.css';
-import { TitleText } from '@components/ui/Title/Title';
+import { TitleText } from '@components/ui/Title';
 
 export const Footer = () => {
 

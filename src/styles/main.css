@@ -1,56 +1,5 @@
 @import "./global/reset.css";
 @import "./global/typography.css";
+@import "./global/defaults.css";
 @import "./global/themes/index.css";
-
-/* ROOT VARIABLES */
-:root {
-  --font-heading: 'Chivo', sans-serif;
-  --font-body: 'Inter', sans-serif;
-  --font-title: 'Monomakh', system-ui;
-  --black-color: #000;
-  --white-color: #fff;
-}
-
-.required {
-  color: var(--danger-color);
-  font-family: var(--font-heading);
-  font-size: 1rem;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .spin, a, body, html { 
-    animation: none; 
-    transition: none; 
-  }
-}
-
-/* --------------------------
-   Embla Carousel
--------------------------- */
-/* Ensures carousel is centered and only one image is visible */
-.embla {
-  overflow: hidden;
-  width: 100%;
-  max-width: 500px;  /* Adjust as you like */
-  margin: 0 auto;    /* Centers carousel */
-}
-
-.embla__container {
-  display: flex;
-  touch-action: pan-y;
-}
-
-.embla__slide {
-  flex: 0 0 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.embla__slide img {
-  max-height: 80vh;
-  max-width: 100%;
-  object-fit: contain;
-  border-radius: 0.75rem;
-}
 

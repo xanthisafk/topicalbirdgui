@@ -1,5 +1,4 @@
-import './button.css';
-
+import "@styles/components/ui/button.css";
 
 const Button = ({
     variant = 'primary',

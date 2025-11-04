@@ -1,3 +1,4 @@
+export const SITE_NAME = "Topicalbird";
 export const GUI_DEFAULT_IMAGES = Object.freeze({
     adminIcon: {
         image: "/admin_icon.svg",

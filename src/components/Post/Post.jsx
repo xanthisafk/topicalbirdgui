@@ -1,7 +1,7 @@
-import { API_BASE_URL, NAVIGATION_PAGES } from "../../config";
-import formatTimeData from "../../helpers/formatTimeData";
-import { Carousel } from "../ui/Carousel";
-import Button from "../ui/Button";
+import { API_BASE_URL, NAVIGATION_PAGES } from "@/config";
+import formatTimeData from "@/helpers/formatTimeData";
+import { Carousel } from "@components/ui/Carousel/Carousel";
+import Button from "@components/ui/Button";
 import "./post.css";
 import { ThumbsUp, MessageCircle, Share } from "lucide-react";
 

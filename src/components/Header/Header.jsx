@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./header.css";
-import Avatar from "@components/ui/Avatar/Avatar";
-import { TitleText } from "@components/ui/Title/Title";
+import Avatar from "@components/ui/Avatar";
+import { TitleText } from "@components/ui/Title";
 import { LOCALSTORAGE_KEYS, NAVIGATION_PAGES } from "@/config";
 
 const Header = () => {

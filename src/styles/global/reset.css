@@ -1,3 +1,4 @@
+/* ===== RESET.CSS ===== */
 *,
 *::before,
 *::after {
@@ -10,17 +11,19 @@ html {
   font-size: 100%; /* 16px default */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-size-adjust: 100%;
 }
 
 body {
   line-height: 1.5;
   text-rendering: optimizeLegibility;
-  font-family: var(--font-body);
-  background-color: var(--background-color);
-  color: var(--foreground-color);
-  transition: 0.2s ease-in-out;
+  font-family: var(--font-body, sans-serif);
+  background-color: var(--background-color, #fff);
+  color: var(--foreground-color, #000);
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
+/* Media elements */
 img,
 picture,
 video,
@@ -30,6 +33,7 @@ svg {
   max-width: 100%;
 }
 
+/* Form controls */
 input,
 button,
 textarea,
@@ -41,14 +45,32 @@ select {
   outline: none;
 }
 
-/* Remove list styles */
+/* Lists */
 ul,
 ol {
   list-style: none;
 }
 
-/* Anchor tags */
+/* Links */
 a {
   text-decoration: none;
   color: inherit;
+  cursor: pointer;
+}
+
+/* Tables */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* Accessibility: reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
 }
