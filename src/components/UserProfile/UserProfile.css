@@ -1,13 +1,39 @@
 /* ---------------------------
    User Info Card
 --------------------------- */
+
+.user-page {
+  display: flex;
+  gap: 6rem;
+  align-items: flex-start;
+}
+
+
 .user-info-card {
-  background-color: var(--color-slate-800);
+  flex: 0 0 20%;
+}
+
+.user-posts {
+  flex: 1; /* Take remaining space */
+}
+
+@media (max-width: 768px) {
+  .user-page {
+    flex-direction: column;
+  }
+
+  .user-info-card {
+    flex: none;
+    width: 100%;
+  }
+}
+
+
+.user-info-card {
   padding: 25px;
   border-radius: 12px;
   margin-bottom: 30px;
   text-align: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
 .user-info-card img.user-icon {
@@ -23,7 +49,6 @@
   font-family: var(--font-heading);
   font-size: 1.8rem;
   margin-bottom: 10px;
-  /* color: var(--accent-color); */
 }
 
 .user-info-card p {

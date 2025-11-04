@@ -47,9 +47,13 @@ const UserProfile = ({ handle }) => {
   if (!user) return <p className="error">User not found.</p>;
 
   return (
-    <div className="user-profile">
-      <UserInfo user={user} self={self} />
-      <UserPosts posts={posts} />
+    <div className="user-page">
+      <div className="user-info-card">
+        <UserInfo user={user} self={self} />
+      </div>
+      <div className="user-info-posts">
+        <UserPosts posts={posts} />
+      </div>
     </div>
   );
 };

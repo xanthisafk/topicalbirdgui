@@ -5,7 +5,6 @@ const UserPosts = ({ posts }) => {
 
   return (
     <div className="user-posts">
-      <h3>Posts</h3>
       {posts.map((post) => (
         <Post key={post.id} post={post} />
       ))}
