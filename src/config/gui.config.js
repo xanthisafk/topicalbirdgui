@@ -1,4 +1,5 @@
-export const SITE_NAME = "Topicalbird";
+export const SITE_TITLE = "Topicalbird";
+
 export const GUI_DEFAULT_IMAGES = Object.freeze({
     adminIcon: {
         image: "/admin_icon.svg",
@@ -28,6 +29,7 @@ export const ACCEPTABLE_FILE_FORMATS_JOINED = ACCEPTABLE_FILE_FORMATS_LIST.join(
 export const LOCALSTORAGE_KEYS = Object.freeze({
     currentUser: "topicalbird_current_user",
     theme: "topicalbird_preferred_theme",
+    feedLimit: "topicalbird_feed_limit",
 });
 
 export const NAVIGATION_PAGES = Object.freeze({
@@ -48,5 +50,6 @@ export const NAVIGATION_PAGES = Object.freeze({
     },
     post: {
         id: id => `/p/${encodeURIComponent(id)}`,
+        feed: `/feed/`
     }
 });

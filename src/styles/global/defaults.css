@@ -272,3 +272,14 @@ hr {
   font-family: var(--font-heading);
   font-size: var(--font-md);
 }
+
+@keyframes spin {
+  0% { transform: rotate(0); }
+  100% { transform: rotate(360deg);}
+}
+
+.spin {
+  color: var(--accent-color);
+  animation: spin linear 1s infinite;
+}
+

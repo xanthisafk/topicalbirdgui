@@ -1,16 +1,14 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import "./index.css";
-import { ThemeProvider } from "./components/theme-provider";
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
+import "@/styles/main.css";
 
 // Import all the components
 import Home from "./components/pages/Home";
-import AuthLayout from "./components/auth/AuthLayout";
-import Login from "./components/auth/Login";
-import Logout from "./components/auth/Logout";
-import Register from "./components/auth/Register";
-import Account from "./components/auth/Account";
+import Login from "./components/pages/auth/Login";
+import Logout from "./components/pages/auth/Logout";
+import Register from "./components/pages/auth/Register";
+import Account from "./components/pages/auth/Account";
 import Nest from "./components/pages/Nest";
 import Feed from "./components/pages/Feed";
 import Users from "./components/pages/Users";
@@ -19,6 +17,9 @@ import NestDetail from "./components/pages/NestDetail";
 import NestSettings from "./components/pages/NestSettings";
 import Profile from "./components/pages/Profile";
 import App from "./App";
+
+import { ThemeProvider } from "./components/ThemeProvider";
+import { SnackbarProvider } from "./components/SnackbarProvider";
 
 const router = createBrowserRouter([
   {
@@ -31,7 +32,6 @@ const router = createBrowserRouter([
       },
       {
         path: "/auth",
-        element: <AuthLayout />,
         children: [
           {
             path: "login",
@@ -60,11 +60,15 @@ const router = createBrowserRouter([
         element: <Feed />,
       },
       {
-        path: "/users",
+        path: "/u/:username",
         element: <Users />,
       },
       {
         path: "/search",
+        element: <Search />
+      },
+      {
+        path: "/search/:query",
         element: <Search />,
       },
       {
@@ -76,17 +80,23 @@ const router = createBrowserRouter([
         element: <NestSettings />,
       },
       {
-        path: "/p/:slug",
+        path: "/p/:username",
         element: <Profile />,
       },
+      {
+        path: "*",
+        element: <Navigate to="/" />
+      }
     ],
   },
 ]);
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <RouterProvider router={router} />
+    <ThemeProvider>
+      <SnackbarProvider>
+        <RouterProvider router={router} />
+      </SnackbarProvider>
     </ThemeProvider>
   </StrictMode>
 );
