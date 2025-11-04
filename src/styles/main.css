@@ -1,3 +1,6 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
 @import "./global/reset.css";
 @import "./global/typography.css";
 @import "./global/defaults.css";
