@@ -31,6 +31,9 @@
     box-shadow var(--btn-transition),
     color var(--btn-transition);
 
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in;
+
   will-change: transform, box-shadow;
 }
 
@@ -80,7 +83,11 @@
 
 .btn-secondary:hover:not(:disabled),
 .btn-cancel:hover:not(:disabled) {
-  background: var(--background-color-light, #ffffff);
+  background: linear-gradient(
+    to bottom,
+    var(--background-color-light, #6b3f23),
+    var(--background-color-lighter, #a1653a)
+  );
 }
 
 .btn-danger {
