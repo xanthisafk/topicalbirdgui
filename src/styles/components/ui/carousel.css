@@ -20,6 +20,6 @@
 .embla__slide img {
   max-height: 80vh;
   max-width: 100%;
-  object-fit: contain;
-  border-radius: 0.75rem;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
 }

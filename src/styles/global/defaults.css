@@ -132,6 +132,14 @@
 html {
   scroll-behavior: smooth;
   font-size: 16px;
+  overflow-y: scroll;
+}
+
+@supports (scrollbar-gutter: stable) {
+  html {
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+  }
 }
 
 body {
@@ -263,6 +271,43 @@ hr {
   display: block;
 }
 
+/* === RESPONSIVE LAYOUT === */
+.layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--grid-gap);
+  width: 100%;
+  max-width: min(70%, var(--container-max));
+  margin: 0 auto;
+  padding: var(--space-lg) var(--space-md);
+}
+
+/* Sidebar hidden by default (mobile-first) */
+.layout-sidebar {
+  display: none;
+}
+
+/* Content centered */
+.layout-content {
+  width: 100%;
+}
+
+/* Wide screen adjustments */
+@media (min-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr 2fr 1fr;
+    max-width: 70%;
+  }
+
+  .layout-sidebar {
+    display: block;
+  }
+
+  .layout-content {
+    padding: var(--space-lg);
+  }
+}
+
 /* === REQUIRED INDICATOR === */
 .required {
   color: var(--danger-color);
@@ -270,6 +315,7 @@ hr {
   font-size: var(--font-md);
 }
 
+/* === SPIN ANIMATION === */
 @keyframes spin {
   0% {
     transform: rotate(0);
@@ -283,4 +329,13 @@ hr {
 .spin {
   color: var(--accent-color);
   animation: spin linear 1s infinite;
+}
+
+@keyframes halfSpin {
+    0% {transform: rotate(0deg)}
+    100% {transform: rotate(180deg)}
+}
+
+.half-spin-parent:hover > .half-spin {
+    animation: forwards ease-out halfSpin 0.5s;
 }

@@ -1,0 +1,130 @@
+/* @/styles/components/post.css */
+
+.post {
+  background-color: var(--background-color-light);
+  color: var(--foreground-color);
+  padding: var(--space-lg);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
+  
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+/* --- Post Header --- */
+.post-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.post-nest-icon {
+  width: var(--size-3xl); /* 3rem */
+  height: var(--size-3xl); /* 3rem */
+  border-radius: var(--radius-round);
+  border: var(--border-sm) solid var(--accent-color);
+  object-fit: cover;
+  cursor: pointer;
+  transition: opacity var(--transition-fast);
+}
+
+.post-nest-icon:hover {
+  opacity: var(--opacity-hover);
+}
+
+.post-metadata {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  font-size: var(--font-sm);
+}
+
+.post-nest-link {
+  font-family: var(--font-heading);
+  font-weight: var(--weight-semibold);
+  color: var(--accent-color-dark);
+  text-decoration: none;
+}
+
+.post-nest-link:hover {
+  text-decoration: underline;
+}
+
+.post-time {
+  color: var(--foreground-color-subtle);
+  margin-left: var(--space-xs);
+}
+
+.post-author-link {
+  color: var(--foreground-color-subtle);
+  text-decoration: none;
+}
+
+.post-author-link:hover {
+  text-decoration: underline;
+}
+
+
+/* --- Post Body --- */
+.post-title-link {
+  text-decoration: none;
+  color: var(--foreground-color-dark);
+}
+
+.post-title {
+  font-family: var(--font-heading);
+  font-size: var(--font-2xl);
+  font-weight: var(--weight-bold);
+  margin: 0;
+  transition: color var(--transition-fast);
+}
+
+.post-title-link:hover .post-title {
+  color: var(--accent-color);
+}
+
+.post-content {
+  font-family: var(--font-body);
+  font-size: var(--font-md);
+  line-height: var(--leading-normal);
+  color: var(--foreground-color);
+  margin: 0;
+  
+  /* Limits content to a readable width */
+  max-width: var(--content-width); 
+}
+
+.post-carousel-container {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin: var(--space-sm) 0;
+}
+
+
+/* --- Post Footer / Actions --- */
+.post-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-top: var(--space-sm);
+  align-items: center;
+}
+
+/* Base style for icons inside action buttons */
+.post-action-icon {
+  width: var(--font-lg);
+  height: var(--font-lg);
+}
+
+.post-action-icon-like {
+  transition: all var(--transition-fast);
+}
+
+.post-like-button:active .post-action-icon-like {
+  fill: var(--danger-color);
+  color: var(--danger-color);
+  transform: scale(1.15);
+}

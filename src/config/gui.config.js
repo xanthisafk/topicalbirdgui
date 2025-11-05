@@ -30,6 +30,8 @@ export const LOCALSTORAGE_KEYS = Object.freeze({
     currentUser: "topicalbird_current_user",
     theme: "topicalbird_preferred_theme",
     feedLimit: "topicalbird_feed_limit",
+    feedPosts: "topicalbird_feed_posts",
+    feedPages: "topicalbird_feed_pagination"
 });
 
 export const NAVIGATION_PAGES = Object.freeze({

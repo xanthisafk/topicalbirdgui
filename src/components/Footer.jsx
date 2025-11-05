@@ -1,16 +1,15 @@
-
 import "@/styles/components/footer.css";
-import { TitleText } from '@/components/ui/Title';
-import ChangeTheme from './ChangeTheme';
+import { TitleText } from "@/components/ui/Title";
+import ChangeTheme from "./ChangeTheme";
 
-export const Footer = () => {
-
-
+const Footer = () => {
   return (
-    <footer className="footer-container">
-      <TitleText />
-      <div className="footer-controls">
-        <ChangeTheme />
+    <footer className="footer">
+      <div className="footer-inner">
+        <TitleText />
+        <div className="footer-controls">
+          <ChangeTheme />
+        </div>
       </div>
     </footer>
   );

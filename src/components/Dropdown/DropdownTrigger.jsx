@@ -1,5 +1,6 @@
 import { useDropdown } from "@/hooks/useDropdown";
 import { classNames } from "@/helpers";
+import Button from "../ui/Button";
 
 export const DropdownTrigger = ({ children, variant = "button" }) => {
   const { isOpen, setIsOpen } = useDropdown();
@@ -19,12 +20,11 @@ export const DropdownTrigger = ({ children, variant = "button" }) => {
   }
 
   return (
-    <button
-      type="button"
+    <Button
       className={classNames("dropdown-trigger", { open: isOpen })}
       {...triggerProps}
     >
       {typeof children === "function" ? children(isOpen) : children}
-    </button>
+    </Button>
   );
 };

@@ -38,13 +38,12 @@
     top: calc(100% + var(--space-xs));
     left: 0;
     z-index: var(--z-top);
-    width: 220px;
+    width: max-content;
     background-color: var(--background-color-light);
     border: var(--border-xs) solid var(--border-color);
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-md);
     padding: var(--space-sm);
-
     /* Animation */
     opacity: 0;
     transform: translateY(-5px) scale(0.98);
@@ -74,7 +73,7 @@
     text-align: left;
     background: none;
     border: none;
-    padding: var(--space-sm) var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
     border-radius: var(--radius-sm);
     font-size: var(--font-md);
     color: var(--foreground-color);
