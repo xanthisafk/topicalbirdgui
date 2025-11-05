@@ -1,7 +1,7 @@
 :root {
   --font-heading: 'Chivo', sans-serif;
-  --font-body: 'Inter', sans-serif;
-  --font-title: 'Monomakh', system-ui;
+  --font-body: 'Inter', 'Apple Color Emoji' 'Noto Color Emoji', sans-serif;
+  --font-title: 'Playfair', system-ui;
 
   /* === FONT SIZE SCALE === */
   --font-xs: 0.2rem;
@@ -272,15 +272,17 @@ hr {
 .layout {
   display: block;
   width: 100%;
-  max-width: min(70%, var(--container-max));
   margin: 0 auto;
-  padding: var(--space-lg) var(--space-md);
+  max-width: min(95%, var(--container-max));
+  padding: var(--space-sm) var(--space-md);
 }
 
 .layout-content {
   width: 100%;
   padding: var(--space-lg);
 }
+
+
 
 
 /* Wide screen adjustments */
@@ -314,7 +316,6 @@ hr {
 }
 
 .spin {
-  color: var(--accent-color);
   animation: spin linear 1s infinite;
 }
 
