@@ -71,7 +71,7 @@
 /* --- Post Body --- */
 .post-title-link {
   text-decoration: none;
-  color: var(--foreground-color-dark);
+  color: var(--foreground-color);
 }
 
 .post-title {
