@@ -18,6 +18,7 @@ export const DropdownItem = ({ children, onClick, disabled }) => {
       onClick={handleClick}
       role="menuitem"
       disabled={disabled}
+      tabIndex={-1}
     >
       {children}
     </button>

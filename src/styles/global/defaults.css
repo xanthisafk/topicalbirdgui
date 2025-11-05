@@ -192,6 +192,10 @@ textarea:focus {
   outline: none;
 }
 
+*:focus {
+    outline: 2px solid var(--accent-color);
+}
+
 /* === TYPOGRAPHY === */
 h1,
 .h1 {
