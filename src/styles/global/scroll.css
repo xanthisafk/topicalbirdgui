@@ -1,0 +1,39 @@
+/* --------- Firefox --------- */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-color) transparent;
+}
+
+/* --------- WebKit browsers (Chrome, Edge, Safari) --------- */
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--accent-color);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  min-height: 24px;
+}
+
+*::-webkit-scrollbar-button { 
+  display: none;
+  height: 0;
+}
+
+*::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  filter: brightness(0.92);
+}
+*::-webkit-scrollbar-thumb:active {
+  transform: translateZ(0); 
+}
