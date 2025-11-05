@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Box from './Box';
-import './Container.css';
+import '@/styles/components/Container.css';
 
 const Container = ({
   children,

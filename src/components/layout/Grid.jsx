@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Box from './Box';
-import './grid.css';
+import '@/styles/components/grid.css';
 
 
 const Grid = ({

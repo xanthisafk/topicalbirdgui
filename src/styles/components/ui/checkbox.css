@@ -22,20 +22,6 @@
     transition: all 0.15s ease;
 }
 
-.checkbox-container .cbx svg {
-    position: absolute;
-    top: 3px;
-    left: 3px;
-    fill: none;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    stroke: #fff;
-    stroke-width: 2;
-    stroke-dasharray: 17;
-    stroke-dashoffset: 17;
-    transform: translate3d(0, 0, 0);
-}
-
 .checkbox-container .cbx+span {
     float: left;
     margin-left: 6px;
@@ -54,18 +40,64 @@
 }
 
 .checkbox-container input[type="checkbox"] {
-    display: none;
-    visibility: hidden;
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    overflow: hidden;
+    white-space: nowrap;
 }
+
+.checkbox-container input[type="checkbox"]:focus + .cbx {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
 
 .checkbox-container input[type="checkbox"]:checked+.cbx {
     background-color: #606062;
     background-image: linear-gradient(to bottom,
-            var(--accent-color-light),
-            var(--accent-color));
+                var(--accent-color-light),
+                var(--accent-color));
 }
 
 .checkbox-container input[type="checkbox"]:checked+.cbx svg {
-    stroke-dashoffset: 0;
-    transition: all 0.15s ease;
+    opacity: 1;
+}
+
+.checkbox-container .cbx svg {
+    position: absolute;
+    top: 50%;
+    left: 50%; 
+    transform: translate(-50%, -50%);
+    
+    
+    stroke: #fff;
+    stroke-width: 3; 
+    fill: none;
+    
+    
+    opacity: 0; 
+    transition: opacity 0.15s ease;
+
+    
+    width: 80%; 
+    height: 80%;
+}
+
+.checkbox-container .cbx svg,
+.checkbox-container .cbx svg * {
+    width: initial;
+    height: initial;
+    aspect-ratio: initial;
+}
+
+.cbx {
+  width: var(--checkbox-size);
+  height: var(--checkbox-size);
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import './box.css';
+import '@/styles/components/box.css';
 
 /**
  * @param {string} htmlAs - The HTML element type to render

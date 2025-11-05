@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import Box from './Box';
-import './card.css';
+import '@/styles/components/card.css';
 
 const CardHeader = (props) => (
   <Box as="header" className="card__header" {...props} />

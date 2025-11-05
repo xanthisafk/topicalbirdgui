@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import Box from './Box';
-import './stack.css';
+import '@/styles/components/stack.css';
 
 
 const Stack = forwardRef(({
