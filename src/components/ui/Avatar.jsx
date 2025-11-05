@@ -14,7 +14,7 @@ import {
   DropdownTrigger 
 } from "../Dropdown";
 
-import { Check, LogOut, Settings2, TriangleAlert, User } from "lucide-react";
+import { Check, CircleUser, LogOut, Settings2, TriangleAlert, User } from "lucide-react";
 
 import { logOutUser } from "@/helpers";
 import "@/styles/components/ui/avatar.css"
@@ -32,9 +32,9 @@ const Avatar = ({ user }) => {
 
 
   if (!user) return null;
-  const defaultIcon = API_DEFAULT_IMAGES.userPicture.image;
-  const icon = user.icon ? API_BASE_URL + user.icon : defaultIcon;
-  const alt = icon === defaultIcon ? API_DEFAULT_IMAGES.userPicture.alt : `${user.handle}'s avatar`
+  // const defaultIcon = API_DEFAULT_IMAGES.userPicture.image;
+  // const icon = user.icon ? API_BASE_URL + user.icon : defaultIcon;
+  // const alt = icon === defaultIcon ? API_DEFAULT_IMAGES.userPicture.alt : `${user.handle}'s avatar`
 
   const logout = async () => {
     const res = await logOutUser();
@@ -85,12 +85,13 @@ const Avatar = ({ user }) => {
   return (
     <div className="avatar-container">
       <Dropdown>
-        <DropdownTrigger variant="unstyled">
-          <img
+        <DropdownTrigger>
+          {/* <img
             src={icon}
             alt={alt}
             className="avatar-image"
-          />
+          /> */}
+          <CircleUser />
         </DropdownTrigger>
         <DropdownContent>
           {

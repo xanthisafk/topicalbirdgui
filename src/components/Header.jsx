@@ -4,6 +4,7 @@ import Avatar from "@/components/ui/Avatar";
 import { TitleText } from "./ui/Title";
 import { EVENT_LISTENER_KEYS, LOCALSTORAGE_KEYS, NAVIGATION_PAGES } from "@/config";
 import { Link } from "react-router-dom";
+import Button from "./ui/Button";
 
 const Header = () => {
   const [user, setUser] = useState(null);
@@ -31,9 +32,21 @@ const Header = () => {
 
         <nav className="header-nav">
           <ul className="header-menu">
-            <li><Link to={NAVIGATION_PAGES.post.feed} viewTransition>Discover</Link></li>
+            <li>
+              <Link to={NAVIGATION_PAGES.post.feed} viewTransition>
+                <Button variant="secondary">
+                  Discover
+                </Button>
+              </Link>
+            </li>
             {!user ? (
-              <li><Link to={NAVIGATION_PAGES.auth.login} viewTransition>Login</Link></li>
+              <li>
+                <Link to={NAVIGATION_PAGES.auth.login} viewTransition>
+                  <Button>
+                    Login
+                  </Button>
+                </Link>
+              </li>
             ) : (
               <li><Avatar user={user} /></li>
             )}

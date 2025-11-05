@@ -25,7 +25,7 @@ const Post = ({ post }) => {
                     <div>
                         <a className="post-nest-link" href={NAVIGATION_PAGES.nests.title(nest.title)}>
                             n/{nest.title}
-                        </a>
+                        </a> •
                         <span className="post-time" title={time.precise}>{time.relative}</span>
                     </div>
                     <div>
