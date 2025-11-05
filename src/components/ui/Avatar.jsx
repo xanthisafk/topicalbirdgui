@@ -1,6 +1,7 @@
 import { 
   API_BASE_URL,
   API_DEFAULT_IMAGES,
+  EVENT_LISTENER_KEYS,
   LOCALSTORAGE_KEYS,
   NAVIGATION_PAGES
 } from "@/config";
@@ -13,7 +14,7 @@ import {
   DropdownTrigger 
 } from "../Dropdown";
 
-import { LogOut, Settings2, TriangleAlert, User } from "lucide-react";
+import { Check, LogOut, Settings2, TriangleAlert, User } from "lucide-react";
 
 import { logOutUser } from "@/helpers";
 import "@/styles/components/ui/avatar.css"
@@ -39,7 +40,13 @@ const Avatar = ({ user }) => {
     const res = await logOutUser();
     if (res.status === 200) {
       localStorage.removeItem(LOCALSTORAGE_KEYS.currentUser);
-      window.location.reload();
+      window.dispatchEvent(new Event(EVENT_LISTENER_KEYS.currentUser));
+      showSnackbar({
+        content: "Logged out!",
+        type: "success",
+        icon: Check,
+      });
+      return;
     } else {
       console.error(res);
       showSnackbar({

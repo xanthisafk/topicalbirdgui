@@ -8,8 +8,8 @@
 .avatar-image {
   object-fit: cover;
   cursor: pointer;
-  width: var(--size-4xl, 3.5rem);
-  height: var(--size-4xl, 3.5rem);
+  width: var(--size-3xl, 3.5rem);
+  height: var(--size-3xl, 3.5rem);
   border-radius: var(--radius-round);
   border: var(--border-xs, 1px) solid var(--accent-color);
   background-color: var(--accent-color);

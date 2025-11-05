@@ -163,6 +163,7 @@ body {
 /* === BUTTONS & LINKS === */
 a {
   cursor: pointer;
+  text-decoration: none;
   transition:
     background-color var(--transition-fast),
     color var(--transition-fast),
@@ -291,7 +292,7 @@ hr {
 @media (min-width: 900px) {
   .layout {
     grid-template-columns: 1fr 2fr 1fr;
-    max-width: 70%;
+    max-width: min(70%, var(--container-max));
   }
 
   .layout-content {
