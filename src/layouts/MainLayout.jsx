@@ -1,9 +1,7 @@
-const MainLayout = ({ left, right, children }) => {
+const MainLayout = ({ children }) => {
   return (
     <main className="layout">
-      <aside className="layout-sidebar left">{left}</aside>
       <section className="layout-content">{children}</section>
-      <aside className="layout-sidebar right">{right}</aside>
     </main>
   );
 };

@@ -246,22 +246,15 @@ small,
 }
 
 hr {
-  /* Remove all borders and explicit background color */
   border: 0;
   background: transparent;
 
-  /* Thin line: set a small height for the gradient to appear */
   height: 1px;
 
-  /* Keep the original width */
   width: 70%;
 
-  /* Centering: use auto margins to center the block element */
   margin: var(--size-xs) auto;
 
-  /* The core: Use a linear gradient for the fading effect.
-     It goes from transparent (0%) to the accent color (15%) 
-     stays solid (15% to 85%) and fades back to transparent (100%). */
   background-image: linear-gradient(to right,
       transparent 0%,
       var(--accent-color) 15%,
@@ -273,34 +266,24 @@ hr {
 
 /* === RESPONSIVE LAYOUT === */
 .layout {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--grid-gap);
+  display: block;
   width: 100%;
   max-width: min(70%, var(--container-max));
   margin: 0 auto;
   padding: var(--space-lg) var(--space-md);
 }
 
-/* Sidebar hidden by default (mobile-first) */
-.layout-sidebar {
-  display: none;
-}
-
-/* Content centered */
 .layout-content {
   width: 100%;
+  padding: var(--space-lg);
 }
+
 
 /* Wide screen adjustments */
 @media (min-width: 900px) {
   .layout {
     grid-template-columns: 1fr 2fr 1fr;
     max-width: 70%;
-  }
-
-  .layout-sidebar {
-    display: block;
   }
 
   .layout-content {
