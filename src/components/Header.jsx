@@ -4,7 +4,6 @@ import Avatar from "@/components/ui/Avatar";
 import { TitleText } from "./ui/Title";
 import { LOCALSTORAGE_KEYS, NAVIGATION_PAGES } from "@/config";
 import { Link } from "react-router-dom";
-import { Menu } from "lucide-react";
 
 const Header = () => {
   const [user, setUser] = useState(null);
@@ -18,7 +17,6 @@ const Header = () => {
     <header className="header">
       <div className="header-inner">
         <div className="header-left">
-          <Menu className="header-icon" size={24} />
           <TitleText />
         </div>
 

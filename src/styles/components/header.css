@@ -3,7 +3,7 @@
   position: sticky;
   top: 0;
   z-index: var(--z-high);
-  backdrop-filter: var(--backdrop-blur);
+  backdrop-filter: blur(5px);
   background: color-mix(in srgb, var(--background-color) 85%, transparent);
   border-bottom: 1px solid color-mix(in srgb, var(--foreground-color) 15%, transparent);
   box-shadow: var(--shadow-soft);
@@ -22,16 +22,6 @@
   display: flex;
   align-items: center;
   gap: var(--space-sm);
-}
-
-.header-icon {
-  color: var(--foreground-color);
-  cursor: pointer;
-  transition: opacity var(--transition-fast);
-}
-
-.header-icon:hover {
-  opacity: var(--opacity-hover);
 }
 
 /* Desktop nav hidden on mobile */
