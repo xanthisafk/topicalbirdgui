@@ -4,6 +4,7 @@ const Button = ({
     variant = 'primary',
     isIcon = false,
     className = '',
+    onkeydown = null,
     children,
     ...props
 }) => {
@@ -33,6 +34,7 @@ const Button = ({
 
     return (
         <button
+            onKeyDown={onkeydown}
             className={buttonClassName}
             {...props}
         >

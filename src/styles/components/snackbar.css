@@ -68,10 +68,10 @@
 
 .snackbar-success {
   background-color: var(--accent-color);
-  color: var(--white-color);
+  color: var(--foreground-color);
 }
 
 .snackbar-danger {
   background-color: var(--danger-color);
-  color: var(--white-color);
+  color: white;
 }

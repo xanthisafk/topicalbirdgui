@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "@/styles/components/header.css";
 import Avatar from "@/components/ui/Avatar";
 import { TitleText } from "./ui/Title";
-import { LOCALSTORAGE_KEYS, NAVIGATION_PAGES } from "@/config";
+import { EVENT_LISTENER_KEYS, LOCALSTORAGE_KEYS, NAVIGATION_PAGES } from "@/config";
 import { Link } from "react-router-dom";
 
 const Header = () => {
@@ -12,6 +12,15 @@ const Header = () => {
     const u = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEYS.currentUser));
     setUser(u || null);
   }, []);
+
+  useEffect(() => {
+  const handleChange = () => {
+    setUser(JSON.parse(localStorage.getItem(LOCALSTORAGE_KEYS.currentUser)));
+  };
+
+  window.addEventListener(EVENT_LISTENER_KEYS.currentUser, handleChange);
+  return () => window.removeEventListener(EVENT_LISTENER_KEYS.currentUser, handleChange);
+}, []);
 
   return (
     <header className="header">

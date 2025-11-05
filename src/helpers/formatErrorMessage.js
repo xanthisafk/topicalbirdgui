@@ -1,12 +1,26 @@
 export function formatErrorMessage(response) {
   if (!response?.data) return "An unknown error occurred.";
 
-  const { title, errors, traceId } = response.data;
-  let message = title || "An error occurred.";
+  const {
+    title,
+    message: msg,
+    errors,
+    traceId,
+    referenceCode,
+    description
+  } = response.data;
+
+  let message =
+    title ||
+    msg ||
+    description ||
+    "An error occurred.";
 
   if (errors && typeof errors === "object") {
     const errorMessages = Object.entries(errors)
-      .flatMap(([field, msgs]) => msgs.map(msg => `${field}: ${msg}`))
+      .flatMap(([field, msgs]) =>
+        Array.isArray(msgs) ? msgs.map(msg => `${field}: ${msg}`) : [`${field}: ${msgs}`]
+      )
       .join("\n");
 
     if (errorMessages) {
@@ -14,8 +28,9 @@ export function formatErrorMessage(response) {
     }
   }
 
-  if (traceId) {
-    message += `\n\nReference Code: ${traceId}`;
+  const ref = traceId || referenceCode;
+  if (ref) {
+    message += `\n\nReference Code: ${ref}`;
   }
 
   return message;

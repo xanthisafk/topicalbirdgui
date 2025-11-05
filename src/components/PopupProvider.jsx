@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { PopupContext } from "@/hooks/usePopup";
 import Button from "./ui/Button";
 import "@/styles/components/popup.css";
+import { X } from "lucide-react";
 
 export const PopupProvider = ({ children }) => {
   const [config, setConfig] = useState({ isOpen: false });
@@ -91,13 +92,14 @@ export const PopupProvider = ({ children }) => {
               <header className="popup-header">
                 {title && <h2 className="popup-title">{title}</h2>}
                 {showCloseButton && (
-                  <Button
-                    variant="outlined"
+                  <X className="close-icon"
                     onClick={closePopup}
-                    aria-label="Close"
-                  >
-                    &times;
-                  </Button>
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') closePopup();
+                    }}
+                    role="button"
+                    aria-label="Close" />
                 )}
               </header>
             )}
@@ -117,7 +119,7 @@ export const PopupProvider = ({ children }) => {
               <footer className="popup-footer">
                 {/* Custom footer component/text */}
                 {footer && <div className="popup-footer-custom">{footer}</div>}
-                
+
                 {/* Action buttons */}
                 <div className="popup-footer-actions">
                   {secondaryActionLabel && (

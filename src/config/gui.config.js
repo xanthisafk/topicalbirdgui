@@ -33,7 +33,9 @@ export const LOCALSTORAGE_KEYS = Object.freeze({
     feedPosts: "topicalbird_feed_posts",
     feedPages: "topicalbird_feed_pagination"
 });
-
+export const EVENT_LISTENER_KEYS = Object.freeze({
+    currentUser: "topicalbird-current-user-changed"
+});
 export const NAVIGATION_PAGES = Object.freeze({
     home: "/",
     auth: {
