@@ -70,9 +70,9 @@ export const updateUser = async (id, displayName, icon) => {
     form.append("DisplayName", displayName ?? null);
 
     if (icon) {
-        const res = fileChecker(icon);
+        const res = await fileChecker(icon);
         if (res.status === 200) {
-            form.append("Icon", icon);
+            form.append("Icon", res.icon);
         } else return res;
     }
 

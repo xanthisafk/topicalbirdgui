@@ -127,7 +127,7 @@ const Account = () => {
           </div>
           <div className="account-form-group">
             <Label htmlFor="displayName">Name</Label>
-            <InputBox required onChange={e => setDisplay(e.target.value)} id="displayName" name="displayName" placeholder='What should we call you?' />
+            <InputBox onChange={e => setDisplay(e.target.value)} id="displayName" name="displayName" placeholder='What should we call you?' />
           </div>
           <Button type="submit" disabled={profileLoading}>
             {profileLoading ? <Loader /> : "Update Profile"}

@@ -70,16 +70,16 @@ export const createNewUser = async (email, password, confirmPassword, handle, di
     data.append("password", password);
     data.append("handle", handle.toLowerCase());
     data.append("displayName", finalDisplayName);
-    let hasIcon = false;
+    data.append("icon", null);
     if (icon) {
-        const res = fileChecker(icon);
+        const res = await fileChecker(icon);
         if (res.status !== 200) {
             return res;
         }
 
-        hasIcon = true;
+        data.append("icon", res.icon);
     }
-    data.append("icon", hasIcon ? icon : null);
+    
 
     const options = {
         method: api.create.method,

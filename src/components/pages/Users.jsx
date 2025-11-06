@@ -23,7 +23,7 @@ const Users = () => {
         const res = await getUserbyUsername(username);
         if (res.status === 200) {
           setUser(res.data.content);
-          setUserIcon(API_URL_FROM_CONTENT_URL(user.icon));
+          setUserIcon(API_URL_FROM_CONTENT_URL(res.data.content.icon));
           return;
         }
       } finally {

@@ -123,9 +123,9 @@ export const createNewPost = async (title, content, nest, images, alts) => {
 
     if (images && images.length > 0) {
         for (let i = 0; i < images.length; i++) {
-            const res = fileChecker(images[i]);
+            const res = await fileChecker(images[i]);
             if (res.status === 200) {
-                form.append("Images", images[i]);
+                form.append("Images", res.icon);
             } else return res;
         }
     }
