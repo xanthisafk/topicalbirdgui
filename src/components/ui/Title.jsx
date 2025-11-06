@@ -11,7 +11,8 @@ export const TitleText = ({ showText = true }) => {
             {
                 showText &&
                 <p className="typewriter-text">{
-                    SITE_TITLE.toUpperCase().split("").map((c, i) => (<span key={i}>{c}</span>))
+                    <span>{SITE_TITLE.toUpperCase()}</span>
+                    // .split("").map((c, i) => (<span key={i}>{c}</span>))
                 }</p>
             }
         </Link>
