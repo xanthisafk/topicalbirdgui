@@ -1,3 +1,93 @@
-.profile-avatar {
-    border-radius: 50%;
+.doesntExist {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 20vw;
+
+    img {
+        width: 10rem;
+        aspect-ratio: 1;
+        font-family: var(--font-emoji);
+    }
+
+    h1 {
+        display: block;
+        text-align: center;
+        margin-bottom: var(--space-xl);
+    }
+}
+
+.user-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 300ms ease-in-out;
+
+    .profile-container {
+        min-width: 250px;
+        padding: var(--space-lg);
+        border-radius: var(--radius-sm);
+        margin-right: var(--space-sm);
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-md);
+        background-color: var(--background-color-light);
+        transition: all 300ms ease-in-out;
+    }
+
+    .profile-avatar-container img {
+        width: 250px;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        border: 4px solid var(--accent-color);
+    }
+
+    .profile-data-container {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+    }
+
+    .profile-user-name {
+        font-family: var(--font-heading);
+        font-weight: bold;
+        font-size: var(--text-3xl);
+        align-self: center;
+    }
+
+    .profile-handle-container {
+        width: 100%;
+        display: flex;
+        gap: var(--space-sm);
+        flex-direction: row;
+        justify-content: center;
+        align-content: center;
+        color: var(--foreground-color-subtle);
+        font-family: var(--font-body);
+        font-size: var(--text-lg);
+    }
+
+    .profile-handle-container img {
+        width: 20px;
+        aspect-ratio: 1;
+    }
+
+    .profile-join-date {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        font: var(--font-body), var(--text-lg);
+        color: var(--foreground-color-subtle);
+    }
+}
+
+@media (min-width: 900px) {
+    .user-container {
+        flex-direction: row;
+        align-items: start;
+    }
 }

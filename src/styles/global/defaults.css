@@ -2,6 +2,7 @@
   --font-heading: 'Chivo', sans-serif;
   --font-body: 'Inter', 'Apple Color Emoji' 'Noto Color Emoji', sans-serif;
   --font-title: 'Playfair', system-ui;
+  --font-emoji: 'Noto Color Emoji' !important;
 
   /* === FONT SIZE SCALE === */
   --font-xs: 0.2rem;
