@@ -7,12 +7,12 @@ import Tooltip from '@/components/ui/Tooltip';
 
 import "@/styles/pages/register.css";
 
-import { API_DEFAULT_IMAGES, GUI_DEFAULT_IMAGES, NAVIGATION_PAGES } from '@/config';
+import { API_DEFAULT_IMAGES, EVENT_LISTENER_KEYS, GUI_DEFAULT_IMAGES, LOCALSTORAGE_KEYS, NAVIGATION_PAGES } from '@/config';
 import useThemeIcon from '@/helpers/useThemeIcon';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useSnackbar } from '@/hooks/useSnackbar';
-import { DotSquare, TriangleAlert } from 'lucide-react';
+import { Check, DotSquare, TriangleAlert } from 'lucide-react';
 import { createNewUser } from '@/helpers';
 import { formatErrorMessage } from '@/helpers/formatErrorMessage';
 
@@ -31,6 +31,17 @@ const Register = () => {
 
   const previewRef = useRef(null);
 
+  useEffect(() => {
+    try {
+      const user = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEYS.currentUser));
+      if (user) {
+        navigate(NAVIGATION_PAGES.home, { viewTransition: true });
+      }
+    } catch {
+      localStorage.removeItem(LOCALSTORAGE_KEYS.currentUser);
+      window.dispatchEvent(new Event(EVENT_LISTENER_KEYS.currentUser));
+    }
+  }, [navigate, params, showSnackbar]);
   
 
   const handleFormSubmit = async (event) => {
