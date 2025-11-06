@@ -4,7 +4,7 @@
     justify-content: center;
     gap: 2px;
     text-decoration: none;
-    padding: 0 1rem;
+    padding-right: 1rem;
 }
 
 .title-icon {
@@ -17,9 +17,11 @@
 }
 
 .typewriter-text {
+    opacity: 0;
     display: flex;
     justify-self: center;
     position: relative;
+    transition: ease-in .2s;
 }
 
 .typewriter-text span {
@@ -32,4 +34,10 @@
 
 .typewriter-text:hover span {
     color: var(--accent-color);
+}
+
+@media (min-width: 900px) {
+    .typewriter-text {
+        opacity: 1;
+    }
 }
