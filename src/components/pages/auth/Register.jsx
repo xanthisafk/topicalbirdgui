@@ -10,16 +10,16 @@ import "@/styles/pages/register.css";
 import { API_DEFAULT_IMAGES, EVENT_LISTENER_KEYS, GUI_DEFAULT_IMAGES, LOCALSTORAGE_KEYS, NAVIGATION_PAGES } from '@/config';
 import useThemeIcon from '@/helpers/useThemeIcon';
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { useSnackbar } from '@/hooks/useSnackbar';
 import { TriangleAlert } from 'lucide-react';
-import { createNewUser } from '@/helpers';
+import { createNewUser, useViewNavigate } from '@/helpers';
 import { formatErrorMessage } from '@/helpers/formatErrorMessage';
 
 const Register = () => {
   const [params] = useSearchParams();
   const parrot = useThemeIcon();
-  const navigate = useNavigate();
+  const navigate = useViewNavigate();
   const { showSnackbar } = useSnackbar();
 
   const [loading, setLoading] = useState(false);
@@ -34,7 +34,7 @@ const Register = () => {
     try {
       const user = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEYS.currentUser));
       if (user) {
-        navigate(NAVIGATION_PAGES.home, { viewTransition: true });
+        navigate(NAVIGATION_PAGES.home, "back");
       }
     } catch {
       localStorage.removeItem(LOCALSTORAGE_KEYS.currentUser);
@@ -63,10 +63,11 @@ const Register = () => {
 
       const res = await createNewUser(email, pass, pass2, handle, display, icon);
       if (res.status === 200) {
-        goToLogin(true);
+        goToLogin("register");
         return;
       }
 
+      console.log(res);
       const msg = formatErrorMessage(res);
       showSnackbar({
         content: msg,
@@ -82,12 +83,12 @@ const Register = () => {
 
   }
 
-  const goToLogin = (sucess) => {
+  const goToLogin = (success) => {
     let url = NAVIGATION_PAGES.auth.login;
-    if (sucess === undefined && email) url = `${url}?email=${email}`
-    else url = `${url}?s=y`;
+    if (success === "back" && email) url = `${url}?email=${email}`
+    else if (success === "register") url = `${url}?s=y`;
     
-    navigate(url, { viewTransition: true });
+    navigate(url, "forwards");
     return;
   }
 
@@ -135,7 +136,7 @@ const Register = () => {
           <Button type="submit" variant='primary' disabled={loading}>
             {loading ? <Loader size="1.5rem" /> : "Register"}
           </Button>
-          <Button type="button" variant='secondary' onClick={goToLogin}>Already have an account?</Button>
+          <Button type="button" variant='secondary' onClick={() => goToLogin("back")}>Already have an account?</Button>
         </form>
       </div>
     </>

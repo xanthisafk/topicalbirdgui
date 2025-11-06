@@ -26,6 +26,11 @@
 
 img {
   display: block;
+  view-transition-name: --parrot;
+}
+
+input[name=email] {
+  view-transition-name: --email;
 }
 
 h3 {

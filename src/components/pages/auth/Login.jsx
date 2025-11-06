@@ -4,19 +4,19 @@ import Label from '@/components/ui/Label';
 import { EVENT_LISTENER_KEYS, GUI_DEFAULT_IMAGES, LOCALSTORAGE_KEYS, NAVIGATION_PAGES } from '@/config';
 import useThemeIcon from '@/helpers/useThemeIcon';
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
 import "@/styles/pages/login.css";
 import Checkbox from '@/components/ui/Checkbox';
 import Loader from '@/components/ui/Loader';
 import { useSnackbar } from '@/hooks/useSnackbar';
-import { AlertTriangle, Check, TriangleAlert } from 'lucide-react';
-import { logInUser } from '@/helpers';
+import { Check, TriangleAlert } from 'lucide-react';
+import { logInUser, useViewNavigate } from '@/helpers';
 import { formatErrorMessage } from '@/helpers/formatErrorMessage';
 
 const Login = () => {
 
-  const navigate = useNavigate();
+  const navigate = useViewNavigate();
   const [params] = useSearchParams();
 
   const icon = useThemeIcon();
@@ -33,7 +33,7 @@ const Login = () => {
     try {
       const user = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEYS.currentUser));
       if (user) {
-        navigate(NAVIGATION_PAGES.home, { viewTransition: true });
+        navigate(NAVIGATION_PAGES.home, "back");
       }
 
       const created = params.get("s") || null; // success
@@ -56,7 +56,7 @@ const Login = () => {
     let url = NAVIGATION_PAGES.auth.register;
     if (email) url = `${url}?email=${email}`
 
-    navigate(url, { viewTransition: true });
+    navigate(url, "forwards");
   }
 
   const handleFormSubmit = async (event) => {

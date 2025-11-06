@@ -1,3 +1,71 @@
+@keyframes scale {
+  to {
+    mask-size: 200vmax;
+  }
+}
+
+
+@keyframes slide-to-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes slide-from-right {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* For 'back' (push right) */
+@keyframes slide-to-right {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes slide-from-left {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+
+html[data-navigation-direction="forwards"]::view-transition-old(root) {
+  mask: none;
+  animation: slide-to-left 0.3s ease-out both;
+}
+
+html[data-navigation-direction="forwards"]::view-transition-new(root) {
+  mask: none;
+  z-index: 999;
+  animation: slide-from-right 0.3s ease-out both;
+}
+
+
+html[data-navigation-direction="back"]::view-transition-old(root) {
+  mask: none;
+  animation: slide-to-right 0.3s ease-out both;
+}
+
+html[data-navigation-direction="back"]::view-transition-new(root) {
+  mask: none;
+  z-index: 999;
+  animation: slide-from-left 0.3s ease-out both;
+}
+
 ::view-transition-new(root) {
   mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><circle cx="20" cy="20" r="20" fill="white"/></svg>')
     center / 0 no-repeat;
@@ -16,8 +84,10 @@
   animation-fill-mode: both;
 }
 
-@keyframes scale {
-  to {
-    mask-size: 200vmax;
+@media (prefers-reduced-motion) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
   }
 }

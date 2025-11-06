@@ -16,6 +16,10 @@ export function formatErrorMessage(response) {
     description ||
     "An error occurred.";
 
+  if (description) {
+    message += `\n\n${description}\n`
+  }
+
   if (errors && typeof errors === "object") {
     const errorMessages = Object.entries(errors)
       .flatMap(([field, msgs]) =>
@@ -24,13 +28,15 @@ export function formatErrorMessage(response) {
       .join("\n");
 
     if (errorMessages) {
-      message += `\n\nDetails:\n${errorMessages}`;
+      message += `\nDetails:\n${errorMessages}`;
     }
   }
 
+  
+
   const ref = traceId || referenceCode;
   if (ref) {
-    message += `\n\nReference Code: ${ref}`;
+    message += `\nReference Code: ${ref}`;
   }
 
   return message;

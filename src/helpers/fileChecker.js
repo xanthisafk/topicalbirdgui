@@ -1,5 +1,6 @@
 import { ACCEPTABLE_FILE_FORMATS_JOINED } from "@/config";
 import imageCompression from "browser-image-compression";
+import { isAnimatedWebP } from "./webpHelper";
 
 const fileChecker = async (icon) => {
     if (!icon) return { status: 400, data: { message: "No file provided." } };
@@ -9,8 +10,21 @@ const fileChecker = async (icon) => {
     const allowedTypes = ACCEPTABLE_FILE_FORMATS_JOINED;
 
     if (!allowedTypes.includes(icon.type)) {
-        return { status: 400, data: { message: "Invalid file type. Only images (JPEG, PNG, WEBP, GIF) are allowed." }};
+        return { status: 400, data: { message: "Invalid file type. Only images (JPEG, PNG, WEBP, GIF) are allowed." } };
     }
+
+    const skipCompression =
+    icon.type === "image/gif" || (icon.type === "image/webp" && (await isAnimatedWebP(icon)));
+
+  if (skipCompression) {
+    if (icon.size > MAX_SIZE_BYTES) {
+      return {
+        status: 400,
+        data: { message: `File size exceeds ${MAX_SIZE_MB}MB limit.` },
+      };
+    }
+    return { status: 200, icon };
+  }
 
     const options = {
         maxSizeMb: 1,
@@ -25,7 +39,7 @@ const fileChecker = async (icon) => {
     }
 
     if (compressedFile.size > MAX_SIZE_BYTES) {
-        return { status: 400, data: { message: `File size exceeds ${MAX_SIZE_MB}MB limit.` }};
+        return { status: 400, data: { message: `File size exceeds ${MAX_SIZE_MB}MB limit.` } };
     }
 
     return { status: 200, icon: compressedFile }

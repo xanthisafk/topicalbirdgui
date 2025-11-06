@@ -1,27 +1,43 @@
 import React, { useState, useEffect } from "react";
-import { Camera } from "lucide-react";
+import { Camera, FileMinus } from "lucide-react";
 import "@/styles/components/icon-preview.css";
 import { ACCEPTABLE_FILE_FORMATS_JOINED } from "@/config";
 import { ImageCropper } from "@/components/ImageCropper";
+import { isAnimatedWebP } from "@/helpers";
 
 const IconPreview = ({
   defaultImage = "/icon.svg",
   size = 120,
   disabled = false,
   onChange,
+  showUpload = true,
 }) => {
   const [preview, setPreview] = useState(defaultImage);
   const [imageToCrop, setImageToCrop] = useState(null);
   const [showCropper, setShowCropper] = useState(false);
 
-  const handleImageChange = (e) => {
+  const handleImageChange = async (e) => {
     const file = e.target.files?.[0];
     if (!file || !file.type.startsWith("image/")) return;
 
+    const isAnimated = (
+      file.type === "image/gif"
+      || (file.type === "image/webp" && (await isAnimatedWebP(file)))
+    );
     const reader = new FileReader();
     reader.onload = (event) => {
-      setImageToCrop(event.target.result);
-      setShowCropper(true);
+
+      if (!isAnimated) {
+        setShowCropper(true);
+        setImageToCrop(event.target.result);
+      } else {
+        const url = URL.createObjectURL(file);
+        setPreview(url);
+        onChange?.({
+          blob: file,
+          url,
+        });
+      }
     };
     reader.readAsDataURL(file);
   };
@@ -50,7 +66,8 @@ const IconPreview = ({
 
   return (
     <>
-      <div
+      <div className="icon-preview-container">
+        <div
         className={`icon-preview ${disabled ? "disabled" : ""}`}
         style={{ width: size, height: size }}
       >
@@ -61,21 +78,25 @@ const IconPreview = ({
           loading="eager"
         />
 
-        <label
-          htmlFor="icon-upload"
-          className="icon-preview__button"
-          aria-label="Upload icon"
-        >
-          <Camera size={24} />
-          <input
-            id="icon-upload"
-            type="file"
-            accept={ACCEPTABLE_FILE_FORMATS_JOINED}
-            disabled={disabled}
-            style={{ display: "none" }}
-            onChange={handleImageChange}
-          />
-        </label>
+        {showUpload &&
+          <label
+            htmlFor="icon-upload"
+            className="icon-preview__button"
+            aria-label="Upload icon"
+          >
+            <Camera size={24} />
+            <input
+              id="icon-upload"
+              type="file"
+              accept={ACCEPTABLE_FILE_FORMATS_JOINED}
+              disabled={disabled}
+              style={{ display: "none" }}
+              onChange={handleImageChange}
+            />
+          </label>
+        }
+      </div>
+      {showUpload && <span className="icon-upload-text" onClick={() => document.querySelector("#icon-upload").click()}>Upload Image</span>}
       </div>
 
       {showCropper && imageToCrop && (

@@ -4,6 +4,8 @@ import Loader from '../ui/Loader';
 import { API_DEFAULT_IMAGES, API_URL_FROM_CONTENT_URL, NAVIGATION_PAGES } from '@/config';
 import { getUserbyUsername } from '@/helpers';
 
+import "@/styles/pages/users.css";
+
 const Users = () => {
   const { username } = useParams();
   const navigate = useNavigate();
@@ -46,7 +48,7 @@ const Users = () => {
               day: 'numeric',
               year: 'numeric',
             })}</h6>
-            <img src={userIcon} alt={`${user.handle}'s profile picture.`} width={250} height={250} />
+            <img className='profile-avatar' src={userIcon} alt={`${user.handle}'s profile picture.`} width={250} height={250} />
             {JSON.stringify(user)}
           </div>}
     </>

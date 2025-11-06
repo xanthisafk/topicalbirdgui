@@ -1,6 +1,4 @@
-import { 
-  API_BASE_URL,
-  API_DEFAULT_IMAGES,
+import {
   EVENT_LISTENER_KEYS,
   LOCALSTORAGE_KEYS,
   NAVIGATION_PAGES
@@ -16,16 +14,15 @@ import {
 
 import { Check, CircleUser, LogOut, Settings2, TriangleAlert, User } from "lucide-react";
 
-import { logOutUser } from "@/helpers";
+import { logOutUser, useViewNavigate } from "@/helpers";
 import "@/styles/components/ui/avatar.css"
 
 import { useSnackbar } from "@/hooks/useSnackbar";
 import { usePopup } from "@/hooks/usePopup";
-import { useNavigate } from "react-router-dom";
 
 const Avatar = ({ user }) => {
-  const navigate = useNavigate();
-
+  
+  const navigateTo = useViewNavigate();
 
   const { showSnackbar } = useSnackbar();
   const { triggerPopup } = usePopup();
@@ -98,7 +95,7 @@ const Avatar = ({ user }) => {
             items.map(({ href, label, icon }, index) => (
               <DropdownItem
                 key={index}
-                onClick={() => navigate(href, { viewTransition: true})}
+                onClick={() => navigateTo(href, "forwards")}
               >{icon} {label}</DropdownItem>
             ))
           }

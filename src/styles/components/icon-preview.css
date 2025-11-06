@@ -1,3 +1,24 @@
+.icon-preview-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon-preview-container span {
+  font: var(--body-font);
+  color: var(--foreground-color-subtle);
+  cursor: pointer;
+  transition: 0.2s ease-out;
+  text-decoration: wavy 0 var(--foreground-color-subtle);
+}
+
+.icon-preview-container span:hover {
+  color: var(--foreground-color);
+  text-decoration: wavy 4px var(--foreground-color-subtle);
+}
+
 .icon-preview {
   position: relative;
   border-radius: 50%;
@@ -9,6 +30,7 @@
   justify-content: center;
   cursor: pointer;
   transition: box-shadow 0.2s ease, transform 0.2s ease;
+  view-transition-name: --user-icon;
 }
 
 .icon-preview:hover {
