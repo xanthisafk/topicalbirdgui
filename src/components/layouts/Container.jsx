@@ -1,11 +1,12 @@
 import Box from "./Box";
 import { classNames as cn } from "@/helpers";
+import "@/styles/components/layout/container.css";
+
 
 const Container = ({ children, className = '', ...props }) => {
-  const containerClasses = "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8";
 
   return (
-    <Box className={cn("w-full!", containerClasses, className)} {...props}>
+    <Box className={cn("container", className)} {...props}>
       {children}
     </Box>
   );
