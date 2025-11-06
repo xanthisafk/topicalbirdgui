@@ -7,6 +7,7 @@ const InputBox = ({
   type = 'text',
   className = '',
   error = false,
+  ...children
 }) => {
   return (
     <div className={`input-container ${className}`}>
@@ -16,6 +17,7 @@ const InputBox = ({
         onChange={onChange}
         placeholder={placeholder}
         type={type}
+        {...children}
       />
     </div>
   );

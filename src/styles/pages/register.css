@@ -1,5 +1,5 @@
 
-.login-container {
+.register-container {
   max-width: var(--container-max);
   width: 100%;
   margin: 0 auto;
@@ -11,7 +11,7 @@
   font-family: var(--font-body);
 }
 
-.login-form {
+.register-form {
   width: 100%;
   max-width: 600px;
   padding: var(--space-3xl);
@@ -36,20 +36,20 @@ h3 {
   margin-bottom: var(--space-lg);
 }
 
-.login-form-group {
+.register-form-group {
   display: flex;
   flex-direction: column;
   gap: var(--space-xs);
 }
 
-.login-form-group label {
+.register-form-group label {
   font-family: var(--font-body);
   font-weight: var(--weight-medium);
   font-size: var(--font-md);
   color: var(--foreground-color-subtle);
 }
 
-.login-form-group input {
+.register-form-group input {
   padding: var(--input-padding);
   border: var(--border-sm) solid var(--border-color);
   border-radius: var(--radius-sm);
@@ -58,12 +58,24 @@ h3 {
   transition: var(--transition-fast);
 }
 
-.login-form-group input:focus {
+.register-form-group input:focus {
   border-color: var(--accent-color);
   outline: none;
 }
 
-.login-form button {
+.register-form-group label {
+    display: flex;
+    justify-content: center;
+    gap: var(--size-xs)
+}
+
+.register-form-avatar {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.register-form button {
   width: 100%;
   padding: var(--button-padding);
   border-radius: var(--radius-md);
@@ -75,7 +87,7 @@ h3 {
 }
 
 
-.login-form a {
+.register-form a {
   text-decoration: none;
 }
 
