@@ -6,7 +6,6 @@ import "@/styles/main.css";
 // Import all the components
 import Home from "./components/pages/Home";
 import Login from "./components/pages/auth/Login";
-import Logout from "./components/pages/auth/Logout";
 import Register from "./components/pages/auth/Register";
 import Account from "./components/pages/auth/Account";
 import Nest from "./components/pages/Nest";
@@ -37,10 +36,6 @@ const router = createBrowserRouter([
           {
             path: "login",
             element: <Login />,
-          },
-          {
-            path: "logout",
-            element: <Logout />,
           },
           {
             path: "register",
