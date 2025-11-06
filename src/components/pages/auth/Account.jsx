@@ -9,7 +9,7 @@ import { formatErrorMessage } from '@/helpers/formatErrorMessage';
 import { getGreeting } from '@/helpers/greetingHelper';
 import { useSnackbar } from '@/hooks/useSnackbar';
 import { Check, TriangleAlert } from 'lucide-react';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "@/styles/pages/account.css";
 
@@ -21,13 +21,13 @@ const Account = () => {
   const [greeting, setGreeting] = useState("");
   const [passLoading, setPassLoading] = useState(false);
   const [profileLoading, setProfileLoading] = useState(false);
+  const [iconBlob, setIconBlob] = useState(false);
 
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [newPassword2, setNewPassword2] = useState("");
 
   const [display, setDisplay] = useState("");
-  const inputRef = useRef(null);
 
 
   useEffect(() => {
@@ -35,16 +35,16 @@ const Account = () => {
     setGreeting(getGreeting(user.displayName || user.handle))
   }, [navigate, user]);
 
+  const handleAvatarChange = (event) => {
+    setIconBlob(event.blob);
+  }
+
   const handleProfileFormChange = async (event) => {
     try {
       event.preventDefault();
       setProfileLoading(true);
 
-      const hasIcon = inputRef.current && inputRef.current.files.length > 0;
-      let icon = null;
-      if (hasIcon) icon = inputRef.current.files[0];
-
-      if (!display && !icon) {
+      if (!display && !iconBlob) {
         showSnackbar({
           content: "Please fill all fields.",
           type: "danger",
@@ -53,7 +53,7 @@ const Account = () => {
         return;
       }
 
-      const res = await updateUser(user.id, display, icon);
+      const res = await updateUser(user.id, display, iconBlob);
       if (res.status === 200) {
         localStorage.setItem(LOCALSTORAGE_KEYS.currentUser, JSON.stringify(res.data.content));
         setUser(res.data.content);
@@ -123,7 +123,7 @@ const Account = () => {
         <form className="account-form" onSubmit={handleProfileFormChange}>
           <h6>Update Profile</h6>
           <div className="account-form-preview">
-            <IconPreview defaultImage={API_URL_FROM_CONTENT_URL(user.icon)} inputRef={inputRef} />
+            <IconPreview defaultImage={API_URL_FROM_CONTENT_URL(user.icon)} onChange={handleAvatarChange} />
           </div>
           <div className="account-form-group">
             <Label htmlFor="displayName">Name</Label>

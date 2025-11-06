@@ -9,10 +9,10 @@ import "@/styles/pages/register.css";
 
 import { API_DEFAULT_IMAGES, EVENT_LISTENER_KEYS, GUI_DEFAULT_IMAGES, LOCALSTORAGE_KEYS, NAVIGATION_PAGES } from '@/config';
 import useThemeIcon from '@/helpers/useThemeIcon';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useSnackbar } from '@/hooks/useSnackbar';
-import { Check, DotSquare, TriangleAlert } from 'lucide-react';
+import { TriangleAlert } from 'lucide-react';
 import { createNewUser } from '@/helpers';
 import { formatErrorMessage } from '@/helpers/formatErrorMessage';
 
@@ -28,8 +28,7 @@ const Register = () => {
   const [pass2, setPass2] = useState("");
   const [handle, setHandle] = useState("");
   const [display, setDisplay] = useState("");
-
-  const previewRef = useRef(null);
+  const [icon, setIcon] = useState(null);
 
   useEffect(() => {
     try {
@@ -42,6 +41,10 @@ const Register = () => {
       window.dispatchEvent(new Event(EVENT_LISTENER_KEYS.currentUser));
     }
   }, [navigate, params, showSnackbar]);
+
+  const handleAvatarChange = (event) => {
+    setIcon(event.blob);
+  }
   
 
   const handleFormSubmit = async (event) => {
@@ -57,10 +60,6 @@ const Register = () => {
         });
         return;
       }
-
-      const hasFile = previewRef.current && previewRef.current.files.length > 0;
-      let icon = null;
-      if (hasFile) icon = previewRef.current.files[0];
 
       const res = await createNewUser(email, pass, pass2, handle, display, icon);
       if (res.status === 200) {
@@ -101,7 +100,7 @@ const Register = () => {
 
           <div className='register-form-avatar'>
             <IconPreview
-              inputRef={previewRef}
+              onChange={handleAvatarChange}
               defaultImage={API_DEFAULT_IMAGES.userPicture.image}
             />
           </div>

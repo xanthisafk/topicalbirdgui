@@ -1,61 +1,92 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Camera } from "lucide-react";
 import "@/styles/components/icon-preview.css";
 import { ACCEPTABLE_FILE_FORMATS_JOINED } from "@/config";
+import { ImageCropper } from "@/components/ImageCropper";
 
 const IconPreview = ({
-  inputRef,
   defaultImage = "/icon.svg",
   size = 120,
   disabled = false,
+  onChange,
 }) => {
   const [preview, setPreview] = useState(defaultImage);
-  const internalRef = useRef(null);
-  const hiddenFileInput = inputRef ?? internalRef;
-
+  const [imageToCrop, setImageToCrop] = useState(null);
+  const [showCropper, setShowCropper] = useState(false);
 
   const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file && file.type.startsWith("image/")) {
-      const reader = new FileReader();
-      reader.onload = (event) => setPreview(event.target.result);
-      reader.readAsDataURL(file);
-    }
+    const file = e.target.files?.[0];
+    if (!file || !file.type.startsWith("image/")) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      setImageToCrop(event.target.result);
+      setShowCropper(true);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleCropComplete = (croppedBlob) => {
+    const croppedUrl = URL.createObjectURL(croppedBlob);
+    setPreview(croppedUrl);
+    setShowCropper(false);
+    setImageToCrop(null);
+
+    // Notify parent
+    onChange?.({
+      blob: croppedBlob,
+      url: croppedUrl,
+    });
+  };
+
+  const handleCancelCrop = () => {
+    setShowCropper(false);
+    setImageToCrop(null);
   };
 
   useEffect(() => {
     setPreview(defaultImage);
   }, [defaultImage]);
 
-  const handleClick = () => {
-    if (disabled) return;
-    hiddenFileInput.current?.click();
-  };
-
   return (
-    <div
-      className="icon-preview"
-      style={{ width: size, height: size }}
-      onClick={handleClick}
-    >
-      <img src={preview} alt="Preview" className="icon-preview__image" loading="eager" />
-      <button
-        disabled={disabled}
-        type="button"
-        className="icon-preview__button"
-        aria-label="Upload icon"
+    <>
+      <div
+        className={`icon-preview ${disabled ? "disabled" : ""}`}
+        style={{ width: size, height: size }}
       >
-        <Camera size={24} />
-      </button>
-      <input
-        disabled={disabled}
-        type="file"
-        accept={ACCEPTABLE_FILE_FORMATS_JOINED}
-        ref={hiddenFileInput}
-        style={{ display: "none" }}
-        onChange={handleImageChange}
-      />
-    </div>
+        <img
+          src={preview}
+          alt="Preview"
+          className="icon-preview__image"
+          loading="eager"
+        />
+
+        <label
+          htmlFor="icon-upload"
+          className="icon-preview__button"
+          aria-label="Upload icon"
+        >
+          <Camera size={24} />
+          <input
+            id="icon-upload"
+            type="file"
+            accept={ACCEPTABLE_FILE_FORMATS_JOINED}
+            disabled={disabled}
+            style={{ display: "none" }}
+            onChange={handleImageChange}
+          />
+        </label>
+      </div>
+
+      {showCropper && imageToCrop && (
+        <ImageCropper
+          imageSrc={imageToCrop}
+          onCropComplete={handleCropComplete}
+          onCancel={handleCancelCrop}
+          aspect={1}
+        />
+      )}
+    </>
   );
 };
 
