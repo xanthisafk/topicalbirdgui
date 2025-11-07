@@ -82,6 +82,14 @@ export const API_ENDPOINTS = Object.freeze({
             url: `${api}/Nest/me`,
             method: "GET"
         },
+        getUserNestByUsername: {
+            url: username => `${api}/Nest/user/${encodeURIComponent(username)}`,
+            method: "GET"
+        },
+        getUserNestById: {
+            url: id => `${api}/Nest/user/${encodeURIComponent(id)}`,
+            method: "GET"
+        },
         update: {
             url: id => `${api}/Nest/${encodeURIComponent(id)}`,
             method: "PATCH"
