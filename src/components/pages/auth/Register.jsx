@@ -1,0 +1,146 @@
+import IconPreview from '@/components/IconPreview';
+import Button from '@/components/ui/Button';
+import InputBox from '@/components/ui/Input';
+import Label from '@/components/ui/Label';
+import Loader from '@/components/ui/Loader';
+import Tooltip from '@/components/ui/Tooltip';
+
+import "@/styles/pages/register.css";
+
+import { API_DEFAULT_IMAGES, EVENT_LISTENER_KEYS, GUI_DEFAULT_IMAGES, LOCALSTORAGE_KEYS, NAVIGATION_PAGES } from '@/config';
+import useThemeIcon from '@/helpers/useThemeIcon';
+import React, { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { useSnackbar } from '@/hooks/useSnackbar';
+import { TriangleAlert } from 'lucide-react';
+import { createNewUser, useViewNavigate } from '@/helpers';
+import { formatErrorMessage } from '@/helpers/formatErrorMessage';
+
+const Register = () => {
+  const [params] = useSearchParams();
+  const parrot = useThemeIcon();
+  const navigate = useViewNavigate();
+  const { showSnackbar } = useSnackbar();
+
+  const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState(params.get("email") || "");
+  const [pass, setPass] = useState("");
+  const [pass2, setPass2] = useState("");
+  const [handle, setHandle] = useState("");
+  const [display, setDisplay] = useState("");
+  const [icon, setIcon] = useState(null);
+
+  useEffect(() => {
+    try {
+      const user = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEYS.currentUser));
+      if (user) {
+        navigate(NAVIGATION_PAGES.home, "back");
+      }
+    } catch {
+      localStorage.removeItem(LOCALSTORAGE_KEYS.currentUser);
+      window.dispatchEvent(new Event(EVENT_LISTENER_KEYS.currentUser));
+    }
+  }, [navigate, params, showSnackbar]);
+
+  const handleAvatarChange = (event) => {
+    setIcon(event.blob);
+  }
+  
+
+  const handleFormSubmit = async (event) => {
+    try {
+      event.preventDefault();
+      setLoading(true);
+
+      if (!email || !pass || !pass2 || !handle) {
+        showSnackbar({
+          content: "Please fill the form",
+          type: "danger",
+          icon: TriangleAlert
+        });
+        return;
+      }
+
+      const res = await createNewUser(email, pass, pass2, handle, display, icon);
+      if (res.status === 200) {
+        goToLogin("register");
+        return;
+      }
+
+      console.log(res);
+      const msg = formatErrorMessage(res);
+      showSnackbar({
+        content: msg,
+        type: "danger",
+        icon: TriangleAlert,
+        duration: 5,
+      });
+
+    } finally {
+      setLoading(false);
+    }
+    
+
+  }
+
+  const goToLogin = (success) => {
+    let url = NAVIGATION_PAGES.auth.login;
+    if (success === "back" && email) url = `${url}?email=${email}`
+    else if (success === "register") url = `${url}?s=y`;
+    
+    navigate(url, "forwards");
+    return;
+  }
+
+  return (
+    <>
+      <div className="register-container">
+        <form className="register-form" onSubmit={handleFormSubmit}>
+          <img src={parrot} alt={GUI_DEFAULT_IMAGES.appIcon.alt} width={50} />
+          <h3>Welcome to Topicalbird</h3>
+
+          <div className='register-form-avatar'>
+            <IconPreview
+              onChange={handleAvatarChange}
+              defaultImage={API_DEFAULT_IMAGES.userPicture.image}
+            />
+          </div>
+          <div className='register-form-group'>
+            <Label for="email">Email <Tooltip text={"Required"} /> </Label>
+            <InputBox required value={email} onChange={e => setEmail(e.target.value)} type="email" name="email" id="email" placeholder="your.name@email.com" />
+          </div>
+          <div className='register-form-group'>
+            <Label for="password">Password 
+              <Tooltip text={"Must be at least 8 characters long and must consist of uppercase, lowercase, special and numerical characters."} />
+            </Label>
+            <InputBox required onChange={e => setPass(e.target.value)} type="password" name="password" id="password" placeholder="Enter a strong password..." />
+          </div>
+          <div className='register-form-group'>
+            <Label for="password2">Confirm Passowrd 
+              <Tooltip text={"Must be at least 8 characters long and must consist of uppercase, lowercase, special and numerical characters."} />
+            </Label>
+            <InputBox required onChange={e => setPass2(e.target.value)} type="password" name="password2" id="password2" placeholder="Enter the password again..." />
+          </div>
+          <div className='register-form-group'>
+            <Label for="handle">Username 
+              <Tooltip text={"Alphabet, Numbers, periods (.) and underscores (_) are allowed."} />
+            </Label>
+            <InputBox required onChange={e => setHandle(e.target.value)} name="handle" id="handle" placeholder="Enter a unique username..." />
+          </div>
+          <div className='register-form-group'>
+            <Label for="display">Display Name
+              <Tooltip text={"If left empty, your username will be used."} />
+            </Label>
+            <InputBox onChange={e => setDisplay(e.target.value)} name="display" id="display" placeholder="What should people call you?" />
+          </div>
+          <Button type="submit" variant='primary' disabled={loading}>
+            {loading ? <Loader size="1.5rem" /> : "Register"}
+          </Button>
+          <Button type="button" variant='secondary' onClick={() => goToLogin("back")}>Already have an account?</Button>
+        </form>
+      </div>
+    </>
+  );
+};
+
+export default Register;

@@ -1,6 +1,6 @@
-import { API_ENDPOINTS } from "../../config";
-import fileChecker from "../fileChecker";
-import makeAxiosRequest from "../makeAxiosRequest";
+import { API_ENDPOINTS } from "@/config";
+import fileChecker from "@/helpers/fileChecker";
+import makeAxiosRequest from "@/helpers/makeAxiosRequest";
 
 const api = API_ENDPOINTS.users;
 
@@ -69,10 +69,13 @@ export const updateUser = async (id, displayName, icon) => {
     const form = new FormData();
     form.append("DisplayName", displayName ?? null);
 
-    const res = fileChecker(icon);
-    if (res.status === 200) {
-        form.append("Icon", icon);
-    } else return res;
+    if (icon) {
+        const res = await fileChecker(icon);
+        if (res.status === 200) {
+            form.append("Icon", res.icon);
+        } else return res;
+    }
+
 
     const endpoint = api.update;
 

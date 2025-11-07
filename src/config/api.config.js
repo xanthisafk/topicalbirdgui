@@ -1,6 +1,12 @@
 export const API_BASE_URL = "http://localhost:9999";
-const api_defaults_folder = `${API_BASE_URL}/content/assets/defaults`;
+export const API_URL_FROM_CONTENT_URL = (val) => {
+    if (!val || val.length <= 0) return API_BASE_URL;
+    if (val[0] === "/") return `${API_BASE_URL}${val}`;
 
+    return `${API_BASE_URL}/${val}`
+};
+
+const api_defaults_folder = `${API_BASE_URL}/content/assets/defaults`;
 export const API_DEFAULT_IMAGES = Object.freeze({
     appIcon: {
         image: `${api_defaults_folder}/api_icon.svg`,
@@ -74,6 +80,14 @@ export const API_ENDPOINTS = Object.freeze({
         },
         selfNests: {
             url: `${api}/Nest/me`,
+            method: "GET"
+        },
+        getUserNestByUsername: {
+            url: username => `${api}/Nest/user/${encodeURIComponent(username)}`,
+            method: "GET"
+        },
+        getUserNestById: {
+            url: id => `${api}/Nest/user/${encodeURIComponent(id)}`,
             method: "GET"
         },
         update: {

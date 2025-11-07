@@ -1,0 +1,73 @@
+.icon-preview-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon-preview-container span {
+  font: var(--body-font);
+  color: var(--foreground-color-subtle);
+  cursor: pointer;
+  transition: 0.2s ease-out;
+  text-decoration: wavy 0 var(--foreground-color-subtle);
+}
+
+.icon-preview-container span:hover {
+  color: var(--foreground-color);
+  text-decoration: wavy 4px var(--foreground-color-subtle);
+}
+
+.icon-preview {
+  position: relative;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: var(--accent-color);
+  border: 3px solid var(--accent-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  view-transition-name: --user-icon;
+}
+
+.icon-preview:hover {
+  box-shadow: 0 0 0 4px var(--accent-color-light);
+}
+
+.icon-preview__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.icon-preview__button {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: var(--accent-color-light);
+  color: var(--foreground-color-light);
+  border: none;
+  border-radius: 0 0 50% 50%;
+  padding: 8px 0;
+  opacity: 0;
+  cursor: pointer;
+  transition: opacity 0.2s ease, background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+.icon-preview:hover .icon-preview__button {
+  opacity: 1;
+}
+
+.icon-preview__button:hover {
+  background-color: var(--accent-color-dark);
+}

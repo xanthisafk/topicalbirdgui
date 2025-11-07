@@ -1,10 +1,14 @@
-import { LoaderCircle } from 'lucide-react'
+import { LoaderCircle } from "lucide-react";
 
-const Loader = ({ size }) => {
-    const wh = size || "3.5rem";
+const Loader = ({size, stroke = "var(--accent-color)"}) => {
+    const wh = size || "1.5rem";
     return (
-        <LoaderCircle style={{ color: "var(--accent-color)" }} className="spin" width={wh} height={wh} />
-    )
+        <LoaderCircle
+            stroke={stroke}
+            className="spin"
+            width={wh}
+            height={wh} />
+    );
 }
 
 export default Loader;

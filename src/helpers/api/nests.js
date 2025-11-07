@@ -1,6 +1,6 @@
-import { API_ENDPOINTS } from "../../config";
-import fileChecker from "../fileChecker";
-import makeAxiosRequest from "../makeAxiosRequest";
+import { API_ENDPOINTS } from "@/config";
+import fileChecker from "@/helpers/fileChecker";
+import makeAxiosRequest from "@/helpers/makeAxiosRequest";
 
 const api = API_ENDPOINTS.nest;
 
@@ -55,6 +55,24 @@ export const getSelfNests = async () => {
     return await makeAxiosRequest(options);
 }
 
+export const getNestByUsername = async (username) => {
+    const endpoint = api.getUserNestByUsername;
+    const options = {
+        method: endpoint.method,
+        url: endpoint.url(username)
+    }
+    return await makeAxiosRequest(options);
+}
+
+export const getNestByUserId = async (id) => {
+    const endpoint = api.getUserNestById;
+    const options = {
+        method: endpoint.method,
+        url: endpoint.url(id)
+    }
+    return await makeAxiosRequest(options);
+}
+
 export const updateNest = async (id, description, displayName = "", icon = "") => {
     if (!id) return { status: 400, data: { message: "Nest Id is required." } };
     if (!description) return { status: 400, data: { message: "Nest description is required." } };
@@ -62,9 +80,9 @@ export const updateNest = async (id, description, displayName = "", icon = "") =
     const form = new FormData();
 
     if (icon) {
-        const res = fileChecker(icon);
-        if (res !== 200) return res ;
-        form.append("Icon", icon);
+        const res = await fileChecker(icon);
+        if (res.status !== 200) return res ;
+        form.append("Icon", res.icon);
     }
 
     form.append("Description", description);
@@ -87,9 +105,9 @@ export const createNewNest = async (title, description = "", displayName = "", i
 
     const form = new FormData();
     if (icon) {
-        const res = fileChecker(icon);
-        if (res !== 200) return res;
-        form.append("Icon", icon);
+        const res = await fileChecker(icon);
+        if (res.status !== 200) return res;
+        form.append("Icon", res.icon);
     }
 
     form.append('Title', title);

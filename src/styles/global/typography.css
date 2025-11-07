@@ -1,0 +1,65 @@
+/* chivo-regular - latin */
+@font-face {
+  font-display: swap;
+  font-family: 'Chivo';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/chivo-v21-latin-regular.woff2') format('woff2');
+}
+
+/* inter-regular - latin */
+@font-face {
+  font-display: swap;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/inter-v20-latin-regular.woff2') format('woff2');
+}
+
+/* monomakh-regular - latin */
+@font-face {
+  font-display: swap;
+  font-family: 'Monomakh';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/monomakh-v1-latin-regular.woff2') format('woff2');
+}
+
+/* noto-color-emoji-regular - emoji */
+@font-face {
+  font-display: swap;
+  font-family: 'Noto Color Emoji';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/noto-color-emoji-v36-emoji-regular.woff2') format('woff2');
+}
+
+/* playfair-500 - latin */
+@font-face {
+  font-display: swap;
+  font-family: 'Playfair';
+  font-style: italic;
+  font-weight: 900;
+  src: url('/fonts/playfair-v10-latin-500.woff2') format('woff2');
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+}
+
+p, span, li, a, input, button, textarea {
+  font-family: var(--font-body);
+  font-weight: 400;
+}
+
+a {
+  text-decoration: underline 0.25em rgba(255, 255, 255, 0);
+  transition: 0.2s;
+  color: var(--foreground-color);
+}
+
+a:hover {
+  text-decoration-color: var(--accent-color);
+  color: var(--accent-color);
+}

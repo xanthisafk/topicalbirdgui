@@ -1,0 +1,12 @@
+.card {
+  background-color: var(--background-color-light);
+  border-radius: var(--size-sm); 
+  padding: 1.5rem;
+  transition: all 300ms ease-in-out;
+}
+
+@media (min-width: 768px) {
+  .card {
+    padding: 2rem;
+  }
+}

@@ -1,0 +1,18 @@
+.theme-lavender-fields-light {
+  --background-color: #f8f5ff;
+  --background-color-light: #ffffff;
+  --background-color-lighter: #e9e3ff;
+
+  --foreground-color: #1a1124;
+  --foreground-color-dark: #0d0a14;
+  --foreground-color-subtle: #7b67a3;
+  --foreground-color-light: #ffffff;
+
+  --accent-color: #8b5cf6;
+  --accent-color-light: #a78bfa;
+  --accent-color-dark: #5b21b6;
+  --accent-color-comp: #f472b6;
+
+  --danger-color: #b91c1c;
+  --danger-color-light: #f87171;
+}

@@ -1,4 +1,4 @@
-import toTitleCase from "./toTitlecase";
+import toTitleCase from "@/helpers/toTitlecase";
 
 function formatTimeData(targetDate, locale = undefined) {
     const date = new Date(targetDate);

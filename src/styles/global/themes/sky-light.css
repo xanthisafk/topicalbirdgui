@@ -1,0 +1,18 @@
+.theme-theme-sky-light {
+  --background-color: #f8faf8;
+  --background-color-light: #eef6ef;
+  --background-color-lighter: #e3efe5;
+
+  --foreground-color: #0a1a0a;
+  --foreground-color-dark: #050c05;
+  --foreground-color-subtle: #3d6245;
+  --foreground-color-light: #ffffff;
+
+  --accent-color: #1fa84b;
+  --accent-color-light: #38d17a;
+  --accent-color-dark: #147a35;
+  --accent-color-comp: #f5e6b3;
+
+  --danger-color: #e65555;
+  --danger-color-light: #f9a3a3;
+}

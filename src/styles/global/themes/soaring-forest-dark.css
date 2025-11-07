@@ -1,0 +1,19 @@
+.theme-soaring-forest-dark {
+  --background-color: #0b120b;
+  --background-color-light: #122015;
+  --background-color-lighter: #1a2e1e;
+
+  --foreground-color: #e8fcec;
+  --foreground-color-dark: #050805;
+  --foreground-color-subtle: #a7d7af;
+  --foreground-color-light: #ffffff;
+
+  --accent-color: #22c55e;
+  --accent-color-light: #4ade80;
+  --accent-color-dark: #15803d;
+  --accent-color-comp: #facc15;
+
+  --danger-color: #f87171;
+  --danger-color-light: #fca5a5;
+}
+

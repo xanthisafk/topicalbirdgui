@@ -1,0 +1,190 @@
+.user-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 300ms ease-in-out;
+}
+
+/* === Profile Card === */
+.profile-card {
+    width: 100%;
+    background-color: var(--background-color-light);
+    border-radius: var(--radius-sm);
+    padding: var(--space-lg);
+    transition: all 300ms ease-in-out;
+}
+
+/* === Card Title === */
+.profile-card-title {
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+}
+
+/* === Profile Details === */
+.profile-details-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    width: 100%;
+    min-width: 250px;
+    flex: 0 0 max-content;
+    align-items: stretch;
+    margin-right: var(--space-sm);
+    transition: all 300ms ease-in-out;
+}
+
+/* === Avatar === */
+.profile-avatar-container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-avatar-container img {
+    width: 250px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 4px solid var(--accent-color);
+}
+
+/* === Profile Data === */
+.profile-data-container {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.profile-user-name {
+    font-family: var(--font-heading);
+    font-weight: bold;
+    font-size: var(--text-3xl);
+    align-self: center;
+    margin-top: var(--space-lg);
+}
+
+.profile-handle-container {
+    width: 100%;
+    display: flex;
+    gap: var(--space-sm);
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: center;
+    color: var(--foreground-color-subtle);
+    font-family: var(--font-body);
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-lg);
+}
+
+.profile-handle-container img {
+    width: 20px;
+    aspect-ratio: 1;
+}
+
+/* === Description === */
+.profile-description {
+    font-weight: bold;
+    font-size: var(--text-lg);
+    align-self: center;
+}
+
+/* === Info === */
+.profile-info-container {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: start;
+    font-family: var(--font-body);
+    font-size: var(--text-lg);
+    color: var(--foreground-color-subtle);
+}
+
+.profile-info-container b {
+    font-weight: 400;
+    color: var(--foreground-color);
+}
+
+/* === Nests / Chips === */
+.profile-nests-list {
+    width: 100%;
+    margin: 1rem 0;
+    color: var(--foreground-color-subtle);
+}
+
+.nest-chip-container {
+    border-radius: var(--radius-sm);
+    background-color: var(--background-color-lighter);
+    background-image: linear-gradient(
+        to bottom,
+        var(--background-color-lighter),
+        var(--background-color-light)
+    );
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    padding: var(--space-sm);
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: 100ms ease-in-out;
+}
+
+.nest-chip-container img {
+    height: 3rem;
+    aspect-ratio: 1;
+    border: 2px var(--accent-color) solid;
+    border-radius: 50%;
+    background-color: var(--accent-color);
+    object-fit: cover;
+}
+
+.nest-chip-container span {
+    color: var(--foreground-color);
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    font-weight: bold;
+}
+
+.nest-chip-container p {
+    color: var(--foreground-color-subtle);
+}
+
+.nest-chip-content {
+    display: flex;
+    flex-direction: row;
+    gap: var(--space-sm);
+    align-items: center;
+}
+
+.nest-chip-container:hover {
+    border: 2px solid var(--accent-color);
+}
+
+/* === Posts === */
+.posts-container {
+    flex: 1 1 auto;
+    width: 100%;
+    margin-top: var(--space-md);
+    transition: 300ms ease-out;
+}
+
+.nest-button-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+/* === Responsive Layout === */
+@media (min-width: 1200px) {
+    .user-container {
+        flex-direction: row;
+        align-items: start;
+    }
+
+    .posts-container {
+        margin: 0;
+    }
+}

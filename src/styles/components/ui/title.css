@@ -1,0 +1,50 @@
+.title-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    text-decoration: none;
+    padding-right: 1rem;
+}
+
+.title-icon {
+    width: var(--size-3xl);
+    transition: 0.2s ease-in-out;
+}
+
+.title-container:hover .title-icon {
+    filter: drop-shadow(0 0 0 var(--accent-color));
+}
+
+.typewriter-text {
+    opacity: 0;
+    display: flex;
+    justify-self: center;
+    position: relative;
+    transition: text-decoration-color ease-out 300ms;
+    text-decoration-color: rgba(255,255,255,0);
+
+}
+
+.typewriter-text span {
+    font-weight: bolder;
+    display: inline-block;
+    font-size: 2.5rem;
+    font-family: var(--font-title);
+    transition: transform 300ms ease-in-out, color 300ms ease-out;
+    color: var(--accent-color-dark, var(--accent-color));
+}
+
+.typewriter-text:hover span {
+    color: var(--accent-color);
+    text-decoration-line: underline;
+    text-decoration-style: wavy;
+    text-decoration-color: var(--accent-color);
+    text-decoration-thickness: 0.1rem;
+}
+
+@media (min-width: 900px) {
+    .typewriter-text {
+        opacity: 1;
+    }
+}

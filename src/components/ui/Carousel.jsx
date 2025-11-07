@@ -1,5 +1,6 @@
 import useEmblaCarousel from 'embla-carousel-react'
-import { API_BASE_URL } from '../../config';
+import { API_URL_FROM_CONTENT_URL } from '@/config';
+import "@/styles/components/ui/carousel.css";
 
 export function Carousel({ photos }) {
     const [emblaRef] = useEmblaCarousel({ loop: true });
@@ -12,7 +13,7 @@ export function Carousel({ photos }) {
                 {photos.map((photo, idx) => (
                     <div className="embla__slide" key={idx}>
                         <img
-                            src={API_BASE_URL + photo.url}
+                            src={API_URL_FROM_CONTENT_URL(photo.url)}
                             alt={photo.alt || `Post image ${idx + 1}`}
                             loading="lazy"
                         />

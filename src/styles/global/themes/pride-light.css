@@ -1,0 +1,20 @@
+.theme-pride-light {
+  --background-color: #ffffff;
+  --background-color-light: #f9f9ff;
+  --background-color-lighter: #f0f0ff;
+
+  --foreground-color: #1a1a1a;
+  --foreground-color-dark: #000;
+  --foreground-color-subtle: #7a7a8c;
+  --foreground-color-light: #ffffff;
+
+ 
+  --accent-color: #e40303;
+  --accent-color-light: #ff5a36;
+  --accent-color-dark: #b10202;
+  --accent-color-comp: #1a9fff;
+
+
+  --danger-color: #d62828;
+  --danger-color-light: #f08080;
+}

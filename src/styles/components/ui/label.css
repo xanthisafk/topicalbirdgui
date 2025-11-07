@@ -1,0 +1,21 @@
+.input-label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: var(--foreground-color-subtle);
+  transition: color 0.2s;
+}
+
+.input-label:focus-within {
+  color: var(--accent-color);
+}
+
+.boxlabel-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  gap: 2px;
+
+}

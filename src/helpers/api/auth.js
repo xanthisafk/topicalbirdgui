@@ -1,8 +1,8 @@
-import { API_ENDPOINTS } from "../../config";
+import { API_ENDPOINTS } from "@/config";
 
-import makeAxiosRequest from "../makeAxiosRequest";
-import { validatePassword } from "../validatePassword";
-import fileChecker from "../fileChecker";
+import makeAxiosRequest from "@/helpers/makeAxiosRequest";
+import { validatePassword } from "@/helpers/validatePassword";
+import fileChecker from "@/helpers/fileChecker";
 
 const api = API_ENDPOINTS.auth;
 
@@ -40,7 +40,7 @@ export const changePassword = async (password, newPassword, confirmPassword) => 
     const options = {
         method: api.changePassword.method,
         url: api.changePassword.url,
-        data: { password, newPassword }
+        data: { oldPassword: password, newPassword }
     }
 
     return await makeAxiosRequest(options);
@@ -70,16 +70,16 @@ export const createNewUser = async (email, password, confirmPassword, handle, di
     data.append("password", password);
     data.append("handle", handle.toLowerCase());
     data.append("displayName", finalDisplayName);
-    let hasIcon = false;
+    data.append("icon", null);
     if (icon) {
-        const res = fileChecker(icon);
+        const res = await fileChecker(icon);
         if (res.status !== 200) {
             return res;
         }
 
-        hasIcon = true;
+        data.append("icon", res.icon);
     }
-    data.append("icon", hasIcon ? icon : null);
+    
 
     const options = {
         method: api.create.method,

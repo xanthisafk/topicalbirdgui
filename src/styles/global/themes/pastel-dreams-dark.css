@@ -1,0 +1,18 @@
+.theme-pastel-dreams-dark {
+  --background-color: #1a1a22;
+  --background-color-light: #242433;
+  --background-color-lighter: #303042;
+
+  --foreground-color: #f7f7ff;
+  --foreground-color-dark: #09090b;
+  --foreground-color-subtle: #b6b6c8;
+  --foreground-color-light: #ffffff;
+
+  --accent-color: #a7baff;       /* Pastel periwinkle */
+  --accent-color-light: #c6d3ff;
+  --accent-color-dark: #6c7bd6;
+  --accent-color-comp: #ffbacc;  /* Soft pink */
+
+  --danger-color: #e63946;
+  --danger-color-light: #ff7b89;
+}

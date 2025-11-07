@@ -1,0 +1,102 @@
+
+.register-container {
+  max-width: var(--container-max);
+  width: 100%;
+  margin: 0 auto;
+  padding: var(--space-2xl) var(--space-lg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--background-color);
+  font-family: var(--font-body);
+}
+
+.register-form {
+  width: 100%;
+  max-width: 600px;
+  padding: var(--space-3xl);
+  background-color: var(--background-color-light);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  transition: var(--transition-md);
+}
+
+img {
+  display: block;
+}
+
+input[name=email] {
+  view-transition-name: --email;
+}
+
+h3 {
+  font-family: var(--font-heading);
+  font-size: var(--font-2xl);
+  font-weight: var(--weight-semibold);
+  color: var(--accent-color);
+  margin-bottom: var(--space-lg);
+}
+
+.register-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.register-form-group label {
+  font-family: var(--font-body);
+  font-weight: var(--weight-medium);
+  font-size: var(--font-md);
+  color: var(--foreground-color-subtle);
+}
+
+.register-form-group input {
+  padding: var(--input-padding);
+  border: var(--border-sm) solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-md);
+  font-family: var(--font-body);
+  transition: var(--transition-fast);
+}
+
+.register-form-group input:focus {
+  border-color: var(--accent-color);
+  outline: none;
+}
+
+.register-form-group label {
+    display: flex;
+    justify-content: center;
+    gap: var(--size-xs)
+}
+
+.register-form-avatar {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.register-form button {
+  width: 100%;
+  padding: var(--button-padding);
+  border-radius: var(--radius-md);
+  font-family: var(--font-heading);
+  font-weight: var(--weight-semibold);
+  font-size: var(--font-md);
+  cursor: pointer;
+  transition: var(--transition-md);
+}
+
+
+.register-form a {
+  text-decoration: none;
+}
+
+@media (max-width: 480px) {
+  h3 {
+    font-size: var(--font-xl);
+  }
+}

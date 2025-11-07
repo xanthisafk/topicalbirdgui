@@ -1,5 +1,5 @@
-import { API_ENDPOINTS } from "../../config";
-import makeAxiosRequest from "../makeAxiosRequest";
+import { API_ENDPOINTS } from "@/config";
+import makeAxiosRequest from "@/helpers/makeAxiosRequest";
 
 const api = API_ENDPOINTS.vote;
 

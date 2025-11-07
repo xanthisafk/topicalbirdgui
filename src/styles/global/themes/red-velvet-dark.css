@@ -1,0 +1,18 @@
+.theme-red-velvet-dark {
+  --background-color: #1a0a0a;
+  --background-color-light: #2b0f10;
+  --background-color-lighter: #431516;
+
+  --foreground-color: #ffecec;
+  --foreground-color-dark: #100404;
+  --foreground-color-subtle: #d8b4b4;
+  --foreground-color-light: #fff7f7;
+
+  --accent-color: #aa1c3b;       /* Rich velvet red */
+  --accent-color-light: #d6405c;
+  --accent-color-dark: #7a0f28;
+  --accent-color-comp: #1caa8a;  /* Mint contrast */
+
+  --danger-color: #ff1f3d;
+  --danger-color-light: #ff5c7a;
+}

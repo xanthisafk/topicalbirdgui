@@ -1,0 +1,18 @@
+.theme-minty-night-dark {
+  --background-color: #0b0f0e;
+  --background-color-light: #10201d;
+  --background-color-lighter: #15302b;
+
+  --foreground-color: #e6fffa;
+  --foreground-color-dark: #0d1514;
+  --foreground-color-subtle: #8abcb3;
+  --foreground-color-light: #f8fffd;
+
+  --accent-color: #2dd4bf;
+  --accent-color-light: #5eead4;
+  --accent-color-dark: #0f766e;
+  --accent-color-comp: #d44d2d;
+
+  --danger-color: #b91c1c;
+  --danger-color-light: #ef4444;
+}

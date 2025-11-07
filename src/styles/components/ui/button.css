@@ -1,0 +1,155 @@
+.btn {
+  --btn-padding: var(--button-padding, 0.6rem 1rem);
+  --btn-radius: var(--radius-md, 12px);
+  --btn-transition: 300ms ease-in-out;
+  --btn-shadow: var(--shadow-soft, 0 2px 6px rgba(0, 0, 0, 0.06));
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm, 0.5rem);
+
+  padding: var(--btn-padding);
+  font-family: var(--font-body, 'Inter', sans-serif);
+
+  font-size: var(--font-md, 1rem);
+
+  font-weight: var(--weight-semibold, 600);
+  border: none;
+  border-radius: var(--btn-radius);
+  cursor: pointer;
+  user-select: none;
+
+  background: transparent;
+
+  color: var(--foreground-color, #3b2f2f);
+  box-shadow: var(--btn-shadow);
+
+  transition:
+    transform var(--btn-transition),
+    background-color var(--btn-transition),
+    box-shadow var(--btn-transition),
+    color var(--btn-transition);
+
+  will-change: transform, box-shadow;
+}
+
+.btn:hover:not(:disabled) {
+  box-shadow: var(--shadow-md, 0 4px 12px rgba(0, 0, 0, 0.1));
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: var(--shadow-soft, 0 2px 6px rgba(0, 0, 0, 0.06));
+}
+
+.btn:disabled {
+  opacity: var(--opacity-disabled, 0.5);
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.btn-primary,
+.btn-confirm {
+  background: linear-gradient(
+    to bottom,
+    var(--accent-color-light, #c28c55),
+    var(--accent-color, #a1653a)
+  );
+  color: var(--foreground-color-light, #ffffff);
+  box-shadow: var(--shadow-md, 0 4px 12px rgba(0, 0, 0, 0.1));
+}
+
+.btn-primary:hover:not(:disabled),
+.btn-confirm:hover:not(:disabled) {
+  background: linear-gradient(
+    to bottom,
+    var(--accent-color, #a1653a),
+    var(--accent-color-dark, #6b3f23)
+  );
+  box-shadow: var(--shadow-strong, 0 8px 24px rgba(0, 0, 0, 0.15));
+}
+
+.btn-secondary,
+.btn-cancel {
+  background: var(--background-color-lighter, #f3ece7);
+  color: var(--foreground-color, #3b2f2f);
+  box-shadow: inset 0 0 0 1px var(--border-color, rgba(0, 0, 0, 0.1));
+}
+
+.btn-secondary:hover:not(:disabled),
+.btn-cancel:hover:not(:disabled) {
+  background: linear-gradient(
+    to bottom,
+    var(--background-color-light, #6b3f23),
+    var(--background-color-lighter, #a1653a)
+  );
+}
+
+.btn-danger {
+  background: linear-gradient(
+    to bottom,
+    var(--danger-color-light, #d87a7a),
+    var(--danger-color, #8b0000)
+  );
+  color: var(--foreground-color-light, #ffffff);
+}
+
+.btn-danger:hover:not(:disabled) {
+  background: linear-gradient(
+    to bottom,
+    var(--danger-color, #8b0000),
+    var(--danger-color-dark, #a04a4a) /* Fallback since dark isn't in theme */
+  );
+  box-shadow: var(--shadow-strong, 0 8px 24px rgba(0, 0, 0, 0.15));
+}
+
+.btn-outlined {
+  background: transparent;
+  color: var(--accent-color, #a1653a);
+  border: var(--border-sm, 2px) solid var(--accent-color, #a1653a);
+  padding: calc(0.6rem - var(--border-sm, 2px)) calc(1rem - var(--border-sm, 2px));
+  box-shadow: none;
+}
+
+.btn-outlined:hover:not(:disabled) {
+  background: var(--accent-color, #a1653a);
+  color: var(--foreground-color-light, #ffffff);
+}
+
+.btn-glass {
+  background: var(--surface-color, rgba(255, 255, 255, 0.6));
+  color: var(--foreground-color, #3b2f2f);
+  backdrop-filter: var(--backdrop-blur, blur(10px) saturate(180%));
+  -webkit-backdrop-filter: var(--backdrop-blur, blur(10px) saturate(180%));
+  box-shadow: var(--shadow-soft, 0 2px 6px rgba(0, 0, 0, 0.06));
+  border: 1px solid var(--border-color, rgba(0, 0, 0, 0.1));
+}
+
+.btn-glass:hover:not(:disabled) {
+  background: var(--elevated-surface, rgba(255, 255, 255, 0.6));
+  box-shadow: var(--shadow-md, 0 4px 12px rgba(0, 0, 0, 0.1));
+}
+
+.btn-icon {
+  width: var(--size-3xl, 3rem);
+  height: var(--size-3xl, 3rem);
+  padding: var(--space-sm, 0.5rem);
+  border-radius: var(--radius-round, 9999px);
+  background: transparent;
+  color: var(--foreground-color, #3b2f2f);
+  box-shadow: none;
+}
+
+.btn-icon:hover:not(:disabled) {
+  background: var(--background-color-lighter, #f3ece7);
+  transform: translateY(-2px);
+  box-shadow: none;
+}
+
+.btn-icon > * {
+  font-size: var(--font-lg, 1.25rem);
+  width: 100%;
+  height: 100%;
+}

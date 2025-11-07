@@ -1,0 +1,18 @@
+.theme-sunburnt-light {
+  --background-color: #fdf6e3;
+  --background-color-light: #ffffff;
+  --background-color-lighter: #eee8d5;
+
+  --foreground-color: #586e75;
+  --foreground-color-dark: #073642;
+  --foreground-color-subtle: #93a1a1;
+  --foreground-color-light: #ffffff;
+
+  --accent-color: #cb4b16;       /* Sunburnt Orange */
+  --accent-color-light: #dc7a49;
+  --accent-color-dark: #8b2c08;
+  --accent-color-comp: #268bd2;  /* Solar Blue */
+
+  --danger-color: #d33682;
+  --danger-color-light: #e67ba8;
+}

@@ -1,5 +1,5 @@
-import { API_ENDPOINTS } from "../../config";
-import makeAxiosRequest from "../makeAxiosRequest";
+import { API_ENDPOINTS } from "@/config";
+import makeAxiosRequest from "@/helpers/makeAxiosRequest";
 
 const api = API_ENDPOINTS.comments;
 
@@ -25,7 +25,7 @@ export const getAllCommentOfPosts = async (id) => {
 
 export const updateComment = async (id, content) => {
     if (!id) return { status: 400, data: { message: "Comment ID is required."}};
-    if (content.length < 1 || content.length > 10_000) return { status: 400, data: { message: "Comment size must be between 1 and 10,000 characters."}}
+    if (content.length < 1 || content.length > 10_000) return { status: 400, data: { message: "Comment size must be between 1 and 10,000 characters."}};
     const form = new FormData();
     form.append("Content", content);
     const endpoint = api.update;
@@ -39,7 +39,7 @@ export const updateComment = async (id, content) => {
 
 export const createNewComment = async (id, content) => {
     if (!id) return { status: 400, data: { message: "Post ID is required."}};
-    if (content.length < 1 || content.length > 10_000) return { status: 400, data: { message: "Comment size must be between 1 and 10,000 characters."}}
+    if (content.length < 1 || content.length > 10_000) return { status: 400, data: { message: "Comment size must be between 1 and 10,000 characters."}};
     const form = new FormData();
     form.append("Content", content);
     const endpoint = api.create;

@@ -1,0 +1,18 @@
+.theme-coffee-dark {
+  --background-color: #1c1614;
+  --background-color-light: #2a211e;
+  --background-color-lighter: #3b2f2f;
+
+  --foreground-color: #fdfaf7;
+  --foreground-color-dark: #f3ece7;
+  --foreground-color-subtle: #bba89e;
+  --foreground-color-light: #ffffff;
+
+  --accent-color: #c28c55;
+  --accent-color-light: #e0b27a;
+  --accent-color-dark: #a1653a;
+  --accent-color-comp: #3a6fa1;
+
+  --danger-color: #d87a7a;
+  --danger-color-light: #ffb3b3;
+}

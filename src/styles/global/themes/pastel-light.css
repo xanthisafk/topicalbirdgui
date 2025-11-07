@@ -1,0 +1,18 @@
+.theme-pastel-light {
+  --background-color: #fafaff;
+  --background-color-light: #ffffff;
+  --background-color-lighter: #f2f2ff;
+
+  --foreground-color: #2d2d31;
+  --foreground-color-dark: #000000;
+  --foreground-color-subtle: #9a9ab0;
+  --foreground-color-light: #ffffff;
+
+  --accent-color: #a7baff;
+  --accent-color-light: #c6d3ff;
+  --accent-color-dark: #6c7bd6;
+  --accent-color-comp: #ffbacc;
+
+  --danger-color: #ff6f91;
+  --danger-color-light: #ff99ac;
+}

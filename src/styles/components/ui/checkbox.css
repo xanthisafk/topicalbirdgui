@@ -1,0 +1,103 @@
+.checkbox-container *,
+.checkbox-container ::after,
+.checkbox-container ::before {
+    box-sizing: border-box;
+}
+
+:root {
+    --checkbox-size: 1rem;
+    --gap: 0.5rem;
+}
+
+.checkbox-container .cbx {
+    position: relative;
+    display: block;
+    float: left;
+    width: var(--checkbox-size);
+    height: var(--checkbox-size);
+    border-radius: 4px;
+    outline: var(--border-sm) solid var(--border-color);
+    background-color: var(--background-color-light);
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.15), inset 0 -1px 1px rgba(0, 0, 0, 0.15);
+    transition: all 0.15s ease;
+}
+
+.checkbox-container .cbx+span {
+    float: left;
+    margin-left: 6px;
+}
+
+.checkbox-container {
+    user-select: none;
+
+}
+
+.checkbox-container label {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--gap);
+    cursor: pointer;
+}
+
+.checkbox-container input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.checkbox-container input[type="checkbox"]:focus + .cbx {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+
+.checkbox-container input[type="checkbox"]:checked+.cbx {
+    background-color: #606062;
+    background-image: linear-gradient(to bottom,
+                var(--accent-color-light),
+                var(--accent-color));
+}
+
+.checkbox-container input[type="checkbox"]:checked+.cbx svg {
+    opacity: 1;
+}
+
+.checkbox-container .cbx svg {
+    position: absolute;
+    top: 50%;
+    left: 50%; 
+    transform: translate(-50%, -50%);
+    
+    
+    stroke: #fff;
+    stroke-width: 3; 
+    fill: none;
+    
+    
+    opacity: 0; 
+    transition: opacity 0.15s ease;
+
+    
+    width: 80%; 
+    height: 80%;
+}
+
+.checkbox-container .cbx svg,
+.checkbox-container .cbx svg * {
+    width: initial;
+    height: initial;
+    aspect-ratio: initial;
+}
+
+.cbx {
+  width: var(--checkbox-size);
+  height: var(--checkbox-size);
+}

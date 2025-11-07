@@ -1,0 +1,18 @@
+.theme-sunburnt-dark {
+  --background-color: #073642;
+  --background-color-light: #0b4a5a;
+  --background-color-lighter: #134e63;
+
+  --foreground-color: #fdf6e3;
+  --foreground-color-dark: #eee8d5;
+  --foreground-color-subtle: #93a1a1;
+  --foreground-color-light: #ffffff;
+
+  --accent-color: #dc7a49;
+  --accent-color-light: #f39c6b;
+  --accent-color-dark: #cb4b16;
+  --accent-color-comp: #268bd2;
+
+  --danger-color: #e67ba8;
+  --danger-color-light: #f4aac6;
+}

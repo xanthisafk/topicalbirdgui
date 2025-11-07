@@ -1,0 +1,18 @@
+.theme-midnight-purple-dark {
+  --background-color: #0d0a14;
+  --background-color-light: #1a1124;
+  --background-color-lighter: #2a1a39;
+
+  --foreground-color: #f0eaff;
+  --foreground-color-dark: #0b0a0d;
+  --foreground-color-subtle: #b8a1d9;
+  --foreground-color-light: #ffffff;
+
+  --accent-color: #7c3aed;       /* True purple */
+  --accent-color-light: #a78bfa;
+  --accent-color-dark: #5b21b6;
+  --accent-color-comp: #ed3a9a;  /* Magenta-pink */
+
+  --danger-color: #dc2626;
+  --danger-color-light: #f87171;
+}
