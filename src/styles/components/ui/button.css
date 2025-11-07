@@ -1,7 +1,7 @@
 .btn {
   --btn-padding: var(--button-padding, 0.6rem 1rem);
   --btn-radius: var(--radius-md, 12px);
-  --btn-transition: var(--transition-fast, 150ms);
+  --btn-transition: 300ms ease-in-out;
   --btn-shadow: var(--shadow-soft, 0 2px 6px rgba(0, 0, 0, 0.06));
 
   display: inline-flex;
@@ -30,9 +30,6 @@
     background-color var(--btn-transition),
     box-shadow var(--btn-transition),
     color var(--btn-transition);
-
-  transition-duration: 0.2s;
-  transition-timing-function: ease-in;
 
   will-change: transform, box-shadow;
 }
