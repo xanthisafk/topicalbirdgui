@@ -14,7 +14,7 @@ import Users from "./components/pages/Users";
 import Search from "./components/pages/Search";
 import NestDetail from "./components/pages/NestDetail";
 import NestSettings from "./components/pages/NestSettings";
-import Profile from "./components/pages/Profile";
+import Post from "./components/pages/Post";
 import App from "./App";
 
 import { ThemeProvider } from "./components/ThemeProvider";
@@ -76,8 +76,8 @@ const router = createBrowserRouter([
         element: <NestSettings />,
       },
       {
-        path: "/p/:username",
-        element: <Profile />,
+        path: "/p/:id",
+        element: <Post />,
       },
       {
         path: "*",
@@ -88,13 +88,13 @@ const router = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <ThemeProvider>
-      <SnackbarProvider>
-        <PopupProvider>
-          <RouterProvider router={router} />
-        </PopupProvider>
-      </SnackbarProvider>
-    </ThemeProvider>
-  </StrictMode>
+
+  <ThemeProvider>
+    <SnackbarProvider>
+      <PopupProvider>
+        <RouterProvider router={router} />
+      </PopupProvider>
+    </SnackbarProvider>
+  </ThemeProvider>
+
 );
