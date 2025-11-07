@@ -81,7 +81,7 @@ export const updateNest = async (id, description, displayName = "", icon = "") =
 
     if (icon) {
         const res = await fileChecker(icon);
-        if (res !== 200) return res ;
+        if (res.status !== 200) return res ;
         form.append("Icon", res.icon);
     }
 
@@ -106,7 +106,7 @@ export const createNewNest = async (title, description = "", displayName = "", i
     const form = new FormData();
     if (icon) {
         const res = await fileChecker(icon);
-        if (res !== 200) return res;
+        if (res.status !== 200) return res;
         form.append("Icon", res.icon);
     }
 
