@@ -81,7 +81,7 @@
 }
 
 .nest-description {
-    font-weight: bold;
+    text-align: center;
     font-size: var(--text-lg);
     align-self: center;
 }
@@ -167,5 +167,9 @@
 
     .posts-container {
         margin: 0;
+    }
+
+    .nest-description {
+        max-width: 30ch;
     }
 }

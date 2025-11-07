@@ -83,13 +83,6 @@
     aspect-ratio: 1;
 }
 
-/* === Description === */
-.profile-description {
-    font-weight: bold;
-    font-size: var(--text-lg);
-    align-self: center;
-}
-
 /* === Info === */
 .profile-info-container {
     display: flex;
@@ -99,6 +92,12 @@
     font-family: var(--font-body);
     font-size: var(--text-lg);
     color: var(--foreground-color-subtle);
+}
+
+.profile-description {
+    text-align: center;
+    font-size: var(--text-lg);
+    align-self: center;
 }
 
 .profile-info-container b {
@@ -186,5 +185,9 @@
 
     .posts-container {
         margin: 0;
+    }
+
+    .profile-description {
+        max-width: 30ch;
     }
 }
