@@ -1,6 +1,5 @@
 import { ACCEPTABLE_FILE_FORMATS_JOINED } from "@/config";
 import imageCompression from "browser-image-compression";
-import { isAnimatedWebP } from "./webpHelper";
 
 const fileChecker = async (icon) => {
     if (!icon) return { status: 400, data: { message: "No file provided." } };
@@ -13,8 +12,7 @@ const fileChecker = async (icon) => {
         return { status: 400, data: { message: "Invalid file type. Only images (JPEG, PNG, WEBP, GIF) are allowed." } };
     }
 
-    const skipCompression =
-    icon.type === "image/gif" || (icon.type === "image/webp" && (await isAnimatedWebP(icon)));
+    const skipCompression = icon.type === "image/gif";
 
   if (skipCompression) {
     if (icon.size > MAX_SIZE_BYTES) {

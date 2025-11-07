@@ -3,7 +3,6 @@ import { Camera, FileMinus } from "lucide-react";
 import "@/styles/components/icon-preview.css";
 import { ACCEPTABLE_FILE_FORMATS_JOINED } from "@/config";
 import { ImageCropper } from "@/components/ImageCropper";
-import { isAnimatedWebP } from "@/helpers";
 
 const IconPreview = ({
   defaultImage = "/icon.svg",
@@ -18,12 +17,8 @@ const IconPreview = ({
 
   const handleImageChange = async (e) => {
     const file = e.target.files?.[0];
-    if (!file || !file.type.startsWith("image/")) return;
 
-    const isAnimated = (
-      file.type === "image/gif"
-      || (file.type === "image/webp" && (await isAnimatedWebP(file)))
-    );
+    const isAnimated = (file.type === "image/gif")
     const reader = new FileReader();
     reader.onload = (event) => {
 
