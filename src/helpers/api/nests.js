@@ -55,6 +55,24 @@ export const getSelfNests = async () => {
     return await makeAxiosRequest(options);
 }
 
+export const getNestByUsername = async (username) => {
+    const endpoint = api.getUserNestByUsername;
+    const options = {
+        method: endpoint.method,
+        url: endpoint.url(username)
+    }
+    return await makeAxiosRequest(options);
+}
+
+export const getNestByUserId = async (id) => {
+    const endpoint = api.getUserNestById;
+    const options = {
+        method: endpoint.method,
+        url: endpoint.url(id)
+    }
+    return await makeAxiosRequest(options);
+}
+
 export const updateNest = async (id, description, displayName = "", icon = "") => {
     if (!id) return { status: 400, data: { message: "Nest Id is required." } };
     if (!description) return { status: 400, data: { message: "Nest description is required." } };
