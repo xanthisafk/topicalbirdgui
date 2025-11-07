@@ -7,7 +7,7 @@ export function useViewNavigate() {
   const navigateTo = (url, direction = 'default') => {
     document.documentElement.dataset.navigationDirection = direction;
     navigate(url, { viewTransition: true });
-    setTimeout(() => delete document.documentElement.dataset.navigationDirection, 3000);
+    setTimeout(() => delete document.documentElement.dataset.navigationDirection, 500);
   };
 
   return navigateTo;
