@@ -107,7 +107,9 @@ const NestDetail = () => {
                       <Button><SquarePen /> New Post</Button>
                     }
                     {user?.id === moderator?.id &&
-                      <Button variant='secondary'><Pencil /> Edit Nest</Button>
+                      <Button
+                        onClick={() => navigate(NAVIGATION_PAGES.nests.settings(slug), "forwards")}
+                        variant='secondary'><Pencil /> Edit Nest</Button>
                     }
                   </div>
                 </div>
