@@ -59,6 +59,7 @@
 }
 
 .nest-name {
+    display: block;
     font-family: var(--font-heading);
     font-weight: bold;
     font-size: var(--text-3xl);
