@@ -2,16 +2,16 @@ import { API_DEFAULT_IMAGES, API_URL_FROM_CONTENT_URL, EVENT_LISTENER_KEYS, LOCA
 import { getAllPostsByNest, getNestByTitle, useViewNavigate } from '@/helpers';
 import React, { useEffect, useState } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
-import Loader from '../ui/Loader';
-import DoestExist from '../DoesntExist';
-import NoContent from '../NoContent';
-import Post from '../Post';
+import Loader from '../../ui/Loader';
+import DoestExist from '../../DoesntExist';
+import NoContent from '../../NoContent';
+import Post from '../../Post';
 import formatTimeData from '@/helpers/formatTimeData';
 import { ChevronRight, Pencil, SquarePen } from 'lucide-react';
 
 import "@/styles/pages/nests.css";
-import Button from '../ui/Button';
-import ContentLoading from '../ContentLoading';
+import Button from '../../ui/Button';
+import ContentLoading from '../../ContentLoading';
 
 const NestDetail = () => {
   const { slug } = useParams();
@@ -77,6 +77,7 @@ const NestDetail = () => {
     updateCurrentUser();
     fetchNest();
     fetchPosts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug])
 
 

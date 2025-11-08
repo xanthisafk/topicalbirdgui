@@ -1,13 +1,13 @@
 import { getNestByTitle, updateNest, useViewNavigate } from '@/helpers';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import ContentLoading from '../ContentLoading';
+import ContentLoading from '../../ContentLoading';
 import { API_DEFAULT_IMAGES, API_URL_FROM_CONTENT_URL, LOCALSTORAGE_KEYS, NAVIGATION_PAGES } from '@/config';
 import { Check, ChevronLeft, Loader, TriangleAlert } from 'lucide-react';
-import IconPreview from '../IconPreview';
-import Label from '../ui/Label';
-import InputBox from '../ui/Input';
-import Button from '../ui/Button';
+import IconPreview from '../../IconPreview';
+import Label from '../../ui/Label';
+import InputBox from '../../ui/Input';
+import Button from '../../ui/Button';
 import { useSnackbar } from '@/hooks/useSnackbar';
 import { formatErrorMessage } from '@/helpers/formatErrorMessage';
 
@@ -60,6 +60,7 @@ const NestSettings = () => {
 
   useEffect(() => {
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug]);
 
   const handleIconChange = e => setIcon(e.blob);
@@ -77,9 +78,8 @@ const NestSettings = () => {
         nest.id,
         description || nest.description,
         name || nest.displayName,
-        icon || null);
-
-      console.log(res);
+        icon || null
+      );
 
       if (res.status === 200) {
         showSnackbar({
@@ -110,19 +110,60 @@ const NestSettings = () => {
     navigate(NAVIGATION_PAGES.home, "back");
     return;
   } else {
+    // Determine live preview values
+    const previewName = name || nest.displayName || "Unnamed Nest";
+    const previewDesc = description || nest.description || "No description yet.";
+    const previewIcon = icon
+      ? URL.createObjectURL(icon)
+      : defImage || API_DEFAULT_IMAGES.nestPicture.image;
+
     return (
       <div className="nest-change-container">
-        <Button onClick={() => navigate(NAVIGATION_PAGES.nests.title(slug), "back")}><ChevronLeft /></Button>
+        
+        {/* --- Left: Live Preview Card --- */}
+        <div className="nest-preview-card">
+          <div className='nest-preview-title'>
+            <h3 className='nest-change-h3'>Preview</h3>
+          </div>
+          <div className="preview-icon-container">
+            <img
+              className="nest-icon"
+              src={previewIcon}
+              alt={`${previewName}'s icon.`}
+            />
+          </div>
+          <div className="nest-data-container">
+            <span className="nest-name">{previewName}</span>
+            <span className="nest-description">{previewDesc}</span>
+            <span className="nest-title">n/{nest.title}</span>
+          </div>
+        </div>
+
+        {/* --- Right: Edit Form --- */}
         <form className="nest-change-form" onSubmit={handleFormSubmit}>
-          <h3> {`Edit n/${nest.title}`}</h3>
+          <div className='nest-preview-title'>
+            <h3 className='nest-change-h3'>Edit</h3>
+          </div>
           <IconPreview onChange={handleIconChange} defaultImage={defImage} />
           <div className="nest-change-form-group">
             <Label htmlFor={"name"}>Display Name</Label>
-            <InputBox onChange={e => setName(e.target.value)} id="name" name="name" placeholder={"What do you call it..."} />
+            <InputBox
+              onChange={e => setName(e.target.value)}
+              id="name"
+              name="name"
+              placeholder={"What do you call it..."}
+              defaultValue={nest.displayName}
+            />
           </div>
           <div className="nest-change-form-group">
             <Label htmlFor={"description"}>Description</Label>
-            <InputBox onChange={e => setDescription(e.target.value)} id="description" name="description" placeholder={"What's it about..."} />
+            <InputBox
+              onChange={e => setDescription(e.target.value)}
+              id="description"
+              name="description"
+              placeholder={"What's it about..."}
+              defaultValue={nest.description}
+            />
           </div>
           <Button type="submit">
             {submitting ? <Loader stroke='none' /> : "Save"}
