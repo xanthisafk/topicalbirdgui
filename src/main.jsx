@@ -12,8 +12,8 @@ import Nest from "./components/pages/Nest";
 import Feed from "./components/pages/Feed";
 import Users from "./components/pages/Users";
 import Search from "./components/pages/Search";
-import NestDetail from "./components/pages/NestDetail";
-import NestSettings from "./components/pages/NestSettings";
+import NestDetail from "./components/pages/nest/NestDetail";
+import NestSettings from "./components/pages/nest/NestSettings";
 import Post from "./components/pages/Post";
 import App from "./App";
 
