@@ -8,7 +8,7 @@ import Home from "./components/pages/Home";
 import Login from "./components/pages/auth/Login";
 import Register from "./components/pages/auth/Register";
 import Account from "./components/pages/auth/Account";
-import Nest from "./components/pages/Nest";
+import Nest from "./components/pages/nest/Nest";
 import Feed from "./components/pages/Feed";
 import Users from "./components/pages/Users";
 import Search from "./components/pages/Search";
@@ -20,6 +20,8 @@ import App from "./App";
 import { ThemeProvider } from "./components/ThemeProvider";
 import { SnackbarProvider } from "./components/SnackbarProvider";
 import { PopupProvider } from "./components/PopupProvider";
+import NewPost from "./components/pages/nest/NewPost";
+import { Goal } from "lucide-react";
 
 const router = createBrowserRouter([
   {
@@ -49,7 +51,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/nest",
-        element: <Nest />,
+        element: <Navigate to="/nests" />
+      },
+      {
+        path: "/nests",
+        element: <Nest />
       },
       {
         path: "/feed",
@@ -68,13 +74,23 @@ const router = createBrowserRouter([
         element: <Search />,
       },
       {
-        path: "/n/:slug",
-        element: <NestDetail />,
+        path: "/n",
+        children: [
+          {
+            path: ":slug",
+            element: <NestDetail />
+          },
+          {
+            path: ":slug/settings",
+            element: <NestSettings />,
+          },
+          {
+            path: ":slug/new",
+            element: <NewPost />
+          }
+        ]
       },
-      {
-        path: "/n/:slug/settings",
-        element: <NestSettings />,
-      },
+
       {
         path: "/p/:id",
         element: <Post />,
