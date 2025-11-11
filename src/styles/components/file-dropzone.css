@@ -1,0 +1,62 @@
+.file-dropzone {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: var(--space-lg) var(--space-xl);
+  border: var(--border-sm) dashed var(--foreground-color-subtle);
+  border-radius: var(--radius-md);
+  background-color: var(--background-color-lighter);
+  color: var(--foreground-color-subtle);
+  font-family: var(--font-body);
+  font-weight: var(--weight-medium);
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  transition: all var(--transition-fast);
+}
+
+/* Hover state */
+.file-dropzone:hover,
+.file-dropzone:focus {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+  background-color: var(--background-color-light);
+}
+
+/* Active state */
+.file-dropzone.is-dragging {
+  border-color: var(--accent-color);
+  background-color: var(--background-color-light);
+  color: var(--accent-color);
+  /* Using accent-color for the glow shadow */
+  box-shadow: 0 0 20px rgba(161, 101, 58, 0.3); /* Using --accent-color: #a1653a */
+}
+
+/* Content wrapper for icon and text */
+.file-dropzone-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  /* Prevents clicks on icon/text from interfering */
+  pointer-events: none;
+}
+
+/* icon */
+.file-dropzone-content svg {
+  width: var(--size-3xl);
+  height: var(--size-3xl);
+  stroke-width: var(--border-sm);
+}
+
+/* prompt text */
+.file-dropzone-prompt {
+  font-size: var(--font-md);
+  line-height: var(--leading-normal);
+}
+
+/* file input hidden */
+.file-dropzone-input {
+  display: none;
+}
