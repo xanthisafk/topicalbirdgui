@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ContentLoading from '../../ContentLoading';
 import { API_DEFAULT_IMAGES, API_URL_FROM_CONTENT_URL, LOCALSTORAGE_KEYS, NAVIGATION_PAGES } from '@/config';
-import { Check, ChevronLeft, Loader, TriangleAlert } from 'lucide-react';
+import { Check, ChevronLeft, Loader, Save, TriangleAlert } from 'lucide-react';
 import IconPreview from '../../IconPreview';
 import Label from '../../ui/Label';
 import InputBox from '../../ui/Input';
@@ -165,9 +165,14 @@ const NestSettings = () => {
               defaultValue={nest.description}
             />
           </div>
-          <Button type="submit">
-            {submitting ? <Loader stroke='none' /> : "Save"}
+          <div className="form-action-buttons">
+            <Button type="button" variant='secondary' onClick={() => navigate(-1, "back")}>
+              <ChevronLeft />
+            </Button>
+            <Button type="submit">
+            {submitting ? <Loader stroke='none' /> : <><Save /> Save</>}
           </Button>
+          </div>
         </form>
       </div>
     );

@@ -41,6 +41,17 @@
     border-radius: var(--radius-sm);
 }
 
+.form-action-buttons {
+    display: flex;
+    width: 100%;
+    gap: var(--space-sm);
+}
+
+.form-action-buttons > button[type=submit] {
+    width: 100%;
+    
+}
+
 
 @media (min-width: 900px) {
     .nest-change-container {
