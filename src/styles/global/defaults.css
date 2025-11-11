@@ -283,7 +283,6 @@ hr {
 
 .layout-content {
   width: 100%;
-  padding: var(--space-lg);
 }
 
 
@@ -330,4 +329,98 @@ hr {
 
 .half-spin-parent:hover > .half-spin {
     animation: forwards ease-out halfSpin 0.5s;
+}
+
+
+/* HOME */
+.sidebar-card {
+  background: var(--background-color-light);
+  border-radius: var(--radius-sm);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-sm);
+}
+
+.sidebar-card-title {
+  font-size: var(--size-md);
+  margin: 0;
+  margin-bottom: var(--space-sm);
+}
+
+.sidebar-nest-chip {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-xs);
+  border-radius: var(--radius-sm);
+  background-image: linear-gradient(to bottom, var(--accent-color-light), var(--accent-color));
+  background-color: var(--accent-color);
+  color: var(--background-color-light);
+  cursor: pointer;
+  transition: 150ms ease-out;
+}
+
+.sidebar-nest-chip img {
+  height: 2rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+
+.sidebar-nest-chip-content {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sidebar-nest-chip-content p {
+  /* font-size: var(--size-lg); */
+  font-weight: bold;
+}
+
+.sidebar-nest-chip svg {
+  transition: 150ms ease-out;
+}
+
+.sidebar-nest-chip:hover svg {
+  transform: translateX(0.5rem);
+}
+
+.sidebar-user-container {
+  cursor: pointer;
+  display: flex;
+  gap: var(--space-sm);
+  flex-direction: column;
+  align-items: center;
+}
+
+.sidebar-user-container img {
+  width: 5rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 2px solid var(--accent-color);
+  background-color: var(--accent-color);
+}
+
+.sidebar-user-container-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sidebar-user-container-content p {
+  font-size: var(--size-xl);
+  font-family: var(--font-heading);
+  margin: 0;
+  color: var(--foreground-color);
+}
+
+.sidebar-user-container-content small {
+  color: var(--foreground-color-subtle);
+  text-decoration: underline solid transparent var(--size-xs);
+  transition: 150ms ease-out;
+}
+
+.sidebar-user-container:hover small {
+  text-decoration: underline solid var(--foreground-color-subtle) var(--size-xs);
 }
