@@ -1,39 +1,52 @@
-import { LOCALSTORAGE_KEYS } from '@/config';
-import { getLatestPosts, getPopularPosts } from '@/helpers';
+import { API_URL_FROM_CONTENT_URL, LOCALSTORAGE_KEYS, NAVIGATION_PAGES } from '@/config';
+import { getLatestPosts, getPopularPosts, getSelfNests, useViewNavigate } from '@/helpers';
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import Loader from '../ui/Loader';
 import Post from '../Post';
 import Button from '../ui/Button';
-import { RefreshCw } from 'lucide-react';
+import { ArrowDownUp, ChartNoAxesCombined, ChevronRight, RefreshCw, Zap } from 'lucide-react';
+import ContentLoading from '../ContentLoading';
+import NoContent from '../NoContent';
+import Pagination from '../Pagination';
+
+import "@/styles/pages/feed.css"
+import Layout from '../Layout';
 
 const Feed = () => {
 
+  const navigate = useViewNavigate();
+  const [searchParams] = useSearchParams();
+
   const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState([]);
+  const [nests, setNests] = useState([]);
   const [pagination, setPagination] = useState({
-    limit: 1,
-    pageNumber: 1,
+    limit: 20,
+    pageNumber: searchParams.get("page") || 1,
     totalItems: 1,
     totalPages: 1,
   });
-
-  const [searchParams] = useSearchParams();
-  const pageNo = searchParams.get("page") ?? 1;
-  const sort = searchParams.get("sort") ?? "Latest";
+  const [currentUser, setCurrentUser] = useState(null);
+  const sort = searchParams.get("sort") ?? "latest";
+  
   const limit = Number.parseInt(localStorage.getItem(LOCALSTORAGE_KEYS.feedLimit)) || 20;
 
-  const saveFeedToLS = (items) => {
-    if (pageNo === 1 && items.posts.length > 0) {
-      localStorage.setItem(
-        LOCALSTORAGE_KEYS.feedPosts,
-        JSON.stringify(items.posts)
-      );
+  const getCurrentUser = () => {
+    let user = null;
+    try {
+      const data = localStorage.getItem(LOCALSTORAGE_KEYS.currentUser);
+      if (data) {
+        user = JSON.parse(data);
+      }
+    } finally {
+      setCurrentUser(user);
+    }
+  }
 
-      localStorage.setItem(
-        LOCALSTORAGE_KEYS.feedPages,
-        JSON.stringify(items.pagination)
-      );
+  const fetchNests = async () => {
+    const res = await getSelfNests();
+    if (res.status === 200) {
+      setNests(res.data.content);
     }
   }
 
@@ -41,49 +54,87 @@ const Feed = () => {
     try {
       setLoading(true);
       let res;
-      if (sort === "Latest") {
-        res = await getLatestPosts(null, pageNo, limit);
+      if (sort === "latest") {
+        res = await getLatestPosts(null, pagination.pageNumber || 1, limit);
       } else {
-        res = await getPopularPosts(null, pageNo, limit)
+        res = await getPopularPosts(null, pagination.pageNumber || 1, limit)
       }
       if (res.status === 200) {
         setPosts(res.data.content.posts);
         setPagination(res.data.content.pagination);
-        saveFeedToLS(res.data.content);
       } else {
         console.error(res);
       }
     } finally {
       setLoading(false);
     }
-
   };
 
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      getCurrentUser();
+      fetchNests();
+      await refreshPosts();
+    } finally {
+      setLoading(false);
+    }
+  }
+
   useEffect(() => {
-    refreshPosts();
-  }, []);
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pagination.pageNumber, sort]);
+
+
+  if (loading) return <ContentLoading size={64} />
+  if (posts.length <= 0) return <NoContent what="posts" />
 
   return (
-    <h2>
-      Browse {sort} <Button className='half-spin-parent'><RefreshCw
+    <>
+      <Layout 
+          sidebar={<>
+            {
+              currentUser && <div className="sidebar-card">
+                <h3 className="sidebar-card-title">You</h3>
+                <div className="sidebar-user-container" tabIndex={0}
+                 onClick={() => navigate(NAVIGATION_PAGES.users.username(currentUser.handle), "forwards")}>
+                  <img src={API_URL_FROM_CONTENT_URL(currentUser.icon)} alt={`${currentUser.handle}'s profile picture`} />
+                  <div className="sidebar-user-container-content">
+                    <p>{currentUser.displayName}</p>
+                    <small>{`/u/${currentUser.handle}`}</small>
+                  </div>
+                </div>
+              </div>
+            }
+            { nests.length > 0 && <div className='sidebar-card'>
+              <h3 className='sidebar-card-title'>Your Nests</h3>
+              {nests.map((nest, index) => (
+                <div className="sidebar-nest-chip" key={index} tabIndex={0}
+                  onClick={() => navigate(NAVIGATION_PAGES.nests.title(nest.title), "forwards")} >
+                  <img src={API_URL_FROM_CONTENT_URL(nest.icon)} alt={`${nest.title}'s icon.`} />
+                  <div className="sidebar-nest-chip-content">
+                    <p>{`/n/${nest.title}`}</p>
+                    <ChevronRight />
+                  </div>
+                </div>
+              ))}
+              </div>}
+          </>}>
+            <div>
+              {
+                posts.map((post, index) => (
+                  <Post post={post} key={index} />
+                ))
+              }
+              <Pagination data={pagination} />
+            </div>
+          </Layout>
+      <Button className='corner-sticky half-spin-parent'><RefreshCw
         className={loading ? "spin" : "half-spin"}
         onClick={() => refreshPosts()}
-       /></Button><br />
-      {loading
-        ? <Loader />
-        : posts.length > 0
-          ? posts.map((item, index) => (
-            <Post post={item} key={index} />
-          ))
-          : <span>No posts found!</span>
-      }
-      page: {pageNo}<br />
-      limit: {limit}<br />
-      <span>This Page: {pagination.pageNumber}</span>
-      <span>Total Pages: {pagination.totalPages}</span>
-      <span>This Items: {pagination.totalItems}</span>
-      <span>Limit: {pagination.limit}</span>
-    </h2>
+      /></Button>
+    </>
   );
 };
 
