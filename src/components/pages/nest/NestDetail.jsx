@@ -105,7 +105,8 @@ const NestDetail = () => {
                   <span className="nest-title">n/{nest.title}</span>
                   <div className="nest-button-group">
                     {user.id !== null &&
-                      <Button><SquarePen /> New Post</Button>
+                      <Button onClick={() => navigate(NAVIGATION_PAGES.nests.newPost(slug), "forwards")}
+                      ><SquarePen /> New Post</Button>
                     }
                     {user?.id === moderator?.id &&
                       <Button

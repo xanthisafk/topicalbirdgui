@@ -52,6 +52,8 @@ export const NAVIGATION_PAGES = Object.freeze({
         base: "/nests",
         title: title => `/n/${encodeURIComponent(title)}`,
         settings: title => `/n/${encodeURIComponent(title)}/settings`,
+        newPost: title => `/n/${encodeURIComponent(title)}/new`,
+        newNest: "/nest/new"
     },
     post: {
         id: id => `/p/${encodeURIComponent(id)}`,
