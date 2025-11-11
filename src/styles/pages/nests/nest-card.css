@@ -1,0 +1,57 @@
+.nest-card {
+    display: flex;
+    flex-direction: row;
+    height: fit-content;
+    min-width: fit-content;
+    max-width: 400px;
+    background-color: var(--background-color-light);
+    border: 2px solid var(--accent-color);
+    border-radius: var(--radius-sm);
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: ease-out 150ms;
+}
+
+.nest-card:hover {
+    transform: translateY(-1px);
+}
+
+.nest-icon {
+    width: var(--size-5xl);
+    transform: translateX(-0.5px);
+    object-fit: cover;
+    margin: 0;
+    padding: 0;
+    border-bottom-left-radius: var(--radius-sm);
+    border-top-left-radius: var(--radius-sm);
+}
+
+.nest-stack {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-sm);
+}
+
+.nest-stack small {
+    color: var(--foreground-color-subtle);
+}
+
+.nest-stack span {
+    color: var(--accent-color);
+    font-weight: bold;
+}
+
+.nest-stack p {
+    color: var(--foreground-color);
+}
+
+.nest-title-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nest-title-container img {
+    width: var(--size-lg);
+}
