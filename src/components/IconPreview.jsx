@@ -67,6 +67,11 @@ const IconPreview = ({
         style={{ width: size, height: size }}
       >
         <img
+          tabIndex={0}
+          onClick={() => {
+            if (showUpload) document.querySelector("#icon-upload").click();
+          }}
+          
           src={preview}
           alt="Preview"
           className="icon-preview__image"
@@ -91,7 +96,12 @@ const IconPreview = ({
           </label>
         }
       </div>
-      {showUpload && <span className="icon-upload-text" onClick={() => document.querySelector("#icon-upload").click()}>Upload Image</span>}
+      {showUpload && 
+        <span className="icon-upload-text"
+         onClick={() => document.querySelector("#icon-upload").click()}>
+          Upload Image
+        </span>
+      }
       </div>
 
       {showCropper && imageToCrop && (
