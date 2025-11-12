@@ -1,0 +1,27 @@
+.create-nest-nest-form {
+    background-color: var(--background-color-light);
+    padding: var(--space-lg);
+    border-radius: var(--radius-sm);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-sm);
+}
+
+.form-action {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.form-action .btn-primary {
+    width: 100%;
+}
