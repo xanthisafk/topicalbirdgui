@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ContentLoading from '@/components/ContentLoading';
 import NoContent from '@/components/NoContent';
 import { getAllNests, getSelfNests, useViewNavigate } from '@/helpers';
-import { API_URL_FROM_CONTENT_URL, GUI_DEFAULT_IMAGES, LOCALSTORAGE_KEYS, NAVIGATION_PAGES } from '@/config';
-import NestCard from '@/components/NestCard';
+import { API_URL_FROM_CONTENT_URL, LOCALSTORAGE_KEYS, NAVIGATION_PAGES } from '@/config';
 import Pagination from '@/components/Pagination';
 import { useSearchParams } from 'react-router-dom';
 
@@ -34,7 +33,7 @@ const Nest = () => {
     if (res.status === 200) {
       setNests(res.content.nests);
       setPagination(res.content.pagination);
-    } else if (res.status === null ) {
+    } else if (res.status === null) {
       setNetworkIssue(true);
     }
   }
@@ -55,7 +54,7 @@ const Nest = () => {
     const res = await getSelfNests();
     if (res.status === 200) {
       setSelfNests(res.data.content);
-    } else if (res.status === null ) {
+    } else if (res.status === null) {
       setNetworkIssue(true);
     }
   }
@@ -94,8 +93,18 @@ const Nest = () => {
     <>
       <Layout
         sidebar={<>
+          {currentUser.id === null && <div className="sidebar-card">
+            <h3 className='sidebar-card-title'>Welcome!</h3>
+            <div className="sidebar-auth-container">
+              <Button variant='primary'
+                onClick={() => navigate(NAVIGATION_PAGES.auth.login, "forwards")}>Login</Button>
+              <Button variant='secondary'
+                onClick={() => navigate(NAVIGATION_PAGES.auth.register, "forwards")}>Register</Button>
+            </div>
+          </div>
+          }
           {
-            currentUser && <div className="sidebar-card">
+            currentUser.id !== null && <div className="sidebar-card">
               <h3 className="sidebar-card-title">You</h3>
               <div className="sidebar-user-container" tabIndex={0}
                 onClick={() => navigate(NAVIGATION_PAGES.users.username(currentUser.handle), "forwards")}>
@@ -120,6 +129,16 @@ const Nest = () => {
               </div>
             ))}
           </div>}
+          <div className="sidebar-card">
+            <h3 className="sidebar-card-title">Discover</h3>
+            <div className="sidebar-nest-chip"
+              onClick={() => navigate(NAVIGATION_PAGES.post.feed, "forwards")}>
+              <div className="sidebar-nest-chip-content">
+                <p>Posts</p>
+                <ChevronRight />
+              </div>
+            </div>
+          </div>
         </>}>
         <div className="feed-nest-main-content">
           <div className="nest-title-container">

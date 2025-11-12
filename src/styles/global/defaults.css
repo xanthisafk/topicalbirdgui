@@ -346,6 +346,12 @@ hr {
   margin-bottom: var(--space-sm);
 }
 
+.sidebar-auth-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
 .sidebar-nest-chip {
   display: flex;
   flex-direction: row;
@@ -353,11 +359,13 @@ hr {
   gap: var(--space-sm);
   padding: var(--space-xs);
   border-radius: var(--radius-sm);
-  background-image: linear-gradient(to bottom, var(--accent-color-light), var(--accent-color));
-  background-color: var(--accent-color);
-  color: var(--background-color-light);
   cursor: pointer;
+  text-decoration: underline solid transparent;
   transition: 150ms ease-out;
+}
+
+.sidebar-nest-chip:hover {
+  text-decoration: underline solid var(--foreground-color);
 }
 
 .sidebar-nest-chip img {
@@ -374,7 +382,6 @@ hr {
 }
 
 .sidebar-nest-chip-content p {
-  /* font-size: var(--size-lg); */
   font-weight: bold;
 }
 

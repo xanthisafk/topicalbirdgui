@@ -94,6 +94,16 @@ const Feed = () => {
     <>
       <Layout 
           sidebar={<>
+          {!currentUser && <div className="sidebar-card">
+            <h3 className='sidebar-card-title'>Welcome!</h3>
+            <div className="sidebar-auth-container">
+              <Button variant='primary'
+                onClick={() => navigate(NAVIGATION_PAGES.auth.login, "forwards")}>Login</Button>
+              <Button variant='secondary'
+                onClick={() => navigate(NAVIGATION_PAGES.auth.register, "forwards")}>Register</Button>
+            </div>
+          </div>
+          }
             {
               currentUser && <div className="sidebar-card">
                 <h3 className="sidebar-card-title">You</h3>
@@ -120,6 +130,16 @@ const Feed = () => {
                 </div>
               ))}
               </div>}
+              <div className="sidebar-card">
+                <h3 className="sidebar-card-title">Discover</h3>
+                <div className="sidebar-nest-chip"
+                  onClick={() => navigate(NAVIGATION_PAGES.nests.base, "forwards")}>
+                  <div className="sidebar-nest-chip-content">
+                    <p>Nests</p>
+                    <ChevronRight />
+                  </div>
+                </div>
+              </div>
           </>}>
             <div>
               {

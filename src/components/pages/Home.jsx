@@ -8,6 +8,7 @@ import { useSearchParams } from 'react-router-dom';
 import Pagination from '../Pagination';
 import Post from '../Post';
 import { ChevronRight } from 'lucide-react';
+import Button from '../ui/Button';
 
 
 
@@ -77,8 +78,18 @@ const Home = () => {
   return (
     <Layout 
     sidebar={<>
+      { currentUser.id === null && <div className="sidebar-card">
+        <h3 className='sidebar-card-title'>Welcome!</h3>
+        <div className="sidebar-auth-container">
+          <Button variant='primary'
+            onClick={() => navigate(NAVIGATION_PAGES.auth.login, "forwards")}>Login</Button>
+          <Button variant='secondary'
+            onClick={() => navigate(NAVIGATION_PAGES.auth.register, "forwards")}>Register</Button>
+        </div>
+      </div>
+      }
       {
-        currentUser && <div className="sidebar-card">
+        currentUser.id !== null && <div className="sidebar-card">
           <h3 className="sidebar-card-title">You</h3>
           <div className="sidebar-user-container" tabIndex={0}
            onClick={() => navigate(NAVIGATION_PAGES.users.username(currentUser.handle), "forwards")}>
