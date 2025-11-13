@@ -2,12 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import "@/styles/pages/post.css";
 import { API_URL_FROM_CONTENT_URL, EVENT_LISTENER_KEYS, GUI_DEFAULT_SOUNDS, LOCALSTORAGE_KEYS, NAVIGATION_PAGES, SITE_URL } from '@/config';
-import { castVote, getCurrentUser, getPostById, useViewNavigate } from '@/helpers';
+import { castVote, getPostById, useViewNavigate } from '@/helpers';
 import ContentLoading from '../ContentLoading';
 import { useSnackbar } from '@/hooks/useSnackbar';
 import formatTimeData from '@/helpers/formatTimeData';
 import Button from '../ui/Button';
-import { AlertTriangle, Check, MessageCircle, Share, Shield, ThumbsUp, Trash2 } from 'lucide-react';
+import { AlertTriangle, Check, ChevronLeft, MessageCircle, Share, Shield, ThumbsUp, Trash2 } from 'lucide-react';
 import CarouselPrime from '../Carousel';
 import { formatErrorMessage } from '@/helpers/formatErrorMessage';
 import likeSound from "./like-pop.wav";
@@ -32,16 +32,14 @@ const Post = () => {
     }
   }
 
-  const fetchCurrentUser = async () => {
+  const fetchCurrentUser = () => {
     let user = { id: null };
     try {
-      const res = await getCurrentUser();
-      if (res.status === 200) {
-        user = res.data.content;
+      const data = localStorage.getItem(LOCALSTORAGE_KEYS.currentUser);
+      if (data) {
+        user = JSON.parse(data);
       }
     } finally {
-      localStorage.setItem(LOCALSTORAGE_KEYS.currentUser, JSON.stringify(user));
-      window.dispatchEvent(new Event(EVENT_LISTENER_KEYS.currentUser));
       setCurrentUser(user);
     }
     return user;
@@ -51,6 +49,7 @@ const Post = () => {
     const res = await getPostById(id);
     if (res.status === 200) {
       setPost(res.data.content);
+      document.title = `${res.data.content.title} | Topicalbird`;
       return res.data.content;
     }
   }
@@ -71,6 +70,8 @@ const Post = () => {
       return;
     }
     fetchData();
+    window.addEventListener(EVENT_LISTENER_KEYS.currentUser, fetchData);
+    return () => window.removeEventListener(EVENT_LISTENER_KEYS.currentUser, fetchData);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
@@ -128,6 +129,10 @@ const Post = () => {
 
   return (
     <>
+    <Button
+      variant='secondary'
+      id="back-button"
+      onClick={() => navigate(-1, "back")}><ChevronLeft size={32} /></Button>
       <div className="post-container">
         <div className="post-nest-header">
           <img

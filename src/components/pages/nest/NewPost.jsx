@@ -3,7 +3,7 @@ import Button from '@/components/ui/Button';
 import { Carousel } from '@/components/ui/Carousel';
 import InputBox from '@/components/ui/Input';
 import Label from '@/components/ui/Label';
-import { ACCEPTABLE_FILE_FORMATS_JOINED, LOCALSTORAGE_KEYS, NAVIGATION_PAGES } from '@/config';
+import { ACCEPTABLE_FILE_FORMATS_JOINED, EVENT_LISTENER_KEYS, LOCALSTORAGE_KEYS, NAVIGATION_PAGES } from '@/config';
 import { createNewPost, getNestByTitle, useViewNavigate } from '@/helpers';
 import { formatErrorMessage } from '@/helpers/formatErrorMessage';
 import { useSnackbar } from '@/hooks/useSnackbar';
@@ -55,7 +55,7 @@ const NewPost = () => {
     };
 
     /** Initial setup: load user and nest */
-    const setupStuff = async () => {
+    const fetchData = async () => {
         try {
             getCurrentUser();
             await fetchNest();
@@ -65,7 +65,9 @@ const NewPost = () => {
     };
 
     useEffect(() => {
-        setupStuff();
+        fetchData();
+        window.addEventListener(EVENT_LISTENER_KEYS.currentUser, fetchData);
+        return () => window.removeEventListener(EVENT_LISTENER_KEYS.currentUser, fetchData);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [slug]);
 

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ContentLoading from '@/components/ContentLoading';
 import NoContent from '@/components/NoContent';
 import { getAllNests, getSelfNests, useViewNavigate } from '@/helpers';
-import { API_URL_FROM_CONTENT_URL, LOCALSTORAGE_KEYS, NAVIGATION_PAGES } from '@/config';
+import { API_URL_FROM_CONTENT_URL, EVENT_LISTENER_KEYS, LOCALSTORAGE_KEYS, NAVIGATION_PAGES } from '@/config';
 import Pagination from '@/components/Pagination';
 import { useSearchParams } from 'react-router-dom';
 
@@ -73,8 +73,10 @@ const Nest = () => {
   }
 
   useEffect(() => {
-
+    document.title = `Browse Nests | Topicalbird`;
     fetchData();
+    window.addEventListener(EVENT_LISTENER_KEYS.currentUser, fetchData);
+    return () => window.removeEventListener(EVENT_LISTENER_KEYS.currentUser, fetchData);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams])
 
@@ -143,9 +145,10 @@ const Nest = () => {
         <div className="feed-nest-main-content">
           <div className="nest-title-container">
             <h3>Browse Nests</h3>
+            { currentUser.id !== null &&
             <Button variant='secondary' onClick={() => navigate(NAVIGATION_PAGES.nests.newNest, "forwards")}>
               <Plus /> New Nest
-            </Button>
+            </Button>}
           </div>
           {
             nests && nests.map(({ icon, title, displayName, description, moderator }, index) => (

@@ -2,7 +2,7 @@ import { getNestByTitle, updateNest, useViewNavigate } from '@/helpers';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ContentLoading from '../../ContentLoading';
-import { API_DEFAULT_IMAGES, API_URL_FROM_CONTENT_URL, LOCALSTORAGE_KEYS, NAVIGATION_PAGES } from '@/config';
+import { API_DEFAULT_IMAGES, API_URL_FROM_CONTENT_URL, EVENT_LISTENER_KEYS, LOCALSTORAGE_KEYS, NAVIGATION_PAGES } from '@/config';
 import { Check, ChevronLeft, Loader, Save, TriangleAlert } from 'lucide-react';
 import IconPreview from '../../IconPreview';
 import Label from '../../ui/Label';
@@ -45,6 +45,7 @@ const NestSettings = () => {
     const res = await getNestByTitle(slug);
     if (res.status === 200) {
       setNest(res.data.content);
+      document.title = `${res.data.content.displayName} Settings | Topicalbird`;
       setDefImage(API_URL_FROM_CONTENT_URL(res.data.content.icon));
     }
   }
@@ -60,6 +61,8 @@ const NestSettings = () => {
 
   useEffect(() => {
     fetchData();
+    window.addEventListener(EVENT_LISTENER_KEYS.currentUser, fetchData);
+        return () => window.removeEventListener(EVENT_LISTENER_KEYS.currentUser, fetchData);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug]);
 

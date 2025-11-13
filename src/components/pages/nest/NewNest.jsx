@@ -5,7 +5,7 @@ import Button from '@/components/ui/Button';
 import InputBox from '@/components/ui/Input';
 import Label from '@/components/ui/Label';
 import Loader from '@/components/ui/Loader';
-import { API_DEFAULT_IMAGES, LOCALSTORAGE_KEYS, NAVIGATION_PAGES } from '@/config';
+import { API_DEFAULT_IMAGES, EVENT_LISTENER_KEYS, LOCALSTORAGE_KEYS, NAVIGATION_PAGES } from '@/config';
 import { createNewNest, useViewNavigate } from '@/helpers';
 import { formatErrorMessage } from '@/helpers/formatErrorMessage';
 import { useSnackbar } from '@/hooks/useSnackbar';
@@ -43,6 +43,8 @@ const NewNest = () => {
 
     useEffect(() => {
         getCurrentUser();
+        window.addEventListener(EVENT_LISTENER_KEYS.currentUser, getCurrentUser);
+            return () => window.removeEventListener(EVENT_LISTENER_KEYS.currentUser, getCurrentUser);
     }, []);
 
     const handleFormSubmit = async (event) => {

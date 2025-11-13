@@ -37,6 +37,7 @@ const NestDetail = () => {
         setNest(res.data.content);
         setNestIcon(API_URL_FROM_CONTENT_URL(res.data.content.icon));
         setTimedata(formatTimeData(res.data.content.createdAt));
+        document.title = `${res.data.content.displayName} @ ${document.title}`;
       }
     } finally { setDetailsLoading(false); }
 
@@ -64,7 +65,11 @@ const NestDetail = () => {
     }
   }
 
-  window.addEventListener(EVENT_LISTENER_KEYS.currentUser, updateCurrentUser);
+  const fetchData = () => {
+    updateCurrentUser();
+    fetchNest();
+    fetchPosts();
+  }
 
   useEffect(() => {
     if (!slug) return navigate(NAVIGATION_PAGES.home, "back");
@@ -74,9 +79,9 @@ const NestDetail = () => {
       totalItems: 0,
       totalPages: 1,
     });
-    updateCurrentUser();
-    fetchNest();
-    fetchPosts();
+    
+    window.addEventListener(EVENT_LISTENER_KEYS.currentUser, fetchData);
+    return () => window.removeEventListener(EVENT_LISTENER_KEYS.currentUser, fetchData);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug])
 

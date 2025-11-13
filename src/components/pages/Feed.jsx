@@ -1,4 +1,4 @@
-import { API_URL_FROM_CONTENT_URL, LOCALSTORAGE_KEYS, NAVIGATION_PAGES } from '@/config';
+import { API_URL_FROM_CONTENT_URL, EVENT_LISTENER_KEYS, LOCALSTORAGE_KEYS, NAVIGATION_PAGES } from '@/config';
 import { getLatestPosts, getPopularPosts, getSelfNests, useViewNavigate } from '@/helpers';
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
@@ -28,7 +28,7 @@ const Feed = () => {
   });
   const [currentUser, setCurrentUser] = useState(null);
   const sort = searchParams.get("sort") ?? "latest";
-  
+
   const limit = Number.parseInt(localStorage.getItem(LOCALSTORAGE_KEYS.feedLimit)) || 20;
 
   const getCurrentUser = () => {
@@ -83,6 +83,8 @@ const Feed = () => {
 
   useEffect(() => {
     fetchData();
+    window.addEventListener(EVENT_LISTENER_KEYS.currentUser, fetchData);
+    return () => window.removeEventListener(EVENT_LISTENER_KEYS.currentUser, fetchData);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pagination.pageNumber, sort]);
 
@@ -92,8 +94,8 @@ const Feed = () => {
 
   return (
     <>
-      <Layout 
-          sidebar={<>
+      <Layout
+        sidebar={<>
           {!currentUser && <div className="sidebar-card">
             <h3 className='sidebar-card-title'>Welcome!</h3>
             <div className="sidebar-auth-container">
@@ -104,52 +106,52 @@ const Feed = () => {
             </div>
           </div>
           }
-            {
-              currentUser && <div className="sidebar-card">
-                <h3 className="sidebar-card-title">You</h3>
-                <div className="sidebar-user-container" tabIndex={0}
-                 onClick={() => navigate(NAVIGATION_PAGES.users.username(currentUser.handle), "forwards")}>
-                  <img src={API_URL_FROM_CONTENT_URL(currentUser.icon)} alt={`${currentUser.handle}'s profile picture`} />
-                  <div className="sidebar-user-container-content">
-                    <p>{currentUser.displayName}</p>
-                    <small>{`/u/${currentUser.handle}`}</small>
-                  </div>
+          {
+            currentUser && <div className="sidebar-card">
+              <h3 className="sidebar-card-title">You</h3>
+              <div className="sidebar-user-container" tabIndex={0}
+                onClick={() => navigate(NAVIGATION_PAGES.users.username(currentUser.handle), "forwards")}>
+                <img src={API_URL_FROM_CONTENT_URL(currentUser.icon)} alt={`${currentUser.handle}'s profile picture`} />
+                <div className="sidebar-user-container-content">
+                  <p>{currentUser.displayName}</p>
+                  <small>{`/u/${currentUser.handle}`}</small>
                 </div>
               </div>
-            }
-            { nests.length > 0 && <div className='sidebar-card'>
-              <h3 className='sidebar-card-title'>Your Nests</h3>
-              {nests.map((nest, index) => (
-                <div className="sidebar-nest-chip" key={index} tabIndex={0}
-                  onClick={() => navigate(NAVIGATION_PAGES.nests.title(nest.title), "forwards")} >
-                  <img src={API_URL_FROM_CONTENT_URL(nest.icon)} alt={`${nest.title}'s icon.`} />
-                  <div className="sidebar-nest-chip-content">
-                    <p>{`/n/${nest.title}`}</p>
-                    <ChevronRight />
-                  </div>
-                </div>
-              ))}
-              </div>}
-              <div className="sidebar-card">
-                <h3 className="sidebar-card-title">Discover</h3>
-                <div className="sidebar-nest-chip"
-                  onClick={() => navigate(NAVIGATION_PAGES.nests.base, "forwards")}>
-                  <div className="sidebar-nest-chip-content">
-                    <p>Nests</p>
-                    <ChevronRight />
-                  </div>
-                </div>
-              </div>
-          </>}>
-            <div>
-              {
-                posts.map((post, index) => (
-                  <Post post={post} key={index} />
-                ))
-              }
-              <Pagination data={pagination} />
             </div>
-          </Layout>
+          }
+          {nests.length > 0 && <div className='sidebar-card'>
+            <h3 className='sidebar-card-title'>Your Nests</h3>
+            {nests.map((nest, index) => (
+              <div className="sidebar-nest-chip" key={index} tabIndex={0}
+                onClick={() => navigate(NAVIGATION_PAGES.nests.title(nest.title), "forwards")} >
+                <img src={API_URL_FROM_CONTENT_URL(nest.icon)} alt={`${nest.title}'s icon.`} />
+                <div className="sidebar-nest-chip-content">
+                  <p>{`/n/${nest.title}`}</p>
+                  <ChevronRight />
+                </div>
+              </div>
+            ))}
+          </div>}
+          <div className="sidebar-card">
+            <h3 className="sidebar-card-title">Discover</h3>
+            <div className="sidebar-nest-chip"
+              onClick={() => navigate(NAVIGATION_PAGES.nests.base, "forwards")}>
+              <div className="sidebar-nest-chip-content">
+                <p>Nests</p>
+                <ChevronRight />
+              </div>
+            </div>
+          </div>
+        </>}>
+        <div>
+          {
+            posts.map((post, index) => (
+              <Post post={post} key={index} />
+            ))
+          }
+          <Pagination data={pagination} />
+        </div>
+      </Layout>
       <Button className='corner-sticky half-spin-parent'><RefreshCw
         className={loading ? "spin" : "half-spin"}
         onClick={() => refreshPosts()}

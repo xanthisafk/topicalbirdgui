@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Layout from '../Layout';
 import ContentLoading from '../ContentLoading';
 import NoContent from '../NoContent';
-import { API_URL_FROM_CONTENT_URL, LOCALSTORAGE_KEYS, NAVIGATION_PAGES } from '@/config';
+import { API_URL_FROM_CONTENT_URL, EVENT_LISTENER_KEYS, LOCALSTORAGE_KEYS, NAVIGATION_PAGES } from '@/config';
 import { getLatestPosts, getSelfNests, useViewNavigate } from '@/helpers';
 import { useSearchParams } from 'react-router-dom';
 import Pagination from '../Pagination';
@@ -64,8 +64,13 @@ const Home = () => {
       setLoading(false);
     }
   };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => { fetchData(); }, [])
+  
+  useEffect(() => { 
+    fetchData();
+    window.addEventListener(EVENT_LISTENER_KEYS.currentUser, fetchData);
+    return () => window.removeEventListener(EVENT_LISTENER_KEYS.currentUser, fetchData);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   if (loading) return <ContentLoading size={64} />
   if (posts.length <= 0) return <NoContent action={
