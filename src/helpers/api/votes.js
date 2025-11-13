@@ -16,12 +16,14 @@ export const getScoreOfPost = async (id) => {
 export const castVote = async (id, value) => {
     if (!id) return { status: 400, data: { message: "Post ID is required."}};
     if (value > 1 || value < -1) return { status: 400, data: { message: "Invalid vote value. 1 for upvote, -1 for downvote, 0 for remove vote."}};
-    const form = new FormData();
-    form.append("voteValue", value);
+    const data = {
+        voteValue: value,
+    }
     const endpoint = api.cast;
     const options = {
         method: endpoint.method,
-        url: endpoint.url(id)
+        url: endpoint.url(id),
+        data,
     }
     return await makeAxiosRequest(options);
 }
