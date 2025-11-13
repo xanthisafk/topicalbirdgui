@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react'
 import ContentLoading from './ContentLoading';
 import { createNewComment, deleteComment, getAllCommentOfPosts, updateComment, useViewNavigate } from '@/helpers';
 import { useSnackbar } from '@/hooks/useSnackbar';
-import { AlertTriangle, Check, Crown, Feather, Shield, UserCircle } from 'lucide-react';
+// --- MODIFICATION START ---
+// Added new icons for edit/delete/save/cancel
+import { AlertTriangle, Check, Crown, Feather, Shield, UserCircle, Trash2, Edit, Save, X, User } from 'lucide-react';
+// --- MODIFICATION END ---
 import { formatErrorMessage } from '@/helpers/formatErrorMessage';
 import formatTimeData from '@/helpers/formatTimeData';
 import InputBox from './ui/Input';
 import Button from './ui/Button';
-import { API_URL_FROM_CONTENT_URL, NAVIGATION_PAGES } from '@/config';
+import { API_URL_FROM_CONTENT_URL, EVENT_LISTENER_KEYS, NAVIGATION_PAGES } from '@/config';
 
 import "@/styles/components/comments.css";
 
@@ -15,7 +18,7 @@ import "@/styles/components/comments.css";
 const Comments = ({
     postId,
     ref = null,
-    currentUser = { id: null },
+    currentUser = { id: null, isAdmin: false },
     postAuthor = { id: null },
     currentUserIsMod = false
 }) => {
@@ -25,7 +28,9 @@ const Comments = ({
     const [loading, setLoading] = useState(true);
     const [postComments, setPostComments] = useState([]);
     const [selfComment, setSelfComment] = useState("");
+
     const [updatedComment, setUpdatedComment] = useState(null);
+    const [editingCommentId, setEditingCommentId] = useState(null);
 
     const makeComment = async (event) => {
         event.preventDefault();
@@ -41,6 +46,7 @@ const Comments = ({
 
         const res = await createNewComment(postId, selfComment);
         if (res.status === 200) {
+            setSelfComment("");
             return await fetchComments();
         }
 
@@ -66,13 +72,15 @@ const Comments = ({
         }
     }
 
+    window.addEventListener(EVENT_LISTENER_KEYS.currentUser, () => fetchComments());
+
     const commentUpdate = async (commentId) => {
         if (!commentId || !updatedComment) {
             showSnackbar({
-                content: "Comment can't be empty,",
+                content: "Comment can't be empty",
                 icon: AlertTriangle
             });
-            return;
+            return false;
         }
 
         const res = await updateComment(commentId, updatedComment);
@@ -82,7 +90,8 @@ const Comments = ({
                 icon: Check,
                 type: "success"
             });
-            return await fetchComments();
+            await fetchComments();
+            return true;
         }
 
         const msg = formatErrorMessage(res);
@@ -92,7 +101,15 @@ const Comments = ({
             duration: 5,
             type: "danger"
         });
-        return;
+        return false;
+    }
+
+    const handleUpdateSubmit = async (commentId) => {
+        const success = await commentUpdate(commentId);
+        if (success) {
+            setEditingCommentId(null);
+            setUpdatedComment(null);
+        }
     }
 
     const commentDelete = async (commentId) => {
@@ -104,7 +121,8 @@ const Comments = ({
             return;
         }
 
-        const res = deleteComment(commentId);
+        const res = await deleteComment(commentId);
+
         if (res.status === 200) {
             showSnackbar({
                 content: "Comment deleted",
@@ -113,6 +131,7 @@ const Comments = ({
             });
             return await fetchComments();
         }
+
 
         const msg = formatErrorMessage(res);
         showSnackbar({
@@ -157,7 +176,7 @@ const Comments = ({
         } else if (c.author.id === currentUser.id) {
             if (icons.length < 2) {
                 icons.push({
-                    icon: UserCircle,
+                    icon: User,
                     title: "You",
                 });
             }
@@ -172,19 +191,34 @@ const Comments = ({
     return (
         <>
             <div className="comments-container" ref={ref}>
+                <h5>Comments {postComments.length > 0 && <>({postComments.length})</>}</h5>
                 <form className="add-comment-form" onSubmit={makeComment}>
                     <InputBox
                         id="userComment"
+                        value={selfComment}
                         onChange={e => setSelfComment(e.target.value)}
                         placeholder='Enter your comment...'
                     />
                     <div><Button type="submit" variant='primary'>Submit</Button></div>
                 </form>
                 <div className="post-comments">
-                    {postComments.length > 0 && <h5>Comments ({postComments.length})</h5>}
                     {postComments.length > 0 && postComments.map((c) => {
                         const time = formatTimeData(c.createdAt);
                         const icons = getCommentAuthorIcon(c);
+                        const isEditing = editingCommentId === c.id;
+                        const isAuthor = c.author.id === currentUser.id;
+                        const canUpdate = isAuthor;
+                        const canDelete = isAuthor || currentUserIsMod || currentUser.isAdmin;
+                        const startEditing = () => {
+                            setEditingCommentId(c.id);
+                            setUpdatedComment(c.content);
+                        };
+
+                        const cancelEditing = () => {
+                            setEditingCommentId(null);
+                            setUpdatedComment(null);
+                        };
+
                         return (
                             <article className="comment" key={c.id}>
                                 <div className="comment-header">
@@ -198,7 +232,6 @@ const Comments = ({
                                         >{c.author.handle}</span>
                                         {icons && (
                                             <span title={icons.title} className="author-role-icon">
-
                                                 <icons.icon fill='var(--accent-color)' stroke="var(--accent-color)" size={15} />
                                             </span>
                                         )}
@@ -206,7 +239,41 @@ const Comments = ({
                                         <span title={time.precise}>{time.relative}</span>
                                     </div>
                                 </div>
-                                <p className="comment-content">{c.content}</p>
+                                {isEditing ? (
+                                    <form
+                                        className="edit-comment-form"
+                                        onSubmit={(e) => { e.preventDefault(); handleUpdateSubmit(c.id); }}
+                                    >
+                                        <InputBox
+                                            value={updatedComment} // Controlled input
+                                            onChange={e => setUpdatedComment(e.target.value)}
+                                            autoFocus
+                                        />
+                                        <div className="edit-comment-actions">
+                                            <Button type="submit" variant='primary' size="sm">
+                                                <Save size={14} /> Save
+                                            </Button>
+                                            <Button type="button" variant='ghost' size="sm" onClick={cancelEditing}>
+                                                <X size={14} /> Cancel
+                                            </Button>
+                                        </div>
+                                    </form>
+                                ) : (
+                                    <p className="comment-content">{c.content}</p>
+                                )}
+                                <div className="comment-actions">
+                                    {canUpdate && !isEditing && (
+                                        <Button variant="link" size="sm" onClick={startEditing}>
+                                            <Edit size={14} /> Edit
+                                        </Button>
+                                    )}
+                                    {canDelete && !isEditing && (
+                                        <Button variant="link" size="sm" className="danger-link" onClick={() => commentDelete(c.id)}>
+                                            <Trash2 size={14} /> Delete
+                                        </Button>
+                                    )}
+                                </div>
+
                             </article>
                         )
                     })}

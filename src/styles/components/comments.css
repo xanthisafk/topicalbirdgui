@@ -93,3 +93,44 @@ margin-bottom: var(--space-md);
 }
 
 
+/* ... your existing styles ... */
+
+.edit-comment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 8px 0;
+}
+
+.edit-comment-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.comment-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 4px;
+    margin-left: 52px; /* To align with comment text (avatar width + gap) */
+}
+
+/* Optional: Style for a danger link button if your Button component doesn't have one */
+.comment-actions .danger-link {
+    color: var(--danger-color, #dc3545);
+}
+
+.comment-actions .danger-link:hover {
+    color: var(--danger-color-hover, #c82333);
+}
+
+/* Make link buttons less intrusive */
+.comment-actions .button--link {
+    font-size: 0.8rem;
+    padding: 2px 4px;
+}
+
+/* Adjust alignment of icons in buttons if needed */
+.button svg {
+    margin-right: 4px;
+}
