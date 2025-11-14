@@ -112,8 +112,8 @@ const Home = () => {
       }
       { nests.length > 0 && <div className='sidebar-card'>
         <h3 className='sidebar-card-title'>Your Nests</h3>
-        {nests.map((nest, index) => (
-          <div className="sidebar-nest-chip" key={index} tabIndex={0}
+        {nests.map((nest) => (
+          <div className="sidebar-nest-chip" key={nest.id} tabIndex={0}
             onClick={() => navigate(NAVIGATION_PAGES.nests.title(nest.title), "forwards")} >
             <img src={API_URL_FROM_CONTENT_URL(nest.icon)} alt={`${nest.title}'s icon.`} />
             <div className="sidebar-nest-chip-content">
