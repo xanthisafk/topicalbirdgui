@@ -81,9 +81,7 @@ const Post = ({ post, onVote }) => {
             {/* Post Title */}
             <Link to={NAVIGATION_PAGES.post.id(id)} viewTransition
                 className="post-title-link">
-                <h3 className="post-title">
-                    {title}
-                </h3>
+                <h4 className="post-title">{title}</h4>
             </Link>
 
             {/* Content */}
