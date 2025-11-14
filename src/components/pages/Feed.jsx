@@ -51,8 +51,7 @@ const Feed = () => {
   }
 
   const refreshPosts = async () => {
-    try {
-      setLoading(true);
+    
       let res;
       if (sort === "latest") {
         res = await getLatestPosts(null, pagination.pageNumber || 1, limit);
@@ -65,10 +64,12 @@ const Feed = () => {
       } else {
         console.error(res);
       }
-    } finally {
-      setLoading(false);
-    }
+    
   };
+
+  const handleVote = async () => {
+    await refreshPosts();
+  }
 
   const fetchData = async () => {
     try {
@@ -145,8 +146,8 @@ const Feed = () => {
         </>}>
         <div>
           {
-            posts.map((post, index) => (
-              <Post post={post} key={index} />
+            posts.map((post) => (
+              <Post post={post} key={post.id} onVote={handleVote} />
             ))
           }
           <Pagination data={pagination} />

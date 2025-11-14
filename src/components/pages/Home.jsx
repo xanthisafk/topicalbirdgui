@@ -64,6 +64,10 @@ const Home = () => {
       setLoading(false);
     }
   };
+
+  const handleVote = async () => {
+    await fetchPosts();
+  }
   
   useEffect(() => { 
     fetchData();
@@ -122,8 +126,8 @@ const Home = () => {
     </>}>
       <div>
         {
-          posts.map((post, index) => (
-            <Post post={post} key={index} />
+          posts.map((post) => (
+            <Post post={post} key={post.id} onVote={handleVote} />
           ))
         }
         <Pagination data={pagination} />

@@ -1,47 +1,91 @@
-import { API_BASE_URL, NAVIGATION_PAGES } from "@/config";
+import { API_URL_FROM_CONTENT_URL, NAVIGATION_PAGES } from "@/config";
 import formatTimeData from "@/helpers/formatTimeData";
-import { Carousel } from "./ui/Carousel";
 import Button from "@/components/ui/Button";
-import "@/styles/components/post.css"; // <-- Import your new CSS file
+import { Link } from "react-router-dom";
+import "@/styles/components/post.css";
+import likeSound from "./pages/like-pop.wav";
+import dislikeSound from "./pages/dislike-pop.wav";
+import { ThumbsUp, MessageCircle, Share, AlertTriangle, Shield } from "lucide-react";
+import { formatErrorMessage } from "@/helpers/formatErrorMessage";
+import { castVote } from "@/helpers";
+import { useSnackbar } from "@/hooks/useSnackbar";
+import CarouselPrime from "./Carousel/Index";
 
-import { ThumbsUp, MessageCircle, Share } from "lucide-react";
-
-const Post = ({ post }) => {
-    if (!post) return null;
-
-    const { id, title, content, author, nest, createdAt, photos, votes, comments } = post;
+const Post = ({ post, onVote }) => {
+    console.log(post)
+    const {
+        id,
+        title,
+        content,
+        author,
+        nest,
+        createdAt,
+        photos,
+        votes,
+        comments,
+        hasVoted
+    } = post;
     const time = formatTimeData(createdAt);
 
+    const { showSnackbar } = useSnackbar();
+
+    const vote = async () => {
+        let myVote = hasVoted ? 0 : 1;
+        let audio = new Audio(hasVoted ? dislikeSound : likeSound);
+
+        audio.volume = 0.3;
+        audio.play();
+
+        const res = await castVote(id, myVote);
+
+        if (res.status === 200) {
+            onVote?.();
+            return;
+        }
+
+        const msg = formatErrorMessage(res);
+        showSnackbar({
+            content: msg,
+            type: "danger",
+            icon: AlertTriangle,
+            duration: 5,
+        });
+    };
+
+
+    if (!post) return null;
     return (
         <div className="post">
             {/* Header: Nest + Author */}
             <div className="post-header">
                 <img
-                    src={API_BASE_URL + nest.icon}
-                    alt={nest.title}
+                    src={API_URL_FROM_CONTENT_URL(nest.icon)}
+                    alt={`${nest.title}'s icon`}
                     className="post-nest-icon"
                 />
                 <div className="post-metadata">
                     <div>
-                        <a className="post-nest-link" href={NAVIGATION_PAGES.nests.title(nest.title)}>
+                        <Link className="post-nest-link" to={NAVIGATION_PAGES.nests.title(nest.title)} viewTransition>
                             n/{nest.title}
-                        </a> •
+                        </Link> •
                         <span className="post-time" title={time.precise}>{time.relative}</span>
                     </div>
-                    <div>
-                        <a className="post-author-link" href={NAVIGATION_PAGES.users.username(author.handle)}>
+                    <div className="author-name-icon">
+                        <Link className="post-author-link" to={NAVIGATION_PAGES.users.username(author.handle)} viewTransition>
                             u/{author.handle}
-                        </a>
+                        </Link>
+                        { (post.author.isAdmin || post.byModerator) && <Shield size={15} stroke="var(--accent-color)" fill="var(--accent-color)" /> }
                     </div>
                 </div>
             </div>
 
             {/* Post Title */}
-            <a href={"/p/" + id} className="post-title-link">
+            <Link to={NAVIGATION_PAGES.post.id(id)} viewTransition
+                className="post-title-link">
                 <h3 className="post-title">
                     {title}
                 </h3>
-            </a>
+            </Link>
 
             {/* Content */}
             <p className="post-content">
@@ -51,20 +95,23 @@ const Post = ({ post }) => {
             {/* Photos */}
             {photos && photos.length > 0 && (
                 <div className="post-carousel-container">
-                    <Carousel photos={photos} />
+                    <CarouselPrime photos={photos} />
                 </div>
             )}
 
             {/* Footer: Votes and Comments */}
             <div className="post-actions">
-                <Button variant="outlined" className="post-like-button">
-                    <ThumbsUp className="post-action-icon post-action-icon-like" />
+                <Button variant="outlined" className="post-like-button" onClick={vote}>
+                    <ThumbsUp fill={hasVoted ? "var(--accent-color)" : "transparent"}
+                        className="post-action-icon post-action-icon-like" />
                     <span>{votes}</span>
                 </Button>
-                <Button variant="outlined">
-                    <MessageCircle className="post-action-icon" />
-                    <span>{comments}</span>
-                </Button>
+                <Link to={`${NAVIGATION_PAGES.post.id(id)}#comment-section`} viewTransition>
+                    <Button variant="outlined">
+                        <MessageCircle className="post-action-icon" />
+                        <span>{comments}</span>
+                    </Button>
+                </Link>
                 <Button variant="outlined">
                     <Share className="post-action-icon" />
                 </Button>
