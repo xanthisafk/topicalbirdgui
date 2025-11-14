@@ -41,10 +41,17 @@ margin-bottom: var(--space-md);
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: space-between;
+}
+
+.comment-info-box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     gap: var(--space-sm);
 }
 
-.comment-header img {
+.comment-info-box img {
     height: 2rem;
     aspect-ratio: 1;
     border-radius: 50%;
@@ -54,9 +61,15 @@ margin-bottom: var(--space-md);
     transition: 150ms ease-out;
 }
 
-.comment-header img:hover  {
+.comment-info-box img:hover  {
     background-color: var(--accent-color-dark);
     border-color: var(--accent-color-dark);
+}
+
+.dropdown-container {
+    height: 100%;
+    display: flex;
+    align-items: center;
 }
 
 .comment-author-info {
@@ -108,29 +121,8 @@ margin-bottom: var(--space-md);
     align-items: center;
 }
 
-.comment-actions {
+.edit-comment-actions {
     display: flex;
-    gap: 12px;
-    margin-top: 4px;
-    margin-left: 52px; /* To align with comment text (avatar width + gap) */
-}
-
-/* Optional: Style for a danger link button if your Button component doesn't have one */
-.comment-actions .danger-link {
-    color: var(--danger-color, #dc3545);
-}
-
-.comment-actions .danger-link:hover {
-    color: var(--danger-color-hover, #c82333);
-}
-
-/* Make link buttons less intrusive */
-.comment-actions .button--link {
-    font-size: 0.8rem;
-    padding: 2px 4px;
-}
-
-/* Adjust alignment of icons in buttons if needed */
-.button svg {
-    margin-right: 4px;
+    justify-content: flex-end;
+    gap: var(--space-sm);
 }
