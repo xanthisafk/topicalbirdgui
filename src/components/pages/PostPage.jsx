@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import "@/styles/pages/post.css";
 import { API_URL_FROM_CONTENT_URL, EVENT_LISTENER_KEYS, GUI_DEFAULT_SOUNDS, LOCALSTORAGE_KEYS, NAVIGATION_PAGES, SITE_URL } from '@/config';
 import { castVote, deletePostById, getPostById, useViewNavigate } from '@/helpers';
@@ -15,8 +15,9 @@ import dislikeSound from "./dislike-pop.wav";
 import Comments from '../Comments';
 import { usePopup } from '@/hooks/usePopup';
 
-const Post = () => {
+const PostPage = () => {
   const { id } = useParams();
+  const { hash } = useLocation();
   const { showSnackbar } = useSnackbar();
   const navigate = useViewNavigate();
   const { triggerPopup } = usePopup();
@@ -58,11 +59,19 @@ const Post = () => {
 
   const fetchData = async () => {
     try {
-      const user = await fetchCurrentUser();
+      const user = fetchCurrentUser();
       const tpost = await fetchPost();
       controlButtons(user, tpost);
     } finally {
       setLoading(false);
+      if (hash) {
+        setTimeout(() => {
+        commentRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+      }, 100);
+      }
     }
   }
 
@@ -233,4 +242,4 @@ const Post = () => {
   );
 };
 
-export default Post;
+export default PostPage;

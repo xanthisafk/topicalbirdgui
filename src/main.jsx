@@ -22,7 +22,7 @@ import NewPost from "./components/pages/nest/NewPost";
 import Feed from "./components/pages/Feed";
 import Users from "./components/pages/Users";
 import Search from "./components/pages/Search";
-import Post from "./components/pages/Post";
+import PostPage from "./components/pages/PostPage";
 
 // Providers
 import { ThemeProvider } from "./components/ThemeProvider";
@@ -75,7 +75,7 @@ const router = createBrowserRouter([
           { path: ":query", element: <Search /> },
         ],
       },
-      { path: "p/:id", element: <Post /> },
+      { path: "p/:id", element: <PostPage /> },
 
       // Catch-all redirect
       { path: "*", element: <Navigate to="/" replace /> },
