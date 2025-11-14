@@ -13,7 +13,6 @@
     "@floating-ui/react": "^0.27.16",
     "axios": "^1.13.1",
     "browser-image-compression": "^2.0.2",
-    "embla-carousel-react": "^8.6.0",
     "lucide-react": "^0.552.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
