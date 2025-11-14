@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import "@/styles/pages/post.css";
 import { API_URL_FROM_CONTENT_URL, EVENT_LISTENER_KEYS, GUI_DEFAULT_SOUNDS, LOCALSTORAGE_KEYS, NAVIGATION_PAGES, SITE_URL } from '@/config';
-import { castVote, getPostById, useViewNavigate } from '@/helpers';
+import { castVote, deletePostById, getPostById, useViewNavigate } from '@/helpers';
 import ContentLoading from '../ContentLoading';
 import { useSnackbar } from '@/hooks/useSnackbar';
 import formatTimeData from '@/helpers/formatTimeData';
@@ -13,11 +13,13 @@ import { formatErrorMessage } from '@/helpers/formatErrorMessage';
 import likeSound from "./like-pop.wav";
 import dislikeSound from "./dislike-pop.wav";
 import Comments from '../Comments';
+import { usePopup } from '@/hooks/usePopup';
 
 const Post = () => {
   const { id } = useParams();
   const { showSnackbar } = useSnackbar();
   const navigate = useViewNavigate();
+  const { triggerPopup } = usePopup();
 
   const [loading, setLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState({ id: null });
@@ -121,6 +123,37 @@ const Post = () => {
     }
   }
 
+  const postDelete = async () => {
+    if (post.id === null) return;
+
+    const res = await deletePostById(post.id);
+    if (res.status === 200) {
+      navigate(NAVIGATION_PAGES.nests.title(post.nest.title), "");
+      return;
+    }
+
+    const msg = formatErrorMessage(res);
+    showSnackbar({
+      content: msg,
+      icon: AlertTriangle,
+      type: "danger",
+      duration: 5,
+    });
+    return;
+  }
+
+  const showDeletePopup = () => {
+    triggerPopup({
+      title: 'Confirmation',
+      description: 'Are you sure you want to delete this post?',
+      primaryActionLabel: 'Yes',
+      primaryAction: () => postDelete(),
+      secondaryActionLabel: 'No',
+      secondaryAction: null,
+      footer: <span></span>,
+    })
+  }
+
   if (loading) return <ContentLoading size={64} />
   if (!loading && !post) {
     navigate(-1, "back");
@@ -129,10 +162,10 @@ const Post = () => {
 
   return (
     <>
-    <Button
-      variant='secondary'
-      id="back-button"
-      onClick={() => navigate(-1, "back")}><ChevronLeft size={32} /></Button>
+      <Button
+        variant='secondary'
+        id="back-button"
+        onClick={() => navigate(-1, "back")}><ChevronLeft size={32} /></Button>
       <div className="post-container">
         <div className="post-nest-header">
           <img
@@ -182,7 +215,7 @@ const Post = () => {
           </div>
           {showControlButtons &&
             <div>
-              <Button variant="secondary" title="Delete this post">
+              <Button variant="secondary" onClick={showDeletePopup} title="Delete this post">
                 <Trash2 stroke={"var(--danger-color)"} />
               </Button>
             </div>
