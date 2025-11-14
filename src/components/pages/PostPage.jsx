@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
-import "@/styles/pages/post.css";
+import { Link, useLocation, useParams } from 'react-router-dom';
+import "@/styles/pages/post-page.css";
 import { API_URL_FROM_CONTENT_URL, EVENT_LISTENER_KEYS, GUI_DEFAULT_SOUNDS, LOCALSTORAGE_KEYS, NAVIGATION_PAGES, SITE_URL } from '@/config';
 import { castVote, deletePostById, getPostById, useViewNavigate } from '@/helpers';
 import ContentLoading from '../ContentLoading';
@@ -66,11 +66,11 @@ const PostPage = () => {
       setLoading(false);
       if (hash) {
         setTimeout(() => {
-        commentRef.current?.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-      }, 100);
+          commentRef.current?.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+        }, 100);
       }
     }
   }
@@ -171,12 +171,14 @@ const PostPage = () => {
 
   return (
     <>
-      <Button
-        variant='secondary'
-        id="back-button"
-        onClick={() => navigate(-1, "back")}><ChevronLeft size={32} /></Button>
       <div className="post-container">
         <div className="post-nest-header">
+          <Link to={NAVIGATION_PAGES.nests.title(post.nest.title)}>
+            <Button
+              variant='secondary'
+              id="back-button"
+            ><ChevronLeft size={32} /></Button>
+          </Link>
           <img
             onClick={() => navigate(NAVIGATION_PAGES.nests.title(post.nest.title), "forwards")}
             src={API_URL_FROM_CONTENT_URL(post.nest.icon)}

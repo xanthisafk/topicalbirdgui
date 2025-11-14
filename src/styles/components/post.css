@@ -68,11 +68,15 @@
 
 /* --- Post Body --- */
 .post-title {
-  text-decoration: underline solid transparent;  
+  color: var(--accent-color);
+  text-decoration: underline solid transparent;
   transition: 150ms ease-out;
-  max-width: 33ch;
   display: block;
   margin: 0;
+
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .post-title-link:focus {
@@ -81,8 +85,8 @@
 }
 
 .post-title-link:hover .post-title {
-  text-decoration: underline solid var(--accent-color);
-  color: var(--accent-color);
+  text-decoration: underline solid var(--accent-color-light);
+  color: var(--accent-color-light);
 }
 
 .author-name-icon {

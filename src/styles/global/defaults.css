@@ -383,9 +383,14 @@ hr {
 
 .sidebar-nest-chip-content p {
   font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
 }
 
 .sidebar-nest-chip svg {
+  flex-shrink: 0;
   transition: 150ms ease-out;
 }
 

@@ -114,27 +114,23 @@
 
 .nest-chip-container {
     border-radius: var(--radius-sm);
-    background-color: var(--background-color-lighter);
-    background-image: linear-gradient(
-        to bottom,
-        var(--background-color-lighter),
-        var(--background-color-light)
-    );
+    background-color: var(--background-color-light);
+    border: 1px solid transparent;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-direction: row;
-    padding: var(--space-sm);
+    padding: var(--space-xs) var(--space-sm);
     cursor: pointer;
     border: 2px solid transparent;
     transition: 100ms ease-in-out;
 }
 
 .nest-chip-container img {
-    height: 3rem;
+    height: 2rem;
     aspect-ratio: 1;
-    border: 2px var(--accent-color) solid;
     border-radius: 50%;
+    border: 1px var(--accent-color) solid;
     background-color: var(--accent-color);
     object-fit: cover;
 }
@@ -142,8 +138,6 @@
 .nest-chip-container span {
     color: var(--foreground-color);
     font-family: var(--font-heading);
-    font-size: var(--text-xl);
-    font-weight: bold;
 }
 
 .nest-chip-container p {
@@ -158,7 +152,8 @@
 }
 
 .nest-chip-container:hover {
-    border: 2px solid var(--accent-color);
+    border-color: var(--accent-color);
+    background: var(--background-color-lighter);
 }
 
 /* === Posts === */
@@ -174,6 +169,14 @@
     display: flex;
     flex-direction: column;
     gap: var(--space-sm);
+}
+
+#nest-chip-icon {
+    opacity: 0.5;
+}
+
+.nest-chip-container:hover #nest-chip-icon {
+    opacity: 1;
 }
 
 /* === Responsive Layout === */

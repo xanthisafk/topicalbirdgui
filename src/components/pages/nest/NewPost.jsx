@@ -1,6 +1,5 @@
 import ContentLoading from '@/components/ContentLoading';
 import Button from '@/components/ui/Button';
-import { Carousel } from '@/components/ui/Carousel';
 import InputBox from '@/components/ui/Input';
 import Label from '@/components/ui/Label';
 import { ACCEPTABLE_FILE_FORMATS_JOINED, EVENT_LISTENER_KEYS, LOCALSTORAGE_KEYS, NAVIGATION_PAGES } from '@/config';

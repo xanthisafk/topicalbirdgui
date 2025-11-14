@@ -25,6 +25,7 @@ import formatTimeData from "@/helpers/formatTimeData";
 import { ChevronRight, Pencil, SquarePen } from "lucide-react";
 import ContentLoading from "../ContentLoading";
 import Button from "../ui/Button";
+import Layout from "../Layout";
 
 const Users = () => {
   const { username } = useParams();
@@ -61,13 +62,13 @@ const Users = () => {
 
   const fetchUser = async () => {
     const res = await getUserbyUsername(username);
-      if (res.status === 200) {
-        setUser(res.data.content);
-        setUserIcon(API_URL_FROM_CONTENT_URL(res.data.content.icon));
+    if (res.status === 200) {
+      setUser(res.data.content);
+      setUserIcon(API_URL_FROM_CONTENT_URL(res.data.content.icon));
 
-        setTimedata(formatTimeData(res.data.content.createdAt));
-        return;
-      }
+      setTimedata(formatTimeData(res.data.content.createdAt));
+      return;
+    }
   };
 
   const fetchPosts = async () => {
@@ -90,7 +91,7 @@ const Users = () => {
   };
 
   const fetchData = async () => {
-    
+
     try {
       await Promise.all([
         fetchUser(),
@@ -110,108 +111,101 @@ const Users = () => {
     setupTempUser();
     fetchData();
     window.addEventListener(EVENT_LISTENER_KEYS.currentUser, fetchData);
-        return () => window.removeEventListener(EVENT_LISTENER_KEYS.currentUser, fetchData);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+    return () => window.removeEventListener(EVENT_LISTENER_KEYS.currentUser, fetchData);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [username]);
 
+  if (loading) return <ContentLoading size={64} />
+  if (user === null) return <DoestExist what="user" />
   return (
     <>
-      {loading ? (<ContentLoading size={64} />)
-        : user === null ? (<DoestExist what="user" />)
-          : (
-            <div className="user-container">
-              <div className="profile-details-container">
-                {/* === Profile Info Card === */}
-                <div className="profile-card">
-                  <div className="profile-avatar-container">
-                    <img
-                      className="profile-avatar"
-                      src={userIcon}
-                      alt={`${user.displayName}'s profile picture.`}
-                    />
-                  </div>
-                  <div className="profile-data-container">
-                    <span className="profile-user-name">{user.displayName}</span>
-                    <div className="profile-handle-container">
-                      <span>u/{user.handle}</span>
-                      {user.isAdmin && (
-                        <img
-                          src={GUI_DEFAULT_IMAGES.adminIcon.image}
-                          alt={GUI_DEFAULT_IMAGES.adminIcon.alt}
-                          title={`Admin of ${SITE_TITLE}`}
-                        />
-                      )}
-                    </div>
-                    <div className="nest-button-group">
-                  { user?.id === currentUser?.id &&
-                    <Button variant='secondary'
-                      onClick={() => navigate(NAVIGATION_PAGES.auth.account, "forwards")}
-                    ><Pencil /> Edit Profile</Button>
-                  }
-                  </div>
-                  </div>
-                </div>
-
-                {/* === Stats Card === */}
-                <div className="profile-card">
-                  <span className="profile-card-title">Stats</span>
-                  <div className="profile-info-container">
-                    <span>
-                      Posts: <br />
-                      <b>{pagination.totalItems}</b>
-                    </span>
-                  </div>
-                  <div className="profile-info-container">
-                    <span>
-                      Joined: <br />
-                      <b title={timeData.precise}>{timeData.relative}</b>
-                    </span>
-                  </div>
-                </div>
-
-                {/* === Moderates Card === */}
-                {nests && nests.length > 0 && (
-                  <div className="profile-card">
-                    <span className="profile-card-title">Moderates</span>
-                    <div className="profile-nests-list">
-                      {nests.map(({ icon, displayName, title }, key) => (
-                        <div
-                          className="nest-chip-container"
-                          key={key}
-                          onClick={() =>
-                            navigate(NAVIGATION_PAGES.nests.title(title), "forwards")
-                          }
-                        >
-                          <div className="nest-chip-content">
-                            <img
-                              src={API_URL_FROM_CONTENT_URL(icon)}
-                              alt={`${title}'s icon.`}
-                            />
-                            <div>
-                              <span>{displayName}</span>
-                              <p>n/{title}</p>
-                            </div>
-                          </div>
-                          <ChevronRight
-                            id="nest-chip-icon"
-                            stroke="var(--foreground-color)"
-                            size={32}
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+      <Layout
+        sidebar={<>
+          <div className="sidebar-card">
+            <div className="profile-avatar-container">
+              <img
+                className="profile-avatar"
+                src={userIcon}
+                alt={`${user.displayName}'s profile picture.`}
+              />
+            </div>
+            <div className="profile-data-container">
+              <span className="profile-user-name">{user.displayName}</span>
+              <div className="profile-handle-container">
+                <span>u/{user.handle}</span>
+                {user.isAdmin && (
+                  <img
+                    src={GUI_DEFAULT_IMAGES.adminIcon.image}
+                    alt={GUI_DEFAULT_IMAGES.adminIcon.alt}
+                    title={`Admin of ${SITE_TITLE}`}
+                  />
                 )}
               </div>
-
-              {/* === Posts Section === */}
-              <div className="posts-container">
-                {posts && posts.length <= 0 && <NoContent />}
-                {posts && posts.map((post, key) => <Post post={post} key={key} />)}
+              <div className="nest-button-group">
+                {user?.id === currentUser?.id &&
+                  <Button variant='secondary'
+                    onClick={() => navigate(NAVIGATION_PAGES.auth.account, "forwards")}
+                  ><Pencil /> Edit Profile</Button>
+                }
               </div>
             </div>
-
-          )}
+          </div>
+          <div className="sidebar-card">
+            <h3 className="sidebar-card-title">Stats</h3>
+            <div className="profile-info-container">
+              <span>
+                Posts: <br />
+                <b>{pagination.totalItems}</b>
+              </span>
+            </div>
+            <div className="profile-info-container">
+              <span>
+                Joined: <br />
+                <b title={timeData.precise}>{timeData.relative}</b>
+              </span>
+            </div>
+          </div>
+          
+            {nests && nests.length > 0 && (
+              <div className="sidebar-card">
+                <h3 className="sidebar-card-title">Moderates</h3>
+                <div className="profile-nests-list">
+                  {nests.map(({ id, icon, displayName, title }) => (
+                    <div
+                      className="nest-chip-container"
+                      key={id}
+                      tabIndex={0}
+                      onClick={() =>
+                        navigate(NAVIGATION_PAGES.nests.title(title), "forwards")
+                      }
+                    >
+                      <div className="nest-chip-content">
+                        <img
+                          src={API_URL_FROM_CONTENT_URL(icon)}
+                          alt={`${title}'s icon.`}
+                        />
+                        <div>
+                          <span>{displayName}</span>
+                          <p>n/{title}</p>
+                        </div>
+                      </div>
+                      <ChevronRight
+                        id="nest-chip-icon"
+                        stroke="var(--foreground-color)"
+                        size={20}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+        </>}
+      >
+        <div className="posts-container">
+          {posts && posts.length <= 0 && <NoContent />}
+          {posts && posts.map((post, key) => <Post post={post} key={key} />)}
+        </div>
+      </Layout>
     </>
   );
 };
