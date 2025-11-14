@@ -165,9 +165,9 @@ const Users = () => {
               </span>
             </div>
           </div>
-          <div className="sidebar-card">
+          
             {nests && nests.length > 0 && (
-              <>
+              <div className="sidebar-card">
                 <h3 className="sidebar-card-title">Moderates</h3>
                 <div className="profile-nests-list">
                   {nests.map(({ id, icon, displayName, title }) => (
@@ -197,9 +197,8 @@ const Users = () => {
                     </div>
                   ))}
                 </div>
-              </>
+              </div>
             )}
-          </div>
         </>}
       >
         <div className="posts-container">
