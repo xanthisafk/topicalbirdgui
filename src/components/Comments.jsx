@@ -227,7 +227,7 @@ const Comments = ({
 
     return (
         <>
-            <div className="comments-container" ref={ref}>
+            <div className="comments-container" id="comment-section" ref={ref}>
                 <h5>
                     Comments {postComments.length > 0 && <>({postComments.length})</>}
                 </h5>
