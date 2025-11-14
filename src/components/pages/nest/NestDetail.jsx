@@ -80,6 +80,8 @@ const NestDetail = () => {
       totalPages: 1,
     });
     
+    fetchData();
+    
     window.addEventListener(EVENT_LISTENER_KEYS.currentUser, fetchData);
     return () => window.removeEventListener(EVENT_LISTENER_KEYS.currentUser, fetchData);
     // eslint-disable-next-line react-hooks/exhaustive-deps
