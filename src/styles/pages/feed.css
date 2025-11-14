@@ -1,1 +1,23 @@
 
+.sort-header {
+    display: flex;
+    flex-direction: row;
+    gap: var(--space-sm);
+    justify-content: flex-start;
+    align-items: center;
+    padding: var(--space-md);
+}
+
+.sort-header h3 {
+    margin: 0;
+    padding: 0;
+}
+
+.corner-sticky {
+    position: fixed;
+    z-index: 1000;
+    bottom: var(--space-sm);
+    right: var(--space-sm);
+    border-radius: 50%;
+    aspect-ratio: 1;
+}

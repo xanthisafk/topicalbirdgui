@@ -5,22 +5,35 @@ import { TitleText } from "./ui/Title";
 import { EVENT_LISTENER_KEYS, LOCALSTORAGE_KEYS, NAVIGATION_PAGES } from "@/config";
 import { Link } from "react-router-dom";
 import Button from "./ui/Button";
+import { getCurrentUser } from "@/helpers";
+
+const duration = 5; // minutes
 
 const Header = () => {
   const [user, setUser] = useState(null);
+  
+
+  const fetchUser = async () => {
+    const res = await getCurrentUser();
+    if (res.status === 200) {
+      const temp = res.data.content;
+      setUser(temp);
+      localStorage.setItem(LOCALSTORAGE_KEYS.currentUser, JSON.stringify(temp));
+    } else {
+      localStorage.removeItem(LOCALSTORAGE_KEYS.currentUser);
+      setUser(null);
+    }
+    window.dispatchEvent(new Event(EVENT_LISTENER_KEYS.currentUser));
+  }
 
   useEffect(() => {
-    const u = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEYS.currentUser));
-    setUser(u || null);
-  }, []);
+    const initialUser = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEYS.currentUser));
+    setUser(initialUser || null);
 
-  useEffect(() => {
-  const handleChange = () => {
-    setUser(JSON.parse(localStorage.getItem(LOCALSTORAGE_KEYS.currentUser)));
-  };
+    fetchUser();
 
-  window.addEventListener(EVENT_LISTENER_KEYS.currentUser, handleChange);
-  return () => window.removeEventListener(EVENT_LISTENER_KEYS.currentUser, handleChange);
+    const intervalId = setInterval(fetchUser, 1000 * 60 * duration);
+    return () => clearInterval(intervalId);
 }, []);
 
   return (

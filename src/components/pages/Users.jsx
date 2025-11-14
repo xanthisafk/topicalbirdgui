@@ -4,6 +4,7 @@ import Loader from "../ui/Loader";
 import {
   API_DEFAULT_IMAGES,
   API_URL_FROM_CONTENT_URL,
+  EVENT_LISTENER_KEYS,
   GUI_DEFAULT_IMAGES,
   LOCALSTORAGE_KEYS,
   NAVIGATION_PAGES,
@@ -46,22 +47,27 @@ const Users = () => {
   );
   const [timeData, setTimedata] = useState({ relative: "", precise: "" });
 
-  const fetchUser = async () => {
+  const setupTempUser = () => {
+    let tempUser = { id: null };
     try {
-      const res = await getUserbyUsername(username);
+      const data = localStorage.getItem(LOCALSTORAGE_KEYS.currentUser);
+      if (data) {
+        tempUser = JSON.parse(data);
+      }
+    } finally {
+      setCurrentUser(tempUser);
+    }
+  }
+
+  const fetchUser = async () => {
+    const res = await getUserbyUsername(username);
       if (res.status === 200) {
         setUser(res.data.content);
         setUserIcon(API_URL_FROM_CONTENT_URL(res.data.content.icon));
 
         setTimedata(formatTimeData(res.data.content.createdAt));
-
-        await fetchPosts();
-        await fetchNests();
         return;
       }
-    } finally {
-      setLoading(false);
-    }
   };
 
   const fetchPosts = async () => {
@@ -83,21 +89,29 @@ const Users = () => {
     }
   };
 
+  const fetchData = async () => {
+    
+    try {
+      await Promise.all([
+        fetchUser(),
+        await fetchPosts(),
+        await fetchNests(),
+      ]);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   useEffect(() => {
     if (!username) {
       navigate(NAVIGATION_PAGES.home, "back");
       return;
     }
-    let tempUser = { id: null };
-    try {
-      const data = localStorage.getItem(LOCALSTORAGE_KEYS.currentUser);
-      if (data) {
-        tempUser = JSON.parse(data);
-      }
-    } finally {
-      setCurrentUser(tempUser);
-    }
-    fetchUser();
+    setupTempUser();
+    fetchData();
+    window.addEventListener(EVENT_LISTENER_KEYS.currentUser, fetchData);
+        return () => window.removeEventListener(EVENT_LISTENER_KEYS.currentUser, fetchData);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [username]);
 
   return (

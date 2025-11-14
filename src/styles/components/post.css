@@ -1,15 +1,13 @@
-/* @/styles/components/post.css */
-
 .post {
   background-color: var(--background-color-light);
   color: var(--foreground-color);
-  padding: var(--space-lg);
+  padding: var(--space-md);
   border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-md);
+  margin-bottom: var(--space-md);
   
   display: flex;
   flex-direction: column;
-  gap: var(--space-md);
+  gap: var(--space-sm);
   
   transition: transform var(--transition-fast), box-shadow var(--transition-fast);
 }
@@ -22,8 +20,8 @@
 }
 
 .post-nest-icon {
-  width: var(--size-3xl); /* 3rem */
-  height: var(--size-3xl); /* 3rem */
+  width: var(--size-3xl);
+  height: var(--size-3xl);
   border-radius: var(--radius-round);
   border: var(--border-sm) solid var(--accent-color);
   object-fit: cover;
@@ -69,21 +67,29 @@
 
 
 /* --- Post Body --- */
-.post-title-link {
-  text-decoration: none;
-  color: var(--foreground-color);
+.post-title {
+  text-decoration: underline solid transparent;  
+  transition: 150ms ease-out;
+  max-width: 33ch;
+  display: block;
+  margin: 0;
 }
 
-.post-title {
-  font-family: var(--font-heading);
-  font-size: var(--font-2xl);
-  font-weight: var(--weight-bold);
-  margin: 0;
-  transition: color var(--transition-fast);
+.post-title-link:focus {
+  outline: none;
+  text-decoration: underline solid var(--accent-color);
 }
 
 .post-title-link:hover .post-title {
+  text-decoration: underline solid var(--accent-color);
   color: var(--accent-color);
+}
+
+.author-name-icon {
+  display: flex;
+  flex-direction: row;
+  gap: var(--space-xs);
+  align-items: center;
 }
 
 .post-content {

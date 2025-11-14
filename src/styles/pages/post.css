@@ -1,0 +1,93 @@
+.post-container {
+    background-color: var(--background-color-light);
+    border-radius: var(--radius-sm);
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+.post-nest-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: var(--size-sm);
+}
+
+.post-nest-header img {
+    height: var(--size-3xl);
+    aspect-ratio: 1;
+    background-color: var(--accent-color);
+    border-radius: 50%;
+    border: 2px solid var(--accent-color);
+    cursor: pointer;
+    transition: 100ms ease-out;
+}
+
+.post-nest-header img:hover {
+    background-color: var(--accent-color-light);
+    border: 2px solid var(--accent-color-light);
+}
+
+/* Author */
+.nest-header-data> span { 
+    display: flex;
+    flex-direction: row;
+    gap: var(--space-xs);
+    align-items: center;
+    color: var(--foreground-color-subtle);
+    text-decoration: underline solid transparent 0.1rem;
+    cursor: pointer;
+    transition: 100ms ease-out;
+}
+
+.nest-header-data > span:hover { 
+    text-decoration: underline solid var(--foreground-color-subtle) 0.1rem;
+}
+
+.nest-header-data-contents {
+    display: flex;
+    flex-direction: row;
+    gap: var(--space-xs);
+}
+
+.nest-header-data-contents span {
+    color: var(--foreground-color-subtle);
+    text-decoration: none;
+    cursor: help;
+}
+
+.nest-header-data-contents span:nth-child(1) {
+    font-family: var(--font-heading);
+    color: var(--accent-color);
+    font-weight: var(--weight-semibold);
+    cursor: pointer;
+    transition: 100ms ease-out;
+}
+
+.nest-header-data-contents span:nth-child(1):hover {
+    color: var(--accent-color-light);
+}
+
+.post-title {
+    width: max-content;
+    display: block;
+}
+
+.post-body-content {
+    width: max-content;
+    display: block;
+}
+
+.post-interactions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.post-interactions > div {
+    display: flex;
+    flex-direction: row;
+    gap: var(--space-sm);
+}

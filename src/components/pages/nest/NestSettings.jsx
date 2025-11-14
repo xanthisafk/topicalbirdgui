@@ -1,0 +1,185 @@
+import { getNestByTitle, updateNest, useViewNavigate } from '@/helpers';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import ContentLoading from '../../ContentLoading';
+import { API_DEFAULT_IMAGES, API_URL_FROM_CONTENT_URL, EVENT_LISTENER_KEYS, LOCALSTORAGE_KEYS, NAVIGATION_PAGES } from '@/config';
+import { Check, ChevronLeft, Loader, Save, TriangleAlert } from 'lucide-react';
+import IconPreview from '../../IconPreview';
+import Label from '../../ui/Label';
+import InputBox from '../../ui/Input';
+import Button from '../../ui/Button';
+import { useSnackbar } from '@/hooks/useSnackbar';
+import { formatErrorMessage } from '@/helpers/formatErrorMessage';
+
+import "@/styles/pages/nest-settings.css";
+
+const NestSettings = () => {
+  const { slug } = useParams();
+  const navigate = useViewNavigate();
+  const { showSnackbar } = useSnackbar();
+
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
+
+  const [nest, setNest] = useState({});
+  const [currentUser, setCurrentUser] = useState(null);
+  const [defImage, setDefImage] = useState(API_DEFAULT_IMAGES.nestPicture.image);
+
+  const [icon, setIcon] = useState(null);
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+
+  const getCurrentUser = () => {
+    let user = { id: null };
+    try {
+      const data = localStorage.getItem(LOCALSTORAGE_KEYS.currentUser);
+      if (data) {
+        user = JSON.parse(data);
+      }
+    } finally {
+      setCurrentUser(user);
+    }
+  }
+
+  const fetchNest = async () => {
+    const res = await getNestByTitle(slug);
+    if (res.status === 200) {
+      setNest(res.data.content);
+      document.title = `${res.data.content.displayName} Settings | Topicalbird`;
+      setDefImage(API_URL_FROM_CONTENT_URL(res.data.content.icon));
+    }
+  }
+
+  const fetchData = async () => {
+    try {
+      getCurrentUser();
+      await fetchNest();
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+    window.addEventListener(EVENT_LISTENER_KEYS.currentUser, fetchData);
+        return () => window.removeEventListener(EVENT_LISTENER_KEYS.currentUser, fetchData);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [slug]);
+
+  const handleIconChange = e => setIcon(e.blob);
+
+  const handleFormSubmit = async (event) => {
+    try {
+      event.preventDefault();
+      setSubmitting(true);
+
+      if (!description && !name && !icon) {
+        return;
+      }
+
+      const res = await updateNest(
+        nest.id,
+        description || nest.description,
+        name || nest.displayName,
+        icon || null
+      );
+
+      if (res.status === 200) {
+        showSnackbar({
+          content: "Nest updated!",
+          icon: Check,
+          type: "success",
+          duration: 3,
+        });
+        await fetchNest();
+        return;
+      }
+
+      const msg = formatErrorMessage(res);
+      showSnackbar({
+        content: msg,
+        icon: TriangleAlert,
+        type: "danger",
+        duration: 7,
+      });
+
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  if (loading) return <ContentLoading size={64} />
+  else if (!loading && !nest || !currentUser || nest?.moderator?.id !== currentUser?.id) {
+    navigate(NAVIGATION_PAGES.home, "back");
+    return;
+  } else {
+    // Determine live preview values
+    const previewName = name || nest.displayName || "Unnamed Nest";
+    const previewDesc = description || nest.description || "No description yet.";
+    const previewIcon = icon
+      ? URL.createObjectURL(icon)
+      : defImage || API_DEFAULT_IMAGES.nestPicture.image;
+
+    return (
+      <div className="nest-change-container">
+        
+        {/* --- Left: Live Preview Card --- */}
+        <div className="nest-preview-card">
+          <div className='nest-preview-title'>
+            <h3 className='nest-change-h3'>Preview</h3>
+          </div>
+          <div className="preview-icon-container">
+            <img
+              className="nest-icon"
+              src={previewIcon}
+              alt={`${previewName}'s icon.`}
+            />
+          </div>
+          <div className="nest-data-container">
+            <span className="nest-name">{previewName}</span>
+            <span className="nest-description">{previewDesc}</span>
+            <span className="nest-title">n/{nest.title}</span>
+          </div>
+        </div>
+
+        {/* --- Right: Edit Form --- */}
+        <form className="nest-change-form" onSubmit={handleFormSubmit}>
+          <div className='nest-preview-title'>
+            <h3 className='nest-change-h3'>Edit</h3>
+          </div>
+          <IconPreview onChange={handleIconChange} defaultImage={defImage} />
+          <div className="nest-change-form-group">
+            <Label htmlFor={"name"}>Display Name</Label>
+            <InputBox
+              onChange={e => setName(e.target.value)}
+              id="name"
+              name="name"
+              placeholder={"What do you call it..."}
+              defaultValue={nest.displayName}
+            />
+          </div>
+          <div className="nest-change-form-group">
+            <Label htmlFor={"description"}>Description</Label>
+            <InputBox
+              onChange={e => setDescription(e.target.value)}
+              id="description"
+              name="description"
+              placeholder={"What's it about..."}
+              defaultValue={nest.description}
+            />
+          </div>
+          <div className="form-action-buttons">
+            <Button type="button" variant='secondary' onClick={() => navigate(-1, "back")}>
+              <ChevronLeft />
+            </Button>
+            <Button type="submit">
+            {submitting ? <Loader stroke='none' /> : <><Save /> Save</>}
+          </Button>
+          </div>
+        </form>
+      </div>
+    );
+  }
+};
+
+export default NestSettings;

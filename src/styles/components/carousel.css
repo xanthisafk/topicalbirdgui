@@ -1,0 +1,252 @@
+.carousel-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  font-family: var(--font-body);
+  border-radius: var(--radius-sm);
+}
+
+.carousel-instance {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--black);
+  --carousel-control-color: var(--accent-color-light, var(--white));
+  border-radius: var(--radius-sm);
+}
+
+.carousel-track-container {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  /* For gesture support */
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+}
+
+.carousel-track {
+  display: flex;
+  height: 100%;
+  width: 100%; /* Slides will be 100% of this */
+  /* Clicks/drags on images should not drag the image itself */
+  pointer-events: none;
+}
+
+.carousel-slide {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  pointer-events: auto; /* Re-enable pointer events for slides */
+}
+
+.slide-content {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.slide-content[role="button"] {
+  cursor: pointer;
+}
+
+/* 1. Blurry Background Image */
+.slide-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(var(--blur-md)) brightness(0.8);
+  opacity: 0.7;
+}
+
+/* 2. Main Foreground Image (contained) */
+.slide-fg {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  /* Prevent dragging image */
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+}
+
+/* --- Caption --- */
+.carousel-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: var(--backdrop-blur);
+  color: var(--white);
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--font-sm);
+}
+
+.carousel-caption p {
+  margin: 0;
+  white-space: nowrap; /* JS handles truncation, this prevents wrap */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* --- Buttons (Prev/Next) --- */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: var(--z-low);
+  background: rgba(0, 0, 0, 0.3);
+  color: var(--carousel-control-color);
+  border: none;
+  border-radius: var(--radius-round);
+  width: var(--size-2xl);
+  height: var(--size-2xl);
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 150ms ease-in-out, background 150ms ease-in-out;
+}
+
+.carousel-btn svg {
+  width: var(--size-lg);
+  height: var(--size-lg);
+}
+
+.carousel-instance:hover .carousel-btn {
+  opacity: 1;
+}
+
+.carousel-btn:hover {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.carousel-btn.prev {
+  left: var(--space-md);
+}
+
+.carousel-btn.next {
+  right: var(--space-md);
+}
+
+/* --- Dots --- */
+.carousel-dots {
+  position: absolute;
+  bottom: var(--space-md);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: var(--z-low);
+  display: flex;
+  gap: var(--space-xs);
+  opacity: 0;
+  transition: opacity 150ms ease-in-out;
+  background: rgba(0, 0, 0, 0.3);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-round);
+}
+
+.carousel-instance:hover .carousel-dots {
+  opacity: 1;
+}
+
+.carousel-dot {
+  width: var(--size-sm);
+  height: var(--size-sm);
+  padding: 0;
+  border-radius: var(--radius-round);
+  background: var(--carousel-control-color);
+  opacity: 0.5;
+  border: none;
+  cursor: pointer;
+  transition: 150ms ease-in-out;
+}
+
+.carousel-dot:hover {
+  opacity: 0.8;
+}
+
+.carousel-dot.active {
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+/* --- Lightbox --- */
+.carousel-lightbox-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: var(--backdrop-blur);
+  z-index: var(--z-top);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-lg); /* Padding for the close button */
+  box-sizing: border-box;
+}
+
+.carousel-lightbox-overlay .carousel-instance {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: var(--space-lg);
+  right: var(--space-lg);
+  z-index: var(--z-mid);
+  background: rgba(0, 0, 0, 0.3);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius-round);
+  width: var(--size-2xl);
+  height: var(--size-2xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 150ms ease-in-out;
+}
+
+.lightbox-close:hover {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+/* --- Mobile / Touch --- */
+/* For touch devices where :hover is not reliable, show controls */
+@media (hover: none) {
+  .carousel-instance .carousel-btn,
+  .carousel-instance .carousel-dots {
+    opacity: 1;
+  }
+
+  /* Bigger tap targets */
+  .carousel-btn {
+    width: var(--size-3xl);
+    height: var(--size-3xl);
+  }
+  .carousel-btn svg {
+    width: var(--size-xl);
+    height: var(--size-xl);
+  }
+  .carousel-dot {
+    width: var(--size-md);
+    height: var(--size-md);
+  }
+}

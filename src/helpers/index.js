@@ -14,3 +14,4 @@ export * from "./greetingHelper";
 export * from "./fileCropper";
 export * from "./webpHelper";
 export * from "./navigationHelper";
+export * from "./truncateText";

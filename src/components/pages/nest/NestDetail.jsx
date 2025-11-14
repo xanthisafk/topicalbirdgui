@@ -2,16 +2,16 @@ import { API_DEFAULT_IMAGES, API_URL_FROM_CONTENT_URL, EVENT_LISTENER_KEYS, LOCA
 import { getAllPostsByNest, getNestByTitle, useViewNavigate } from '@/helpers';
 import React, { useEffect, useState } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
-import Loader from '../ui/Loader';
-import DoestExist from '../DoesntExist';
-import NoContent from '../NoContent';
-import Post from '../Post';
+import Loader from '../../ui/Loader';
+import DoestExist from '../../DoesntExist';
+import NoContent from '../../NoContent';
+import Post from '../../Post';
 import formatTimeData from '@/helpers/formatTimeData';
 import { ChevronRight, Pencil, SquarePen } from 'lucide-react';
 
 import "@/styles/pages/nests.css";
-import Button from '../ui/Button';
-import ContentLoading from '../ContentLoading';
+import Button from '../../ui/Button';
+import ContentLoading from '../../ContentLoading';
 
 const NestDetail = () => {
   const { slug } = useParams();
@@ -37,6 +37,7 @@ const NestDetail = () => {
         setNest(res.data.content);
         setNestIcon(API_URL_FROM_CONTENT_URL(res.data.content.icon));
         setTimedata(formatTimeData(res.data.content.createdAt));
+        document.title = `${res.data.content.displayName} @ ${document.title}`;
       }
     } finally { setDetailsLoading(false); }
 
@@ -64,7 +65,11 @@ const NestDetail = () => {
     }
   }
 
-  window.addEventListener(EVENT_LISTENER_KEYS.currentUser, updateCurrentUser);
+  const fetchData = () => {
+    updateCurrentUser();
+    fetchNest();
+    fetchPosts();
+  }
 
   useEffect(() => {
     if (!slug) return navigate(NAVIGATION_PAGES.home, "back");
@@ -74,9 +79,12 @@ const NestDetail = () => {
       totalItems: 0,
       totalPages: 1,
     });
-    updateCurrentUser();
-    fetchNest();
-    fetchPosts();
+    
+    fetchData();
+    
+    window.addEventListener(EVENT_LISTENER_KEYS.currentUser, fetchData);
+    return () => window.removeEventListener(EVENT_LISTENER_KEYS.currentUser, fetchData);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug])
 
 
@@ -104,10 +112,13 @@ const NestDetail = () => {
                   <span className="nest-title">n/{nest.title}</span>
                   <div className="nest-button-group">
                     {user.id !== null &&
-                      <Button><SquarePen /> New Post</Button>
+                      <Button onClick={() => navigate(NAVIGATION_PAGES.nests.newPost(slug), "forwards")}
+                      ><SquarePen /> New Post</Button>
                     }
                     {user?.id === moderator?.id &&
-                      <Button variant='secondary'><Pencil /> Edit Nest</Button>
+                      <Button
+                        onClick={() => navigate(NAVIGATION_PAGES.nests.settings(slug), "forwards")}
+                        variant='secondary'><Pencil /> Edit Nest</Button>
                     }
                   </div>
                 </div>

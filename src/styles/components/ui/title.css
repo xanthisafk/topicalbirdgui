@@ -3,7 +3,6 @@
     align-items: center;
     justify-content: center;
     gap: 2px;
-    text-decoration: none;
     padding-right: 1rem;
 }
 
@@ -21,9 +20,15 @@
     display: flex;
     justify-self: center;
     position: relative;
-    transition: text-decoration-color ease-out 300ms;
-    text-decoration-color: rgba(255,255,255,0);
+    text-decoration: underline wavy transparent var(--size-xs);
+    transition: ease-out 150ms;
+    
 
+}
+
+.title-container:focus {
+    outline: none;
+    text-decoration: underline wavy var(--accent-color) var(--size-xs);
 }
 
 .typewriter-text span {
@@ -37,10 +42,7 @@
 
 .typewriter-text:hover span {
     color: var(--accent-color);
-    text-decoration-line: underline;
-    text-decoration-style: wavy;
-    text-decoration-color: var(--accent-color);
-    text-decoration-thickness: 0.1rem;
+    text-decoration: underline wavy var(--accent-color) var(--size-xs);
 }
 
 @media (min-width: 900px) {

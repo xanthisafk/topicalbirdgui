@@ -1,4 +1,8 @@
 export const SITE_TITLE = "Topicalbird";
+export const SITE_URL = "http://localhost:8888"
+export const GUI_DEFAULT_SOUNDS = Object.freeze({
+    likePop: "/assets/posts/like-pop.wav",
+});
 
 export const GUI_DEFAULT_IMAGES = Object.freeze({
     adminIcon: {
@@ -52,6 +56,8 @@ export const NAVIGATION_PAGES = Object.freeze({
         base: "/nests",
         title: title => `/n/${encodeURIComponent(title)}`,
         settings: title => `/n/${encodeURIComponent(title)}/settings`,
+        newPost: title => `/n/${encodeURIComponent(title)}/new`,
+        newNest: "/nests/new"
     },
     post: {
         id: id => `/p/${encodeURIComponent(id)}`,

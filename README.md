@@ -2,4 +2,4 @@
 
 # Topicalbird GUI
 
-This is a GUI frontend intended to be along with [TopicalbirdAPI](https://github.com/xanthisafk/topicalbirdapi)
+This is a GUI frontend intended to be used along with [TopicalbirdAPI](https://github.com/xanthisafk/topicalbirdapi)

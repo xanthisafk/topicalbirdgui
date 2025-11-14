@@ -67,7 +67,6 @@ const Register = () => {
         return;
       }
 
-      console.log(res);
       const msg = formatErrorMessage(res);
       showSnackbar({
         content: msg,
