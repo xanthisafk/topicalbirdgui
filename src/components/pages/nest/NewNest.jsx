@@ -44,7 +44,7 @@ const NewNest = () => {
     useEffect(() => {
         getCurrentUser();
         window.addEventListener(EVENT_LISTENER_KEYS.currentUser, getCurrentUser);
-            return () => window.removeEventListener(EVENT_LISTENER_KEYS.currentUser, getCurrentUser);
+        return () => window.removeEventListener(EVENT_LISTENER_KEYS.currentUser, getCurrentUser);
     }, []);
 
     const handleFormSubmit = async (event) => {
@@ -116,7 +116,12 @@ const NewNest = () => {
                     >Title</Label>
                     <InputBox id="title" name="title"
                         placeholder="Something memorable"
-                        onChange={e => setTitle(e.target.value)}
+                        value={title}
+                        onChange={e => {
+                            const raw = e.target.value;
+                            const cleaned = raw.replace(/\s+/g, "").toLowerCase();
+                            setTitle(cleaned);
+                        }}
                     />
                 </div>
                 <div className="form-group">
@@ -139,14 +144,14 @@ const NewNest = () => {
                 </div>
                 <div className="form-action">
                     <Button type="button"
-                    variant='secondary'
-                    onClick={() => navigate(-1, "back")}
-                >
-                    <ChevronLeft />
-                </Button>
-                <Button type="submit">
-                    {formLoading ? <Loader /> : "Submit"}
-                </Button>
+                        variant='secondary'
+                        onClick={() => navigate(-1, "back")}
+                    >
+                        <ChevronLeft />
+                    </Button>
+                    <Button type="submit">
+                        {formLoading ? <Loader /> : "Submit"}
+                    </Button>
                 </div>
             </form>
         </Layout>
