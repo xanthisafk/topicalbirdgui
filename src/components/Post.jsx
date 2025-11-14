@@ -12,7 +12,6 @@ import { useSnackbar } from "@/hooks/useSnackbar";
 import CarouselPrime from "./Carousel/Index";
 
 const Post = ({ post, onVote }) => {
-    console.log(post)
     const {
         id,
         title,
