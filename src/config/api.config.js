@@ -1,6 +1,7 @@
-export const API_BASE_URL = "http://localhost:9999";
+export const API_BASE_URL = "https://topicalbirdapi.xanthis.xyz";
 export const API_URL_FROM_CONTENT_URL = (val) => {
     if (!val || val.length <= 0) return API_BASE_URL;
+    if (/^https?:\/\/res\.cloudinary\.com\//.test(val)) return val;
     if (val[0] === "/") return `${API_BASE_URL}${val}`;
 
     return `${API_BASE_URL}/${val}`
