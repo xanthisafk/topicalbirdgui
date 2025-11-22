@@ -1,5 +1,5 @@
 export const SITE_TITLE = "Topicalbird";
-export const SITE_URL = "http://localhost:8888"
+export const SITE_URL = "https://topicalbird.xanthis.xyz"
 export const GUI_DEFAULT_SOUNDS = Object.freeze({
     likePop: "/assets/posts/like-pop.wav",
 });
